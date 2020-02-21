@@ -7,9 +7,6 @@ import BootstrapVue from "bootstrap-vue";
 Vue.use(BootstrapVue);
 import "@/assets/sass/main.scss";
 
-import titleMixin from "@/titleMixin";
-Vue.mixin(titleMixin);
-
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
