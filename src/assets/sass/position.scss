@@ -1,0 +1,399 @@
+
+@mixin sta2($n, $up) {
+  $i: ($n - 43) / 2;
+  @if $i < 10 {
+    $i: "0#{($n - 43) / 2}";
+  }
+  .E0#{$i}-2 {
+    grid-area: #{$n} / #{$up};
+  }
+  .E0#{$i}-1 {
+    grid-area: #{$n} / #{$up + 1};
+  }
+}
+@mixin sta2-t($n, $up) {
+  $i: ($n - 31) / 2;
+  @if $i < 10 {
+    $i: "0#{($n - 43) / 2}";
+  }
+  .E0#{$i}-2 {
+    grid-area: #{$n} / #{$up};
+  }
+  .E0#{$i}-1 {
+    grid-area: #{$n} / #{$up + 1};
+  }
+}
+@mixin sta2-s($n, $up) {
+  $i: ($n + 11) / 2;
+  @if $i < 10 {
+    $i: "0#{($n - 43) / 2}";
+  }
+  .E0#{$i}-2 {
+    grid-area: #{$n} / #{$up};
+  }
+  .E0#{$i}-1 {
+    grid-area: #{$n} / #{$up + 1};
+  }
+}
+
+// 市ヶ谷
+.E103-2 {
+  grid-area: 35 / 7;
+}
+.E103-1 {
+  grid-area: 35 / 8;
+}
+.U103 {
+  grid-area: 36 / 7;
+}
+.D102 {
+  grid-area: 36 / 8;
+}
+// 曙橋
+.E102-2 {
+  grid-area: 37 / 7;
+}
+.E102-1 {
+  grid-area: 37 / 8;
+}
+.U102 {
+  grid-area: 38 / 7;
+}
+.D103 {
+  grid-area: 38 / 8;
+}
+// 新宿三丁目
+.E101-2 {
+  grid-area: 39 / 7;
+}
+.E101-1 {
+  grid-area: 39 / 8;
+}
+.U101 {
+  grid-area: 40 / 7;
+}
+.D033 {
+  grid-area: 40 / 8;
+}
+// 新線新宿
+.E033-5 {
+  grid-area: 41 / 7;
+}
+.E033-4 {
+  grid-area: 41 / 8;
+}
+.U033 {
+  grid-area: 42 / 7;
+}
+.D034 {
+  grid-area: 42 / 8;
+}
+// 初台
+.E034-2 {
+  grid-area: 43 / 7;
+}
+.E034-1 {
+  grid-area: 43 / 8;
+}
+.U034 {
+  grid-area: 44 / 7;
+}
+.D035 {
+  grid-area: 44 / 8;
+}
+// 幡ヶ谷
+.E035-2 {
+  grid-area: 45 / 7;
+}
+.E035-1 {
+  grid-area: 45 / 8;
+}
+.U035 {
+  grid-area: 46 / 7;
+}
+.S002 {
+  grid-area: 46 / 8;
+}
+
+// 本線駅間定義
+@for $i from 2 through 31 {
+  $nu: $i;
+  $nd: $i + 1;
+  @if $nu < 10 {
+    $nu: "0#{$nu}";
+  }
+  @if $nd < 10 {
+    $nd: "0#{$nd}";
+  }
+  .U0#{$nu} {
+    grid-area: #{44 + $i * 2} / 4;
+  }
+  .D0#{$nd} {
+    grid-area: #{44 + $i * 2} / 5;
+  }
+}
+
+// 新宿
+.E001-3 {
+  grid-area: 41 / 3;
+}
+.E001-2 {
+  grid-area: 41 / 4;
+}
+.E001-1 {
+  grid-area: 41 / 5;
+}
+.U001 {
+  grid-row: 42 / 46;
+  grid-column: 4;
+}
+.D002 {
+  grid-row: 42 / 46;
+  grid-column: 5;
+}
+// 笹塚
+.E002-4 {
+  grid-area: 47 / 3;
+}
+.E002-3, .E002-3S {
+  grid-area: 47 / 4;
+}
+.E002-2 {
+  grid-area: 47 / 5;
+}
+.E002-1 {
+  grid-area: 47 / 6;
+}
+// 代田橋, 明大前, 下高井戸
+@include sta2(49, 4);
+@include sta2(51, 4);
+@include sta2(53, 4);
+// 桜上水
+.E006-4 {
+  grid-area: 55 / 3;
+}
+.E006-3 {
+  grid-area: 55 / 4;
+}
+.E006-2 {
+  grid-area: 55 / 5;
+}
+.E006-1 {
+  grid-area: 55 / 6;
+}
+// 上北沢
+@include sta2(57, 4);
+// 八幡山
+.E008-3 {
+  grid-area: 59 / 3;
+}
+.E008-2 {
+  grid-area: 59 / 4;
+}
+.E008-1 {
+  grid-area: 59 / 5;
+}
+.E008-0 {
+  grid-area: 59 / 6;
+}
+// 芦花公園, 千歳烏山, 仙川
+@include sta2(61, 4);
+@include sta2(63, 4);
+@include sta2(65, 4);
+// つつじヶ丘
+.E012-4 {
+  grid-area: 67 / 3;
+}
+.E012-3 {
+  grid-area: 67 / 4;
+}
+.E012-2 {
+  grid-area: 67 / 5;
+}
+.E012-1 {
+  grid-area: 67 / 6;
+}
+// 柴崎, 国領, 布田
+@include sta2(69, 4);
+@include sta2(71, 4);
+@include sta2(73, 4);
+// 調布
+.E016-4 {
+  grid-area: 75 / 3;
+}
+.E016-3 {
+  grid-area: 75 / 4;
+}
+.E016-2, .E016-2S {
+  grid-area: 75 / 5;
+}
+.E016-1, .E016-1S {
+  grid-area: 75 / 6;
+}
+// 西調布
+@include sta2(77, 4);
+// 飛田給
+.E018-3 {
+  grid-area: 79 / 3;
+}
+@include sta2(79, 4);
+// 武蔵野台, 多磨霊園
+@include sta2(81, 4);
+@include sta2(83, 4);
+// 東府中
+.E021-4 {
+  grid-area: 85 / 4;
+}
+.E021-3 {
+  grid-area: 85 / 5;
+}
+.E021-2 {
+  grid-area: 85 / 6;
+}
+.E021-1 {
+  grid-area: 85 / 7;
+}
+// 府中
+.E022-4 {
+  grid-area: 87 / 3;
+}
+.E022-3 {
+  grid-area: 87 / 4;
+}
+.E022-2 {
+  grid-area: 87 / 5;
+}
+.E022-1 {
+  grid-area: 87 / 6;
+}
+// 分倍河原, 中河原, 聖蹟桜ヶ丘, 百草園
+@include sta2(89, 4);
+@include sta2(91, 4);
+@include sta2(93, 4);
+@include sta2(95, 4);
+// 高幡不動
+.E027-5 {
+  grid-area: 97 / 3;
+}
+.E027-4 {
+  grid-area: 97 / 4;
+}
+.E027-3 {
+  grid-area: 97 / 5;
+}
+.E027-2 {
+  grid-area: 97 / 6;
+}
+.E027-1 {
+  grid-area: 97 / 7;
+}
+// 南平, 平山城址公園, 長沼
+@include sta2( 99, 4);
+@include sta2(101, 4);
+@include sta2(103, 4);
+// 北野
+.E031-4 {
+  grid-area: 105 / 3;
+}
+.E031-3 {
+  grid-area: 105 / 4;
+}
+.E031-2 {
+  grid-area: 105 / 5;
+}
+.E031-1, .E031-1S {
+  grid-area: 105 / 6;
+}
+// 京王八王子
+@include sta2(107, 4);
+
+
+// 高尾線駅間定義
+@for $i from 38 through 42 {
+  $n: $i;
+  .U0#{$n} {
+    grid-area: #{32 + $i * 2} / 10;
+  }
+  .D0#{$n + 1} {
+    grid-area: #{32 + $i * 2} / 11;
+  }
+}
+
+.S031 {
+  grid-area: 106 / 10;
+}
+.D038 {
+  grid-area: 106 / 11;
+}
+
+// 京王片倉, 山田, めじろ台, 狭間, 高尾, 高尾山口
+@include sta2-t(107, 10);
+@include sta2-t(109, 10);
+@include sta2-t(111, 10);
+@include sta2-t(113, 10);
+@include sta2-t(115, 10);
+@include sta2-t(117, 10);
+
+
+// 相模原線駅間定義
+@for $i from 44 through 53 {
+  $n: $i;
+  .U0#{$n} {
+    grid-area: #{$i * 2 - 10} / 10;
+  }
+  .D0#{$n + 1} {
+    grid-area: #{$i * 2 - 10} / 11;
+  }
+}
+
+.S016 {
+  grid-area: 76 / 10;
+}
+.D044 {
+  grid-area: 76 / 11;
+}
+
+// 京王多摩川, 京王稲田堤, 京王よみうりランド, 稲城
+@include sta2-s(77, 10);
+@include sta2-s(79, 10);
+@include sta2-s(81, 10);
+@include sta2-s(83, 10);
+// 若葉台
+.E048-4 {
+  grid-area: 85 /  9;
+}
+.E048-3 {
+  grid-area: 85 / 10;
+}
+.E048-2 {
+  grid-area: 85 / 11;
+}
+.E048-1 {
+  grid-area: 85 / 12;
+}
+// 京王永山
+@include sta2-s(87, 10);
+// 京王多摩センター
+.E050-4 {
+  grid-area: 89 /  9;
+}
+.E050-3 {
+  grid-area: 89 / 10;
+}
+.E050-2 {
+  grid-area: 89 / 11;
+}
+.E050-1 {
+  grid-area: 89 / 12;
+}
+// 京王堀之内, 南大沢, 多摩境, 橋本
+@include sta2-s(91, 10);
+@include sta2-s(93, 10);
+@include sta2-s(95, 10);
+@include sta2-s(97, 10);
+
+
+// 支線
+.S021, .S027, .D036, .D037, .E036-2, .E036-1, .E037-2, .E037-1, .E008-10 {
+  display: none;
+}

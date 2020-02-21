@@ -15,7 +15,13 @@
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.zaisen {
+  display: grid;
+  grid-template-rows: repeat(34, 0) repeat(calc(116 - 32), minmax(3rem, auto));
+  grid-template-columns: 5rem 1rem repeat(10, 3rem) 1rem 5rem;
+}
+</style>
 
 <script lang="ts">
 /* eslint-disable no-console */
@@ -49,6 +55,7 @@ export default class Home extends Vue {
   loading: boolean = true;
   info: secinfo[] = [];
   error = null;
+  intervalId: any = "";
 
   created() {
     this.fetchData();
