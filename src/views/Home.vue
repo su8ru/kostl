@@ -44,11 +44,14 @@
   display: grid;
   grid-template-rows: repeat(34, 0) repeat(calc(116 - 32), minmax(3rem, auto));
   grid-template-columns: 10rem 1rem repeat(10, 3rem) 1rem 10rem;
+  grid-row-gap: 3px;
+  grid-column-gap: 2px;
 
   .line-section {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
   }
 }
 </style>
@@ -93,7 +96,9 @@ export default class Home extends Vue {
 
   async fetchData() {
     this.loading = true;
-    const resRaw = await axios.get<body>("/traffic_info_sample.json");
+    const resRaw = await axios.get<body>(
+      "https://i.opentidkeio.jp/data/traffic_info.json"
+    );
 
     if (!resRaw.data) return;
     const response: body = resRaw.data;
@@ -207,6 +212,6 @@ export default class Home extends Vue {
     "多摩境",
     "橋本"
   ];
-  stations_taako = ["京王片倉", "山田", "めじろ台", "狭間", "高尾", "高尾山口"];
+  stations_takao = ["京王片倉", "山田", "めじろ台", "狭間", "高尾", "高尾山口"];
 }
 </script>
