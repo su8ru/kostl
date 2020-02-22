@@ -56,7 +56,7 @@
 /* eslint-disable no-console */
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
-import { body } from "@/traffic_info.ts";
+import { body, Sn } from "@/traffic_info.ts";
 import LineSection from "@/components/LineSection.vue";
 
 type secinfo = {
@@ -107,15 +107,17 @@ export default class Home extends Vue {
     const res = new Map<string, Trains>();
     const result: secinfo[] = [];
     for (const station of response.TS) {
-      for (const train of station.ps) {
-        const pos = `${station.id}-${train.bs}`;
-        if (!res.has(pos)) res.set(pos, []);
-        res.get(pos)!.push({
-          tr: train.tr,
-          sy: train.sy,
-          dl: train.dl,
-          ik: train.ik
-        });
+      if (station.sn !== Sn.I) {
+        for (const train of station.ps) {
+          const pos = `${station.id}-${train.bs}`;
+          if (!res.has(pos)) res.set(pos, []);
+          res.get(pos)!.push({
+            tr: train.tr,
+            sy: train.sy,
+            dl: train.dl,
+            ik: train.ik
+          });
+        }
       }
     }
 
@@ -127,16 +129,18 @@ export default class Home extends Vue {
     }
 
     for (const station of response.TB) {
-      const pos = station.id;
-      result.push({
-        pos: pos,
-        trains: station.ps.map(train => ({
-          tr: train.tr,
-          sy: train.sy,
-          dl: train.dl,
-          ik: train.ik
-        }))
-      });
+      if (station.sn !== Sn.I) {
+        const pos = station.id;
+        result.push({
+          pos: pos,
+          trains: station.ps.map(train => ({
+            tr: train.tr,
+            sy: train.sy,
+            dl: train.dl,
+            ik: train.ik
+          }))
+        });
+      }
     }
 
     this.info.splice(0, this.info.length, ...result);
