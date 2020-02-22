@@ -1,7 +1,5 @@
 <template>
   <div id="home">
-    <b-btn @click="fetchData">load</b-btn>
-    <div class="loading" v-if="loading">loading...</div>
     <div class="error" v-if="error">{{ error }}</div>
 
     <div class="zaisen">
@@ -92,6 +90,11 @@ export default class Home extends Vue {
 
   created() {
     this.fetchData();
+    this.intervalId = setInterval(this.fetchData, 10000);
+  }
+
+  beforeDestroy() {
+    clearInterval(this.intervalId);
   }
 
   async fetchData() {
