@@ -5,10 +5,17 @@
       :key="train.tr"
       class="train"
       :class="train.tr % 2 ? 'down-train' : 'up-train'"
-      :style="{ backgroundColor: color[train.sy] }"
+      :style="{
+        backgroundColor: color[train.sy],
+        paddingLeft: train.sy === '9' ? '0' : '',
+        paddingRight: train.sy === '9' ? '0' : '',
+        borderLeft: train.sy === '9' ? '5px solid #d5007f' : '',
+        borderRight: train.sy === '9' ? '5px solid #d5007f' : ''
+      }"
     >
-      <span>{{ typeDict[train.sy] }}</span>
+      <span>ik</span>
       <span>{{ train.tr }}</span>
+      <span>un</span>
     </div>
   </div>
 </template>
@@ -17,12 +24,26 @@
 .line-section {
   color: #fff;
   text-align: center;
-}
-.up-train {
-  border-radius: 10px 10px 0 0;
-}
-.down-train {
-  border-radius: 0 0 10px 10px;
+  .train {
+    display: block;
+    box-sizing: border-box;
+    width: 50px;
+    height: 60px;
+
+    padding: 3px;
+    margin: 3px;
+    line-height: 1.1;
+
+    span {
+      display: inline-block;
+    }
+  }
+  .up-train {
+    border-radius: 10px 10px 0 0;
+  }
+  .down-train {
+    border-radius: 0 0 10px 10px;
+  }
 }
 </style>
 
@@ -63,7 +84,7 @@ export default class Section extends Vue {
     6: "#808285",
     7: "#808285",
     8: "#808285",
-    9: "#C30175",
+    9: "#000000",
     10: "#57A100"
   };
 }

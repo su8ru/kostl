@@ -40,10 +40,8 @@
 <style lang="scss" scoped>
 .zaisen {
   display: grid;
-  grid-template-rows: repeat(34, 0) repeat(calc(116 - 32), minmax(3rem, auto));
-  grid-template-columns: 10rem 1rem repeat(10, 3rem) 1rem 10rem;
-  grid-row-gap: 3px;
-  grid-column-gap: 2px;
+  grid-template-rows: repeat(34, 0) repeat(calc(116 - 32), minmax(60px, auto));
+  grid-template-columns: 7rem 1rem repeat(10, 56px) 1rem 10rem;
 
   .line-section {
     display: flex;
