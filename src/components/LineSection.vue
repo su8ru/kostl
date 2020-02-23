@@ -11,7 +11,7 @@
         borderRight: train.sy === '9' ? '5px solid #d5007f' : ''
       }"
     >
-      <span>{{ ikisaki[train.ik] }}</span>
+      <span class="ikisaki">{{ ikisaki[train.ik] }}</span>
       <span>{{ train.tr }}</span>
       <span>un</span>
     </div>
@@ -30,10 +30,13 @@
 
     padding-top: 3px;
     margin: 3px;
-    line-height: 1.1;
+
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.2;
 
     span {
-      display: inline-block;
+      display: block;
     }
   }
   .up-train {
