@@ -1,19 +1,28 @@
 <template>
   <div class="line-section">
-    <div
-      v-for="train in secinfo.trains"
-      :key="train.tr"
-      class="train"
-      :class="+train.ki ? 'down-train' : 'up-train'"
-      :style="{
-        backgroundColor: color[train.sy],
-        borderLeft: train.sy === '9' ? '5px solid #d5007f' : '',
-        borderRight: train.sy === '9' ? '5px solid #d5007f' : ''
-      }"
-    >
-      <span class="ikisaki">{{ ikisaki[train.ik] }}</span>
-      <span>{{ train.tr }}</span>
-      <span>un</span>
+    <div v-for="train in secinfo.trains" :key="train.tr" class="train-box">
+      <div
+        class="train"
+        :class="+train.ki ? 'down-train' : 'up-train'"
+        :style="{
+          backgroundColor: color[train.sy],
+          borderLeft: train.sy === '9' ? '5px solid #d5007f' : '',
+          borderRight: train.sy === '9' ? '5px solid #d5007f' : ''
+        }"
+      >
+        <span class="ikisaki">{{ ikisaki[train.ik] }}</span>
+        <span>{{ train.tr }}</span>
+        <span>un</span>
+      </div>
+      <div
+        v-if="train.dl !== '00'"
+        class="delay"
+        :style="{
+          order: +train.ki ? -1 : 1
+        }"
+      >
+        + {{ +train.dl }}
+      </div>
     </div>
   </div>
 </template>
@@ -22,28 +31,43 @@
 .line-section {
   color: #fff;
   text-align: center;
-  .train {
-    display: block;
-    box-sizing: border-box;
-    width: 50px;
-    height: 60px;
-
-    padding-top: 3px;
+  .train-box {
+    display: flex;
+    flex-direction: column;
     margin: 3px;
 
-    font-size: 0.95rem;
-    font-weight: 500;
-    line-height: 1.2;
-
-    span {
+    .train {
       display: block;
+      box-sizing: border-box;
+      width: 50px;
+      height: 60px;
+
+      padding-top: 3px;
+
+      font-size: 0.95rem;
+      font-weight: 500;
+      line-height: 1.2;
+
+      span {
+        display: block;
+      }
     }
-  }
-  .up-train {
-    border-radius: 10px 10px 0 0;
-  }
-  .down-train {
-    border-radius: 0 0 10px 10px;
+
+    .up-train {
+      border-radius: 10px 10px 0 0;
+    }
+
+    .down-train {
+      border-radius: 0 0 10px 10px;
+    }
+
+    .delay {
+      color: #da007a;
+      font-weight: 900;
+      line-height: 1;
+      font-size: 0.9rem;
+      margin: 3px 0 3px 0;
+    }
   }
 }
 </style>
