@@ -4,16 +4,14 @@
       v-for="train in secinfo.trains"
       :key="train.tr"
       class="train"
-      :class="train.tr % 2 ? 'down-train' : 'up-train'"
+      :class="+train.ki ? 'down-train' : 'up-train'"
       :style="{
         backgroundColor: color[train.sy],
-        paddingLeft: train.sy === '9' ? '0' : '',
-        paddingRight: train.sy === '9' ? '0' : '',
         borderLeft: train.sy === '9' ? '5px solid #d5007f' : '',
         borderRight: train.sy === '9' ? '5px solid #d5007f' : ''
       }"
     >
-      <span>ik</span>
+      <span>{{ ikisaki[train.ik] }}</span>
       <span>{{ train.tr }}</span>
       <span>un</span>
     </div>
@@ -30,7 +28,7 @@
     width: 50px;
     height: 60px;
 
-    padding: 3px;
+    padding-top: 3px;
     margin: 3px;
     line-height: 1.1;
 
@@ -55,6 +53,9 @@ export interface secinfo {
   trains: {
     tr: string;
     sy: string;
+    ki: string;
+    dl: string;
+    ik: string;
   }[];
 }
 
@@ -86,6 +87,41 @@ export default class Section extends Vue {
     8: "#808285",
     9: "#000000",
     10: "#57A100"
+  };
+  ikisaki = {
+    "001": "K新宿",
+    "002": "笹塚",
+    "006": "桜上",
+    "008": "幡山",
+    "012": "つつ",
+    "016": "調布",
+    "018": "飛給",
+    "021": "東府",
+    "022": "府中",
+    "027": "高幡",
+    "031": "北野",
+    "032": "京八",
+    "033": "N新宿",
+    "036": "競馬",
+    "037": "動物",
+    "042": "高尾",
+    "043": "高山",
+    "048": "若葉",
+    "050": "多セ",
+    "052": "南大",
+    "054": "橋本",
+    "107": "岩本",
+    "114": "大島",
+    "118": "瑞江",
+    "120": "本八",
+    "300": "[新宿]",
+    "301": "Ⓢ",
+    "302": "[K新]",
+    "303": "[調布]",
+    "400": "[京八]",
+    "401": "[高山]",
+    "402": "[橋本]",
+    "999": "-"
   };
 }
 </script>

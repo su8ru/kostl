@@ -64,6 +64,7 @@ type secinfo = {
   trains: {
     tr: string;
     sy: string;
+    ki: string;
     dl: string;
     ik: string;
   }[];
@@ -71,6 +72,7 @@ type secinfo = {
 type Trains = {
   tr: string;
   sy: string;
+  ki: string;
   dl: string;
   ik: string;
 }[];
@@ -114,6 +116,7 @@ export default class Home extends Vue {
           res.get(pos)!.push({
             tr: train.tr,
             sy: train.sy,
+            ki: train.ki,
             dl: train.dl,
             ik: train.ik
           });
@@ -136,6 +139,7 @@ export default class Home extends Vue {
           trains: station.ps.map(train => ({
             tr: train.tr,
             sy: train.sy,
+            ki: train.ki,
             dl: train.dl,
             ik: train.ik
           }))
