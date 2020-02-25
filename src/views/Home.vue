@@ -9,30 +9,30 @@
         :class="secinfo.pos"
         :secinfo="secinfo"
       ></line-section>
-      <span
+      <div
         v-for="(station, i) in stations_main"
         :key="station"
-        :style="{ gridArea: 1 + i * 2 + '/' + 1, textAlign: 'right' }"
+        :style="{ gridArea: 1 + i * 2 + '/' + 1 }"
         class="station-name"
       >
-        {{ station }}
-      </span>
-      <span
+        <span :style="{ margin: '0 0 0 auto' }">{{ station }}</span>
+      </div>
+      <div
         v-for="(station, i) in stations_sagami"
         :key="station"
         :style="{ gridArea: 77 + i * 2 + '/' + 14 }"
         class="station-name"
       >
-        {{ station }}
-      </span>
-      <span
+        <span>{{ station }}</span>
+      </div>
+      <div
         v-for="(station, i) in stations_takao"
         :key="station"
         :style="{ gridArea: 107 + i * 2 + '/' + 14 }"
         class="station-name"
       >
-        {{ station }}
-      </span>
+        <span>{{ station }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -40,7 +40,7 @@
 <style lang="scss" scoped>
 .zaisen {
   display: grid;
-  grid-template-rows: repeat(34, 0) repeat(calc(116 - 32), minmax(60px, auto));
+  grid-template-rows: repeat(34, 0) repeat(calc(116 - 32), minmax(66px, auto));
   grid-template-columns: 7rem 1rem repeat(10, 56px) 1rem 10rem;
 
   .line-section {
@@ -48,6 +48,13 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+  }
+
+  .station-name {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.1rem;
   }
 }
 </style>
