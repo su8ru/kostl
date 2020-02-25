@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.8afc48977009ca9ac8ddd6b1e4112195.js"
+  "/precache-manifest.f838bb2f2cd1b302b741a2a6d9fb2d33.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "kostl"});
