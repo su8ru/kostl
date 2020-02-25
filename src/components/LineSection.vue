@@ -3,11 +3,12 @@
     <div v-for="train in secinfo.trains" :key="train.tr" class="train-box">
       <div
         class="train"
-        :class="+train.ki ? 'down-train' : 'up-train'"
+        :class="[
+          +train.ki ? 'down-train' : 'up-train',
+          { 'keio-liner': train.sy === '9' }
+        ]"
         :style="{
-          backgroundColor: color[train.sy],
-          borderLeft: train.sy === '9' ? '5px solid #d5007f' : '',
-          borderRight: train.sy === '9' ? '5px solid #d5007f' : ''
+          backgroundColor: color[train.sy]
         }"
       >
         <span class="ikisaki">{{ ikisaki[train.ik] }}</span>
@@ -59,6 +60,22 @@
 
     .down-train {
       border-radius: 0 0 10px 10px;
+    }
+
+    .keio-liner {
+      position: relative;
+    }
+    .keio-liner::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-left: 6px solid #d5007f;
+      border-right: 6px solid #d5007f;
+      border-radius: inherit;
     }
 
     .delay {
