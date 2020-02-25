@@ -13,7 +13,7 @@
       >
         <span class="ikisaki">{{ ikisaki[train.ik] }}</span>
         <span>{{ train.tr }}</span>
-        <span>un</span>
+        <span>-</span>
       </div>
       <div
         v-if="train.dl !== '00'"
