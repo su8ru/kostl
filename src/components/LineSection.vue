@@ -1,5 +1,10 @@
 <template>
-  <div class="line-section">
+  <div
+    class="line-section"
+    :style="{
+      flexDirection: +secinfo.trains[0].ki ? 'column-reverse' : 'column'
+    }"
+  >
     <div v-for="train in secinfo.trains" :key="train.tr" class="train-box">
       <div
         class="train"
@@ -30,6 +35,7 @@
 
 <style lang="scss" scoped>
 .line-section {
+  display: flex;
   color: #fff;
   text-align: center;
   .train-box {
