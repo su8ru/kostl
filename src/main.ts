@@ -17,6 +17,15 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 
+import VueGtag from "vue-gtag";
+Vue.use(
+  VueGtag,
+  {
+    config: { id: "UA-159940956-1" }
+  },
+  router
+);
+
 new Vue({
   router,
   render: h => h(App)
