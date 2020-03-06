@@ -12,13 +12,19 @@
           +train.ki ? 'down-train' : 'up-train',
           { 'keio-liner': train.sy === '9' }
         ]"
-        :style="{
-          backgroundColor: color[train.sy]
-        }"
+        :style="
+          getStyle(train.tr)
+            ? { background: getStyle(train.tr) }
+            : { backgroundColor: color[train.sy] }
+        "
       >
-        <span class="ikisaki">{{ ikisaki[train.ik] }}</span>
-        <span>{{ train.tr }}</span>
-        <span>-</span>
+        <span class="ikisaki" :style="{ order: +train.ki ? 1 : 3 }">
+          {{ getIkisaki(train.tr) || ikisaki[train.ik] }}
+        </span>
+        <span :style="{ order: 2 }">{{ train.tr }}</span>
+        <span :style="{ order: +train.ki ? 3 : 1 }">
+          {{ getUnyo(train.tr) }}
+        </span>
       </div>
       <div
         v-if="train.dl !== '00'"
@@ -44,7 +50,8 @@
     margin: 3px;
 
     .train {
-      display: block;
+      display: flex;
+      flex-direction: column;
       box-sizing: border-box;
       width: 50px;
       height: 60px;
@@ -97,6 +104,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import Axios from "axios";
 
 export interface secinfo {
   pos: string;
@@ -109,23 +117,76 @@ export interface secinfo {
   }[];
 }
 
+interface colors {
+  [key: string]: string;
+}
+interface ikisakis {
+  [key: string]: string;
+}
+
 @Component
 export default class Section extends Vue {
   @Prop({ required: true })
   secinfo!: secinfo;
 
-  typeDict = {
-    1: "特",
-    2: "急",
-    3: "快",
-    4: "準",
-    5: "区",
-    6: "各",
-    7: "",
-    8: "",
-    9: "KL",
-    10: "臨"
+  readonly trListJson = require("@/assets/tr_list.json");
+  JapaneseHolidays = require("japanese-holidays");
+  getUnyo = (tr: string) => {
+    let trList = this.isHoliday
+      ? this.trListJson.holiday
+      : this.trListJson.weekday;
+
+    if (tr.trim() in trList) return trList[tr.trim()].un;
+    return "-";
   };
+
+  getIkisaki = (tr: string) => {
+    let trList = this.isHoliday
+      ? this.trListJson.holiday
+      : this.trListJson.weekday;
+
+    if (tr.trim() in trList) {
+      if ("ik" in trList[tr.trim()]) {
+        return this.ikisaki[trList[tr.trim()].ik];
+      }
+    }
+    return false;
+  };
+
+  getStyle = (tr: string, ki: number) => {
+    let trList = this.isHoliday
+      ? this.trListJson.holiday
+      : this.trListJson.weekday;
+
+    if (tr.trim() in trList) {
+      if ("sy" in trList[tr.trim()]) {
+        if (Math.floor(trList[tr.trim()].sy / 10)) {
+          let leftNum: number = Math.floor(trList[tr.trim()].sy / 10);
+          let left: string = this.color[leftNum];
+          let rightNum: number = trList[tr.trim()].sy % 10;
+          let right: string = this.color[rightNum];
+          let leftPer = "60%";
+          let rightPer = "63%";
+          let tilt = ki ? "98deg" : "82deg";
+          return `linear-gradient(${tilt}, ${left} 0%, ${left} ${leftPer}, ${right} ${rightPer}, ${right} 100%)`;
+        } else {
+          return this.color[trList[tr.trim()].sy];
+        }
+      }
+    }
+    return "";
+  };
+
+  get isHoliday(): boolean {
+    let date = new Date();
+    date.setHours(date.getHours() - 3);
+    return (
+      date.getDay() == 0 ||
+      date.getDay() == 6 ||
+      this.JapaneseHolidays.isHolidayAt(date)
+    );
+  }
+
   color = {
     1: "#cf167c",
     2: "#05B08D",
@@ -137,7 +198,7 @@ export default class Section extends Vue {
     8: "#808285",
     9: "#000000",
     10: "#57A100"
-  };
+  } as colors;
   ikisaki = {
     "001": "K新宿",
     "002": "笹塚",
@@ -171,7 +232,13 @@ export default class Section extends Vue {
     "400": "[京八]",
     "401": "[高山]",
     "402": "[橋本]",
-    "999": "-"
-  };
+    "999": "-",
+    "701": "セ　橋",
+    "702": "新　セ",
+    "801": "幡　八",
+    "802": "幡　新",
+    "811": "幡　山",
+    "812": "幡　新"
+  } as ikisakis;
 }
 </script>

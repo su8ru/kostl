@@ -5239,6 +5239,11 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
+japanese-holidays@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/japanese-holidays/-/japanese-holidays-1.0.9.tgz#bb30d766f3c1f8d04d96da9b406c3bfc8a690b59"
+  integrity sha512-djWao0cXHo8kJnQZWiBDyOzFIV+Iht+PU3X5ghLLSYliHEgRCxeGpH3+HH+ZTWaY7ZQ/reujGBL+daV2xrW9bg==
+
 javascript-stringify@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/javascript-stringify/-/javascript-stringify-2.0.1.tgz#6ef358035310e35d667c675ed63d3eb7c1aa19e5"
