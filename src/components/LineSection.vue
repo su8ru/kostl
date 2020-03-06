@@ -13,8 +13,8 @@
           { 'keio-liner': train.sy === '9' }
         ]"
         :style="
-          getStyle(train.tr)
-            ? { background: getStyle(train.tr) }
+          getStyle(train.tr, +train.ki)
+            ? { background: getStyle(train.tr, +train.ki) }
             : { backgroundColor: color[train.sy] }
         "
       >
@@ -162,13 +162,13 @@ export default class Section extends Vue {
     if (tr.trim() in trList) {
       if ("sy" in trList[tr.trim()]) {
         if (Math.floor(trList[tr.trim()].sy / 10)) {
-          let leftNum: number = Math.floor(trList[tr.trim()].sy / 10);
-          let left: string = this.color[leftNum];
-          let rightNum: number = trList[tr.trim()].sy % 10;
+          let rightNum: number = Math.floor(trList[tr.trim()].sy / 10);
           let right: string = this.color[rightNum];
+          let leftNum: number = trList[tr.trim()].sy % 10;
+          let left: string = this.color[leftNum];
           let leftPer = "60%";
           let rightPer = "63%";
-          let tilt = ki ? "98deg" : "82deg";
+          let tilt = ki ? "82deg" : "98deg";
           return `linear-gradient(${tilt}, ${left} 0%, ${left} ${leftPer}, ${right} ${rightPer}, ${right} 100%)`;
         } else {
           return this.color[trList[tr.trim()].sy];
@@ -237,9 +237,9 @@ export default class Section extends Vue {
     "701": "セ　橋",
     "702": "新　セ",
     "801": "幡　八",
-    "802": "幡　新",
+    "802": "新　幡",
     "811": "幡　山",
-    "812": "幡　新"
+    "812": "新　幡"
   } as ikisakis;
 }
 </script>
