@@ -6,8 +6,35 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,500,700,900&display=swap&subset=japanese');
 
 $theme-colors: ( // color for bootstrap
+  "keio-pink": $keio-pink,
+  "keio-blue": $keio-blue
 );
 
 * {
   font-family: "Noto Sans JP", sans-serif;
+}
+
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  padding: 0 0 .2rem .6rem;
+  border-left: solid 0.8rem $keio-pink;
+  margin-bottom: .8rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 0;
+  margin-bottom: .8rem;
+}
+
+p {
+  line-height: 1.75rem;
+  margin-bottom: .75rem;
+}
+
+section {
+  margin-bottom: 1.5rem;
 }

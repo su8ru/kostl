@@ -1,0 +1,80 @@
+<template>
+  <div id="policy">
+    <section>
+      <h2>利用規約</h2>
+      <h3>概要</h3>
+      <p>
+        こすとれ kostl（以下、当サイトとする）は、
+        京王電鉄の提供する「列車走行位置お知らせサービス」から京王線･京王新線･京王相模原線･京王高尾線･京王競馬場線･京王動物園線の列車走行位置データを取得し、
+        情報を加えた上で再表示するものです。
+      </p>
+      <h3>禁止事項</h3>
+      <p>
+        当サイトでは京王電鉄の提供するデータを使用していますが、提供元の意図する使い方とは考えられないため、当サイトについての京王電鉄への問い合わせを固く禁止します。
+      </p>
+      <h3>連絡先</h3>
+      <p>
+        当サイトについてのご連絡は、
+        <b-link href="https://twitter.com/su8ru_">Twitter(@su8ru_)</b-link>
+        または
+        <b-link href="mailto:contact@su8ru.dev">mail(contact@su8ru.dev)</b-link>
+        までお願いします。
+      </p>
+    </section>
+    <section>
+      <h2>プライバシーポリシー</h2>
+      <h3>JavaScriptの実行について</h3>
+      <p>
+        当サイトでは、情報提供のため、JavaScriptを使用しています。
+      </p>
+      <p>
+        閲覧にあたり、閲覧者のデバイスを利用して情報提供を目的とした処理を行います。
+        JavaScriptの実行はブラウザの機能により停止することが可能ですが、その場合当サイトは情報提供を行えないため、JavaScriptの実行を停止することは推奨いたしません。
+      </p>
+      <h3>Google Analytics の使用について</h3>
+      <p>
+        当サイトでは、アクセス解析のため、Google Analytics を使用しています。
+      </p>
+      <p>
+        Google Analytics
+        によって情報が収集され使用される詳細は、Googleによる説明ページでご確認ください。
+      </p>
+      <ul>
+        <li>
+          <b-link
+            href="https://policies.google.com/technologies/partner-sites?hl=ja"
+          >
+            Googleのサービスを使用するサイトやアプリから収集した情報のGoogleによる使用
+          </b-link>
+        </li>
+        <li>
+          <b-link
+            href="https://marketingplatform.google.com/about/analytics/terms/jp/"
+          >
+            Google Analytics 利用規約
+          </b-link>
+        </li>
+        <li>
+          <b-link href="https://policies.google.com/privacy?hl=ja">
+            Google Privacy Policy
+          </b-link>
+        </li>
+      </ul>
+    </section>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+#policy {
+  width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+</style>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class Policy extends Vue {}
+</script>

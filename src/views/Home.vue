@@ -38,23 +38,29 @@
 </template>
 
 <style lang="scss" scoped>
-.zaisen {
-  display: grid;
-  grid-template-rows: repeat(34, 0) repeat(calc(116 - 32), minmax(66px, auto));
-  grid-template-columns: 7rem 1rem repeat(10, 56px) 1rem 10rem;
+#home {
+  margin: 0 auto;
+  padding: 1.5rem;
+  width: max-content;
+  .zaisen {
+    display: grid;
+    grid-template-rows: repeat(34, 0) repeat(calc(116 - 32), minmax(66px, auto));
+    grid-template-columns: 7rem 1rem repeat(10, 56px) 1rem 10rem;
+    margin: 0 auto;
 
-  .line-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
+    .line-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
 
-  .station-name {
-    display: flex;
-    align-items: center;
-    font-weight: 700;
-    font-size: 1.1rem;
+    .station-name {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
   }
 }
 </style>
