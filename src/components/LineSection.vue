@@ -162,14 +162,15 @@ export default class Section extends Vue {
     if (tr.trim() in trList) {
       if ("sy" in trList[tr.trim()]) {
         if (Math.floor(trList[tr.trim()].sy / 10)) {
-          let rightNum: number = Math.floor(trList[tr.trim()].sy / 10);
-          let right: string = this.color[rightNum];
-          let leftNum: number = trList[tr.trim()].sy % 10;
-          let left: string = this.color[leftNum];
+          let rightColorNum: number = Math.floor(trList[tr.trim()].sy / 10);
+          let rightColor: string = this.color[rightColorNum];
+          let leftColorNum: number = trList[tr.trim()].sy % 10;
+          let leftColor: string = this.color[leftColorNum];
+          if (ki) [leftColor, rightColor] = [rightColor, leftColor];
           let leftPer = "60%";
           let rightPer = "63%";
           let tilt = ki ? "82deg" : "98deg";
-          return `linear-gradient(${tilt}, ${left} 0%, ${left} ${leftPer}, ${right} ${rightPer}, ${right} 100%)`;
+          return `linear-gradient(${tilt}, ${leftColor} 0%, ${leftColor} ${leftPer}, ${rightColor} ${rightPer}, ${rightColor} 100%)`;
         } else {
           return this.color[trList[tr.trim()].sy];
         }
