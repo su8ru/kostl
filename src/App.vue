@@ -19,6 +19,12 @@
               利用規約･プライバシーポリシー
             </b-link>
           </li>
+          <li>
+            <b-link href="https://github.com/su8ru/kostl" target="_blank">
+              <font-awesome-icon :icon="['fab', 'github']" />
+              GitHub
+            </b-link>
+          </li>
         </ul>
       </nav>
     </footer>
