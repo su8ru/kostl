@@ -44,7 +44,10 @@
   width: max-content;
   .zaisen {
     display: grid;
-    grid-template-rows: repeat(34, 0) repeat(calc(116 - 32), minmax(66px, auto));
+    grid-template-rows: repeat(34, 0.6rem) repeat(
+        calc(116 - 32),
+        minmax(74px, auto)
+      );
     grid-template-columns: 7rem 1rem repeat(10, 56px) 1rem 10rem;
     margin: 0 auto;
 

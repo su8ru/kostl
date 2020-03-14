@@ -35,6 +35,7 @@
 #app {
   min-width: 100%;
   width: max-content;
+  background-color: #faf5e9;
   header {
     background-color: $keio-blue;
     color: white;
@@ -48,6 +49,7 @@
     border-top: 5px solid $keio-blue;
     padding: 0.5rem 0;
     line-height: 2;
+    background-color: #fff;
 
     display: flex;
     flex-direction: column;

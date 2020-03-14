@@ -53,8 +53,8 @@
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
-      width: 50px;
-      height: 60px;
+      width: 60px;
+      height: 68px;
 
       padding-top: 3px;
 
@@ -62,6 +62,8 @@
       font-weight: 500;
       line-height: 1.2;
       white-space: nowrap;
+
+      border: 4px solid #fff;
 
       span {
         display: block;
