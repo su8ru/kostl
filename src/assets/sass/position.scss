@@ -35,8 +35,93 @@
     grid-area: #{$n} / #{$up + 1};
   }
 }
+@mixin sta2-sjk($n, $up) {
+  $i: (43 - $n) / 2;
+  .E#{$i} {
+    grid-area: #{$n} / #{$up};
+  }
+  .W#{$i} {
+    grid-area: #{$n} / #{$up + 1};
+  }
+}
 
-// 市ヶ谷
+// 都営新宿線内駅間定義
+@for $i from 1 through 20 {
+  $nu: $i;
+  $nd: $i + 1;
+  .E#{$nu}-#{$nd} {
+    grid-area: #{42 - $i * 2} / 7;
+  }
+  .W#{$nd}-#{$nu} {
+    grid-area: #{42 - $i * 2} / 8;
+  }
+}
+
+.W21 {
+  grid-row: 1;
+  grid-column: 7 / 9;
+}
+@include sta2-sjk(3, 7);
+.E19 {
+  grid-row: 5;
+  grid-column: 6 / 8;
+}
+.W19 {
+  grid-row: 5;
+  grid-column: 8 / 10;
+}
+@include sta2-sjk(7, 7);
+@include sta2-sjk(9, 7);
+@include sta2-sjk(11, 7);
+.E15 {
+  grid-row: 13;
+  grid-column: 6 / 8;
+}
+.W15 {
+  grid-row: 13;
+  grid-column: 8 / 10;
+}
+@include sta2-sjk(15, 7);
+@include sta2-sjk(17, 7);
+@include sta2-sjk(19, 7);
+@include sta2-sjk(21, 7);
+@include sta2-sjk(23, 7);
+@include sta2-sjk(25, 7);
+.E8 {
+  grid-row: 27;
+  grid-column: 6 / 8;
+}
+.W8 {
+  grid-row: 27;
+  grid-column: 8 / 10;
+}
+@include sta2-sjk(29, 7);
+@include sta2-sjk(31, 7);
+@include sta2-sjk(33, 7);
+@include sta2-sjk(35, 7);
+@include sta2-sjk(37, 7);
+@include sta2-sjk(39, 7);
+@include sta2-sjk(41, 7);
+
+/*
+.E4,
+.E3-4,
+.E3,
+.E2-3,
+.E2,
+.E1-2,
+.W4,
+.W4-3,
+.W3,
+.W3-2,
+.W2,
+.W2-1 {
+  display: none !important;
+}
+*/
+
+/*
+  // 市ヶ谷
 .E103-2 {
   grid-area: 35 / 7;
 }
@@ -75,7 +160,25 @@
 .D033 {
   grid-area: 40 / 8;
 }
-// 新線新宿
+*/
+
+.E103-2,
+.U103,
+.E102-2,
+.U102,
+.E101-2,
+.U101,
+.E103-1,
+.D102,
+.E102-1,
+.D103,
+.D101,
+.E101-1,
+.D033 {
+  display: none !important;
+}
+
+  // 新線新宿
 .E033-5 {
   grid-area: 41 / 7;
 }

@@ -3,12 +3,18 @@
     <div class="error" v-if="error">{{ error }}</div>
 
     <div class="zaisen">
-      <line-section
-        v-for="secinfo in info"
+      <LineSectionS
+        v-for="secinfo in infoS"
         :key="secinfo.pos"
         :class="secinfo.pos"
         :secinfo="secinfo"
-      ></line-section>
+      />
+      <LineSectionKO
+        v-for="secinfo in infoKO"
+        :key="secinfo.pos"
+        :class="secinfo.pos"
+        :secinfo="secinfo"
+      />
       <div
         v-for="(station, i) in stations_main"
         :key="station"
@@ -44,7 +50,7 @@
   width: max-content;
   .zaisen {
     display: grid;
-    grid-template-rows: repeat(34, 0.6rem) repeat(
+    grid-template-rows: repeat(34, minmax(74px, auto)) repeat(
         calc(116 - 32),
         minmax(74px, auto)
       );
@@ -73,34 +79,50 @@
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 import { body, Sn } from "@/traffic_info.ts";
-import LineSection from "@/components/LineSection.vue";
+import {
+  Odpt,
+  OdptDestinationStation,
+  OdptDirection,
+  OdptOperator,
+  OdptTrainType
+} from "@/odpt.ts";
+import LineSectionKO from "@/components/LineSectionKO.vue";
+import LineSectionS from "@/components/LineSectionS.vue";
 
-type secinfo = {
+type SecinfoKO = {
   pos: string;
-  trains: {
-    tr: string;
-    sy: string;
-    ki: string;
-    dl: string;
-    ik: string;
-  }[];
+  trains: TrainsKO;
 };
-type Trains = {
+type TrainsKO = {
   tr: string;
   sy: string;
   ki: string;
   dl: string;
   ik: string;
 }[];
+type SecinfoS = {
+  pos: string;
+  trains: TrainsS;
+};
+type TrainsS = {
+  tr: string;
+  sy: string;
+  ki: string;
+  dl: number;
+  ik: string;
+  op: string;
+}[];
 
 @Component({
   components: {
-    LineSection
+    LineSectionKO,
+    LineSectionS
   }
 })
 export default class Home extends Vue {
   loading: boolean = true;
-  info: secinfo[] = [];
+  infoKO: SecinfoKO[] = [];
+  infoS: SecinfoS[] = [];
   error = null;
   intervalId: any = "";
 
@@ -115,21 +137,23 @@ export default class Home extends Vue {
 
   async fetchData() {
     this.loading = true;
-    const resRaw = await axios.get<body>(
+
+    // Keio
+    const resRawKO = await axios.get<body>(
       "https://i.opentidkeio.jp/data/traffic_info.json"
     );
 
-    if (!resRaw.data) return;
-    const response: body = resRaw.data;
+    if (!resRawKO.data) return;
+    const responseKO: body = resRawKO.data;
 
-    const res = new Map<string, Trains>();
-    const result: secinfo[] = [];
-    for (const station of response.TS) {
+    const resKO = new Map<string, TrainsKO>();
+    const resultKO: SecinfoKO[] = [];
+    for (const station of responseKO.TS) {
       if (station.sn !== Sn.I) {
         for (const train of station.ps) {
           const pos = `${station.id}-${train.bs}`;
-          if (!res.has(pos)) res.set(pos, []);
-          res.get(pos)!.push({
+          if (!resKO.has(pos)) resKO.set(pos, []);
+          resKO.get(pos)!.push({
             tr: train.tr,
             sy: train.sy,
             ki: train.ki,
@@ -140,17 +164,17 @@ export default class Home extends Vue {
       }
     }
 
-    for (const key of res.keys()) {
-      result.push({
+    for (const key of resKO.keys()) {
+      resultKO.push({
         pos: key,
-        trains: res.get(key)!
+        trains: resKO.get(key)!
       });
     }
 
-    for (const station of response.TB) {
+    for (const station of responseKO.TB) {
       if (station.sn !== Sn.I) {
         const pos = station.id;
-        result.push({
+        resultKO.push({
           pos: pos,
           trains: station.ps.map(train => ({
             tr: train.tr,
@@ -163,10 +187,76 @@ export default class Home extends Vue {
       }
     }
 
-    this.info.splice(0, this.info.length, ...result);
+    this.infoKO.splice(0, this.infoKO.length, ...resultKO);
+
+    // Shinjuku
+    const resRawS = await axios.get<Odpt[]>(
+      "https://api.odpt.org/api/v4/odpt:Train?odpt:railway=odpt.Railway:Toei.Shinjuku&acl:consumerKey=" +
+        process.env.VUE_APP_ODPT_TOKEN
+    );
+
+    if (!resRawS.data) return;
+    const responseS: Odpt[] = resRawS.data;
+    const resS = new Map<string, TrainsS>();
+    const resultS: SecinfoS[] = [];
+    for (const train of responseS) {
+      const pos =
+        (train["odpt:railDirection"] === OdptDirection.E ? "E" : "W") +
+        (this.s_stations.indexOf(train["odpt:fromStation"].split(".").pop()!) +
+          1) +
+        (train["odpt:toStation"]
+          ? "-" +
+            (this.s_stations.indexOf(
+              train["odpt:toStation"].split(".").pop()!
+            ) +
+              1)
+          : "");
+      if (!resS.has(pos)) resS.set(pos, []);
+      resS.get(pos)!.push({
+        tr: train["odpt:trainNumber"].slice(4),
+        sy: train["odpt:trainType"].split(".").pop()!,
+        ki: train["odpt:railDirection"] === OdptDirection.E ? "0" : "1",
+        dl: train["odpt:delay"],
+        ik: train["odpt:destinationStation"][0].split(".").pop()!,
+        op: train["odpt:operator"].split(".").pop()!
+      });
+    }
+
+    for (const key of resS.keys()) {
+      resultS.push({
+        pos: key,
+        trains: resS.get(key)!
+      });
+    }
+
+    this.infoS.splice(0, this.infoS.length, ...resultS);
 
     this.loading = false;
   }
+
+  readonly s_stations = [
+    "Shinjuku",
+    "ShinjukuSanchome",
+    "Akebonobashi",
+    "Ichigaya",
+    "Kudanshita",
+    "Jimbocho",
+    "Ogawamachi",
+    "Iwamotocho",
+    "BakuroYokoyama",
+    "Hamacho",
+    "Morishita",
+    "Kikukawa",
+    "Sumiyoshi",
+    "NishiOjima",
+    "Ojima",
+    "HigashiOjima",
+    "Funabori",
+    "Ichinoe",
+    "Mizue",
+    "Shinozaki",
+    "Motoyawata"
+  ];
 
   stations_main = [
     "本八幡",

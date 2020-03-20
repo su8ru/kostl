@@ -107,7 +107,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import Axios from "axios";
 
 export interface secinfo {
   pos: string;
@@ -128,7 +127,7 @@ interface ikisakis {
 }
 
 @Component
-export default class Section extends Vue {
+export default class LineSectionKO extends Vue {
   @Prop({ required: true })
   secinfo!: secinfo;
 
