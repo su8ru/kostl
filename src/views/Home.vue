@@ -71,7 +71,7 @@
     #odpt-section {
       grid-row: 1 / 41;
       grid-column: 1 / 15;
-      background: #eff2d2;
+      background: #f6f8e8;
       width: 100%;
     }
   }
