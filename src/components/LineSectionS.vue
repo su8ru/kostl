@@ -9,14 +9,10 @@
       <div
         class="train"
         :class="[+train.ki ? 'down-train' : 'up-train']"
-        :style="
-          getStyle(train.tr, +train.ki)
-            ? { background: getStyle(train.tr, +train.ki) }
-            : { backgroundColor: color[train.sy] }
-        "
+        :style="{ background: color[train.sy] }"
       >
         <span class="ikisaki" :style="{ order: +train.ki ? 1 : 3 }">
-          {{ getIkisaki(train.tr) || ikisaki[train.ik] }}
+          {{ ikisaki[train.ik] }}
         </span>
         <span :style="{ order: 2 }">[{{ train.tr }}]</span>
         <span :style="{ order: +train.ki ? 3 : 1 }">
@@ -128,44 +124,6 @@ export default class LineSectionS extends Vue {
 
     if (tr.trim() in trList) return trList[tr.trim()].un;
     return "-";
-  };
-
-  getIkisaki = (tr: string) => {
-    let trList = this.isHoliday
-      ? this.trListJson.holiday
-      : this.trListJson.weekday;
-
-    if (tr.trim() in trList) {
-      if ("ik" in trList[tr.trim()]) {
-        return this.ikisaki[trList[tr.trim()].ik];
-      }
-    }
-    return false;
-  };
-
-  getStyle = (tr: string, ki: number) => {
-    let trList = this.isHoliday
-      ? this.trListJson.holiday
-      : this.trListJson.weekday;
-
-    if (tr.trim() in trList) {
-      if ("sy" in trList[tr.trim()]) {
-        if (Math.floor(trList[tr.trim()].sy / 10)) {
-          let rightColorNum: number = Math.floor(trList[tr.trim()].sy / 10);
-          let rightColor: string = this.color[rightColorNum];
-          let leftColorNum: number = trList[tr.trim()].sy % 10;
-          let leftColor: string = this.color[leftColorNum];
-          if (ki) [leftColor, rightColor] = [rightColor, leftColor];
-          let leftPer = "60%";
-          let rightPer = "63%";
-          let tilt = ki ? "82deg" : "98deg";
-          return `linear-gradient(${tilt}, ${leftColor} 0%, ${leftColor} ${leftPer}, ${rightColor} ${rightPer}, ${rightColor} 100%)`;
-        } else {
-          return this.color[trList[tr.trim()].sy];
-        }
-      }
-    }
-    return "";
   };
 
   get isHoliday(): boolean {
