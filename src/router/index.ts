@@ -14,6 +14,12 @@ const routes = [
     name: "policy",
     component: () =>
       import(/* webpackChunkName: "policy" */ "@/views/policy.vue")
+  },
+  {
+    path: "/generator",
+    name: "generator",
+    component: () =>
+      import(/* webpackChunkName: "generator" */ "@/views/generator.vue")
   }
 ];
 
