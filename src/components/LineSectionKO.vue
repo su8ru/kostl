@@ -5,7 +5,12 @@
       flexDirection: +secinfo.trains[0].ki ? 'column-reverse' : 'column'
     }"
   >
-    <div v-for="train in secinfo.trains" :key="train.tr" class="train-box">
+    <div
+      v-for="train in secinfo.trains"
+      :key="train.tr"
+      class="train-box"
+      :class="[+train.ki ? 'down-box' : 'up-box']"
+    >
       <div
         class="train"
         :class="[
@@ -49,7 +54,6 @@
   .train-box {
     display: flex;
     flex-direction: column;
-    margin: 3px;
 
     .train {
       display: flex;
@@ -102,6 +106,17 @@
       line-height: 1;
       font-size: 0.9rem;
       margin: 3px 0 3px 0;
+    }
+  }
+
+  .up-box {
+    &:not(:last-of-type) {
+      margin-bottom: 4px;
+    }
+  }
+  .down-box {
+    &:not(:last-of-type) {
+      margin-top: 4px;
     }
   }
 }

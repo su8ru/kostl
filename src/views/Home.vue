@@ -51,8 +51,9 @@
 
   .zaisen {
     display: grid;
-    grid-template-rows: repeat(117, minmax(74px, auto));
-    grid-template-columns: 7rem 1rem repeat(10, 64px) 1rem 10rem;
+    grid-template-rows: repeat(117, minmax(68px, auto));
+    grid-template-columns: 7rem 1rem repeat(10, 60px) 1rem 10rem;
+    grid-gap: 4px;
     margin: 0 auto;
     overflow: hidden;
 
