@@ -179,6 +179,7 @@ export default class LineSectionS extends Vue {
     Sakurajosui: "桜上水",
     HachimanYama: "八幡山",
     Tsutsujigaoka: "つつじ",
+    Wakabadai: "若葉台",
     KeioTamaCenter: "多摩セ",
     Hashimoto: "橋本",
     Takahatafudo: "高幡",
