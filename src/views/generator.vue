@@ -41,6 +41,21 @@
                 ].un
               }}
             </b-td>
+            <b-td>
+              <b-form-select
+                v-model="
+                  data[timetable['owl:sameAs']][
+                    train['odpt:trainNumber'].slice(4)
+                  ].sy
+                "
+                :options="[
+                  { value: 2, text: 'Express' },
+                  { value: 3, text: 'Rapid' },
+                  { value: 5, text: 'Semi Express' }
+                ]"
+                size="sm"
+              ></b-form-select>
+            </b-td>
           </b-tr>
         </b-tbody>
       </b-table-simple>
@@ -89,7 +104,7 @@ interface Train {
 
 interface Table {
   [key: string]: {
-    [key: string]: { tr: string; un: string };
+    [key: string]: { tr: string; un: string; sy: number };
   };
 }
 
@@ -135,7 +150,7 @@ export default class Generator extends Vue {
         this.$set(
           this.data[table["owl:sameAs"]],
           train["odpt:trainNumber"].slice(4),
-          { tr: "", un: "" }
+          { tr: "", un: "", sy: 0 }
         );
       }
     }

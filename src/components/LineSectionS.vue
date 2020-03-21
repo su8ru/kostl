@@ -9,14 +9,14 @@
       <div
         class="train"
         :class="[+train.ki ? 'down-train' : 'up-train']"
-        :style="{ background: color[train.sy] }"
+        :style="{ background: getStyle(train.tr, train.ki, train.sy) }"
       >
         <span class="ikisaki" :style="{ order: +train.ki ? 1 : 3 }">
           {{ ikisaki[train.ik] }}
         </span>
-        <span :style="{ order: 2 }">[{{ train.tr }}]</span>
+        <span :style="{ order: 2 }">{{ getTr(train.tr) }}</span>
         <span :style="{ order: +train.ki ? 3 : 1 }">
-          -
+          {{ getUnyo(train.tr) }}
         </span>
       </div>
       <div
@@ -104,27 +104,49 @@ export interface secinfo {
   }[];
 }
 
-interface colors {
-  [key: string]: string;
-}
-interface ikisakis {
-  [key: string]: string;
-}
-
 @Component
 export default class LineSectionS extends Vue {
   @Prop({ required: true })
   secinfo!: secinfo;
 
-  readonly trListJson = require("@/assets/tr_list.json");
+  readonly odptListJson = require("@/assets/odpt_list.json");
   JapaneseHolidays = require("japanese-holidays");
-  getUnyo = (tr: string) => {
-    let trList = this.isHoliday
-      ? this.trListJson.holiday
-      : this.trListJson.weekday;
 
-    if (tr.trim() in trList) return trList[tr.trim()].un;
+  getTr = (odpt: string) => {
+    let odptList = this.isHoliday
+      ? this.odptListJson.holiday
+      : this.odptListJson.weekday;
+
+    if (odpt in odptList) return odptList[odpt].tr;
+    return "[" + odpt + "]";
+  };
+
+  getUnyo = (odpt: string) => {
+    let odptList = this.isHoliday
+      ? this.odptListJson.holiday
+      : this.odptListJson.weekday;
+
+    if (odpt in odptList) return odptList[odpt].un;
     return "-";
+  };
+
+  getStyle = (odpt: string, ki: number, sy: string) => {
+    let odptList = this.isHoliday
+      ? this.odptListJson.holiday
+      : this.odptListJson.weekday;
+
+    if (odpt in odptList) {
+      if ("sy" in odptList[odpt]) {
+        let rightColor: string = this.color[sy];
+        let leftColor: string = this.color[odptList[odpt].sy];
+        if (ki) [leftColor, rightColor] = [rightColor, leftColor];
+        let leftPer = "60%";
+        let rightPer = "63%";
+        let tilt = !ki ? "82deg" : "98deg";
+        return `linear-gradient(${tilt}, ${leftColor} 0%, ${leftColor} ${leftPer}, ${rightColor} ${rightPer}, ${rightColor} 100%)`;
+      }
+    }
+    return this.color[sy];
   };
 
   get isHoliday(): boolean {
@@ -139,8 +161,18 @@ export default class LineSectionS extends Vue {
 
   color = {
     Express: "#dc0000",
-    Local: "#7eb500"
-  } as colors;
+    Local: "#7eb500",
+    1: "#cf167c",
+    2: "#05B08D",
+    3: "#0F4E8C",
+    4: "#F79328",
+    5: "#D3C427",
+    6: "#808285",
+    7: "#808285",
+    8: "#808285",
+    9: "#000000",
+    10: "#57A100"
+  } as { [key: string]: string; [key: number]: string };
   ikisaki = {
     Shinjuku: "N新宿",
     Sasazuka: "笹塚",
@@ -157,6 +189,6 @@ export default class LineSectionS extends Vue {
     Mizue: "瑞江",
     Ojima: "大島",
     Iwamotocho: "岩本町"
-  } as ikisakis;
+  } as { [key: string]: string };
 }
 </script>
