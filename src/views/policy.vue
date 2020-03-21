@@ -100,6 +100,14 @@
         </li>
       </ul>
     </section>
+    <section>
+      <h2>helpful tools</h2>
+      <ul>
+        <li>
+          <b-link :to="{ name: 'generator' }">都営新宿線 json generator</b-link>
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 
