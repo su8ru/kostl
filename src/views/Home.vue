@@ -50,19 +50,9 @@
   width: max-content;
   .zaisen {
     display: grid;
-    grid-template-rows: repeat(34, minmax(74px, auto)) repeat(
-        calc(116 - 32),
-        minmax(74px, auto)
-      );
-    grid-template-columns: 7rem 1rem repeat(10, 56px) 1rem 10rem;
+    grid-template-rows: repeat(116, minmax(74px, auto));
+    grid-template-columns: 7rem 1rem repeat(10, 64px) 1rem 10rem;
     margin: 0 auto;
-
-    .line-section {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
 
     .station-name {
       display: flex;

@@ -2,7 +2,7 @@
   <div
     class="line-section"
     :style="{
-      flexDirection: +secinfo.trains[0].ki ? 'column-reverse' : 'column'
+      justifyContent: +secinfo.trains[0].ki ? 'flex-start' : 'flex-end'
     }"
   >
     <div v-for="train in secinfo.trains" :key="train.tr" class="train-box">
@@ -35,11 +35,12 @@
 <style lang="scss" scoped>
 .line-section {
   display: flex;
+  flex-direction: row;
   color: #fff;
   text-align: center;
+
   .train-box {
     display: flex;
-    flex-direction: row;
     margin: 3px;
 
     .train {

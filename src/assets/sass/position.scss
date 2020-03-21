@@ -57,9 +57,13 @@
   }
 }
 
+.E21 {
+  grid-row: 1;
+  grid-column: 6 / 8;
+}
 .W21 {
   grid-row: 1;
-  grid-column: 7 / 9;
+  grid-column: 8 / 10;
 }
 @include sta2-sjk(3, 7);
 .E19 {

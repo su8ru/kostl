@@ -42,8 +42,10 @@
 <style lang="scss" scoped>
 .line-section {
   display: flex;
-  color: #fff;
+  justify-content: center;
   text-align: center;
+  color: #fff;
+
   .train-box {
     display: flex;
     flex-direction: column;
