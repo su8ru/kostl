@@ -3,6 +3,7 @@
     <div class="error" v-if="error">{{ error }}</div>
 
     <div class="zaisen">
+      <div id="odpt-section"></div>
       <LineSectionS
         v-for="secinfo in infoS"
         :key="secinfo.pos"
@@ -46,19 +47,32 @@
 <style lang="scss" scoped>
 #home {
   margin: 0 auto;
-  padding: 1.5rem;
   width: max-content;
+
   .zaisen {
     display: grid;
-    grid-template-rows: repeat(116, minmax(74px, auto));
+    grid-template-rows: repeat(117, minmax(74px, auto));
     grid-template-columns: 7rem 1rem repeat(10, 64px) 1rem 10rem;
     margin: 0 auto;
+    overflow: hidden;
+
+    .line-section {
+      z-index: 100;
+    }
 
     .station-name {
       display: flex;
       align-items: center;
       font-weight: 700;
       font-size: 1.1rem;
+      z-index: 100;
+    }
+
+    #odpt-section {
+      grid-row: 1 / 41;
+      grid-column: 1 / 15;
+      background: #eff2d2;
+      width: 100%;
     }
   }
 }
