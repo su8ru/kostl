@@ -141,7 +141,13 @@ export default class LineSectionS extends Vue {
       ? this.odptListJson.holiday
       : this.odptListJson.weekday;
 
-    if (odpt in odptList) return odptList[odpt].un;
+    if (odpt in odptList) {
+      let num: number = odptList[odpt].un.slice(0, 2);
+      ++num;
+      --num;
+      let type: string = odptList[odpt].un.slice(-1);
+      return (num % 2 ? num : ++num) + type;
+    }
     return "-";
   };
 
