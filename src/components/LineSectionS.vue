@@ -69,11 +69,11 @@
     }
 
     .up-train {
-      border-radius: 10px 10px 0 0;
+      border-radius: 12px 12px 0 0;
     }
 
     .down-train {
-      border-radius: 0 0 10px 10px;
+      border-radius: 0 0 12px 12px;
     }
 
     .delay {
