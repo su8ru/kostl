@@ -157,14 +157,22 @@ export default class LineSectionS extends Vue {
       : this.odptListJson.weekday;
 
     if (odpt in odptList) {
+      let style: string;
       if ("sy" in odptList[odpt]) {
         let rightColor: string = this.color[sy];
         let leftColor: string = this.color[odptList[odpt].sy];
         if (ki) [leftColor, rightColor] = [rightColor, leftColor];
-        let leftPer = "60%";
-        let rightPer = "63%";
-        let tilt = !ki ? "82deg" : "98deg";
-        return `linear-gradient(${tilt}, ${leftColor} 0%, ${leftColor} ${leftPer}, ${rightColor} ${rightPer}, ${rightColor} 100%)`;
+        const leftPer = "60%";
+        const rightPer = "62%";
+        const tilt = !ki ? "82deg" : "98deg";
+        style = `${tilt}, ${leftColor} ${leftPer}, ${rightColor} ${rightPer}`;
+        if ("sy2" in odptList[odpt]) {
+          let rightColor2: string = this.color[odptList[odpt].sy2];
+          const left2Per = "85%";
+          const right2Per = "87%";
+          style += `, ${rightColor} ${left2Per}, ${rightColor2} ${right2Per}`;
+        }
+        return `linear-gradient(${style})`;
       }
     }
     return this.color[sy];
