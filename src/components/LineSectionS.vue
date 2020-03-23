@@ -41,6 +41,7 @@
 .line-section {
   display: flex;
   flex-direction: row;
+  align-items: center;
   color: #fff;
   text-align: center;
 
