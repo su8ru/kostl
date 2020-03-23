@@ -25,13 +25,13 @@
         </span>
       </div>
       <div
-        v-if="!(train.dl % 60) === 0"
+        v-if="train.dl"
         class="delay"
         :style="{
           order: +train.ki ? -1 : 1
         }"
       >
-        + {{ +train.dl }}
+        + {{ +train.dl / 60 }}
       </div>
     </div>
   </div>
@@ -46,6 +46,7 @@
 
   .train-box {
     display: flex;
+    flex-direction: column;
 
     .train {
       display: flex;
