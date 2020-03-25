@@ -153,42 +153,47 @@ export default class Home extends Vue {
 
     const resKO = new Map<string, TrainsKO>();
     const resultKO: SecinfoKO[] = [];
-    for (const station of responseKO.TS) {
-      if (station.sn !== Sn.I) {
-        for (const train of station.ps) {
-          const pos = `${station.id}-${train.bs}`;
-          if (!resKO.has(pos)) resKO.set(pos, []);
-          resKO.get(pos)!.push({
-            tr: train.tr,
-            sy: train.sy,
-            ki: train.ki,
-            dl: train.dl,
-            ik: train.ik
-          });
+
+    if ("TS" in responseKO) {
+      for (const station of responseKO.TS) {
+        if (station.sn !== Sn.I) {
+          for (const train of station.ps) {
+            const pos = `${station.id}-${train.bs}`;
+            if (!resKO.has(pos)) resKO.set(pos, []);
+            resKO.get(pos)!.push({
+              tr: train.tr,
+              sy: train.sy,
+              ki: train.ki,
+              dl: train.dl,
+              ik: train.ik
+            });
+          }
         }
+      }
+
+      for (const key of resKO.keys()) {
+        resultKO.push({
+          pos: key,
+          trains: resKO.get(key)!
+        });
       }
     }
 
-    for (const key of resKO.keys()) {
-      resultKO.push({
-        pos: key,
-        trains: resKO.get(key)!
-      });
-    }
-
-    for (const station of responseKO.TB) {
-      if (station.sn !== Sn.I) {
-        const pos = station.id;
-        resultKO.push({
-          pos: pos,
-          trains: station.ps.map(train => ({
-            tr: train.tr,
-            sy: train.sy,
-            ki: train.ki,
-            dl: train.dl,
-            ik: train.ik
-          }))
-        });
+    if ("TB" in responseKO) {
+      for (const station of responseKO.TB) {
+        if (station.sn !== Sn.I && typeof station !== "undefined") {
+          const pos = station.id;
+          resultKO.push({
+            pos: pos,
+            trains: station.ps.map(train => ({
+              tr: train.tr,
+              sy: train.sy,
+              ki: train.ki,
+              dl: train.dl,
+              ik: train.ik
+            }))
+          });
+        }
       }
     }
 
