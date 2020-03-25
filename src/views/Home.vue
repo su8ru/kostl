@@ -1,8 +1,9 @@
 <template>
   <div id="home">
-    <div class="error" v-if="error">{{ error }}</div>
+    <b-alert variant="danger" class="error" v-if="error">{{ error }}</b-alert>
 
     <div class="zaisen">
+      <div id="keio-section"></div>
       <div id="odpt-section"></div>
       <LineSectionS
         v-for="secinfo in infoS"
@@ -46,13 +47,10 @@
 
 <style lang="scss" scoped>
 #home {
-  margin: 0 auto;
-  width: max-content;
-
   .zaisen {
     display: grid;
     grid-template-rows: repeat(117, minmax(68px, auto));
-    grid-template-columns: 7rem 1rem repeat(10, 60px) 1rem 10rem;
+    grid-template-columns: 8rem 1rem repeat(10, 60px) 1rem 11rem;
     grid-gap: 4px;
     margin: 0 auto;
     overflow: hidden;
@@ -69,6 +67,12 @@
       z-index: 100;
     }
 
+    #keio-section {
+      grid-row: 34 / 118;
+      grid-column: 1 / 15;
+      background: #faf5e9;
+      width: 100%;
+    }
     #odpt-section {
       grid-row: 1 / 41;
       grid-column: 1 / 15;

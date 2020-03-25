@@ -4,7 +4,9 @@
       <h1>こすとれ</h1>
       <span>KO･S Train Location</span>
     </header>
-    <router-view></router-view>
+    <main>
+      <router-view></router-view>
+    </main>
     <footer>
       <small>© su8ru and collaborators 2020 ・ data: Keio Corporation</small>
       <nav>
@@ -35,7 +37,8 @@
 #app {
   min-width: 100%;
   width: max-content;
-  background-color: #faf5e9;
+  background-color: #eee;
+
   header {
     background-color: $keio-blue;
     color: white;
@@ -43,6 +46,19 @@
     margin: 0 auto;
     text-align: center;
     border-top: 1.5rem solid $keio-pink;
+    height: 128px;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    top: 0;
+  }
+
+  main {
+    margin: 0 auto;
+    width: 988px;
+    background: #fff;
+    margin-top: 128px;
+    margin-bottom: 100px;
   }
 
   footer {
@@ -50,6 +66,12 @@
     padding: 0.5rem 0;
     line-height: 2;
     background-color: #fff;
+    width: 100%;
+    height: 100px;
+
+    position: fixed;
+    bottom: 0;
+    z-index: 1000;
 
     display: flex;
     flex-direction: column;
