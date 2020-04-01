@@ -1,6 +1,11 @@
 <template>
   <div id="home">
     <b-alert variant="danger" class="error" v-if="error">{{ error }}</b-alert>
+    <b-alert variant="warning" show="">
+      平日運用に入力ミスがある可能性があります。修正には少々時間がかかる見込みです。<br />
+      <b-link href="https://6111.teacup.com/keiodia/bbs">京王線談話室</b-link>
+      に掲載されている運番が正しいものです。ご迷惑をおかけし、申し訳ありません。
+    </b-alert>
 
     <div class="zaisen">
       <div id="keio-section"></div>
