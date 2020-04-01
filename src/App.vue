@@ -8,7 +8,9 @@
       <router-view></router-view>
     </main>
     <footer>
-      <small>© su8ru and collaborators 2020 ・ data: Keio Corporation</small>
+      <small>
+        &copy; su8ru and collaborators 2020 ・ data: Keio Corporation ･ ODPT
+      </small>
       <nav>
         <ul>
           <li>
