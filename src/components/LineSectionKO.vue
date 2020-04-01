@@ -28,8 +28,7 @@
         </span>
         <span :style="{ order: 2 }">{{ train.tr }}</span>
         <span :style="{ order: +train.ki ? 3 : 1 }">
-          {{ /* getUnyo(train.tr) */ }}
-          -
+          {{ getUnyo(train.tr) }}
         </span>
       </div>
       <div
