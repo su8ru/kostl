@@ -25,6 +25,8 @@ export interface P {
   bs: string;
   dl: string;
   ik: string;
+  ik_tr: string;
+  inf: string;
 }
 
 export enum Sn {

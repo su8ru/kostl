@@ -169,7 +169,7 @@ export default class Home extends Vue {
               sy: train.sy,
               ki: train.ki,
               dl: train.dl,
-              ik: train.ik
+              ik: train.ik_tr
             });
           }
         }
@@ -194,7 +194,7 @@ export default class Home extends Vue {
               sy: train.sy,
               ki: train.ki,
               dl: train.dl,
-              ik: train.ik
+              ik: train.ik_tr
             }))
           });
         }
