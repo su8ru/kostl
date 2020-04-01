@@ -24,7 +24,7 @@
         "
       >
         <span class="ikisaki" :style="{ order: +train.ki ? 1 : 3 }">
-          {{ getIkisaki(train.tr) || ikisaki[train.ik] }}
+          {{ getIkisaki(train.tr, train.ik) }}
         </span>
         <span :style="{ order: 2 }">{{ train.tr }}</span>
         <span :style="{ order: +train.ki ? 3 : 1 }">
@@ -160,7 +160,7 @@ export default class LineSectionKO extends Vue {
     return "-";
   };
 
-  getIkisaki = (tr: string) => {
+  getIkisaki = (tr: string, ik: string) => {
     let trList = this.isHoliday
       ? this.trListJson.holiday
       : this.trListJson.weekday;
@@ -170,7 +170,7 @@ export default class LineSectionKO extends Vue {
         return this.ikisaki[trList[tr.trim()].ik];
       }
     }
-    return false;
+    return this.ikisaki[ik] || "-";
   };
 
   getStyle = (tr: string, ki: number) => {
