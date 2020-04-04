@@ -17,11 +17,7 @@
           train.ki ? 'down-train' : 'up-train',
           { 'keio-liner': train.sy === '9' }
         ]"
-        :style="
-          getStyle(train.tr, train.ki)
-            ? { background: getStyle(train.tr, train.ki) }
-            : { backgroundColor: color[train.sy] }
-        "
+        :style="{ background: getStyle(train.tr, train.ki, train.sy) }"
       >
         <span class="ikisaki" :style="{ order: train.ki ? 1 : 3 }">
           {{ getIkisaki(train.tr, train.ik) }}
@@ -156,7 +152,7 @@ export default class LineSectionKO extends Vue {
     return this.ikisaki[ik] || "-";
   };
 
-  getStyle = (tr: string, ki: number) => {
+  getStyle = (tr: string, ki: number, sy: string) => {
     let trList = this.isHoliday
       ? this.trListJson.holiday
       : this.trListJson.weekday;
@@ -178,7 +174,7 @@ export default class LineSectionKO extends Vue {
         }
       }
     }
-    return "";
+    return this.color[sy];
   };
 
   get isHoliday(): boolean {
