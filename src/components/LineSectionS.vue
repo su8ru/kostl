@@ -2,25 +2,25 @@
   <div
     class="line-section"
     :style="{
-      justifyContent: +secinfo.trains[0].ki ? 'flex-start' : 'flex-end'
+      justifyContent: secinfo.trains[0].ki ? 'flex-start' : 'flex-end'
     }"
   >
     <div
       v-for="train in secinfo.trains"
       :key="train.tr"
       class="train-box"
-      :class="[+train.ki ? 'down-box' : 'up-box']"
+      :class="[train.ki ? 'down-box' : 'up-box']"
     >
       <div
         class="train"
-        :class="[+train.ki ? 'down-train' : 'up-train']"
+        :class="[train.ki ? 'down-train' : 'up-train']"
         :style="{ background: getStyle(train.tr, train.ki, train.sy) }"
       >
-        <span class="ikisaki" :style="{ order: +train.ki ? 1 : 3 }">
+        <span class="ikisaki" :style="{ order: train.ki ? 1 : 3 }">
           {{ ikisaki[train.ik] }}
         </span>
         <span :style="{ order: 2 }">{{ getTr(train.tr) }}</span>
-        <span :style="{ order: +train.ki ? 3 : 1 }">
+        <span :style="{ order: train.ki ? 3 : 1 }">
           {{ getUnyo(train.tr) }}
         </span>
       </div>
@@ -28,10 +28,10 @@
         v-if="train.dl"
         class="delay"
         :style="{
-          order: +train.ki ? -1 : 1
+          order: train.ki ? -1 : 1
         }"
       >
-        + {{ +train.dl / 60 }}
+        + {{ train.dl / 60 }}
       </div>
     </div>
   </div>
@@ -102,29 +102,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import {
-  OdptDestinationStation,
-  OdptDirection,
-  OdptOperator,
-  OdptTrainType
-} from "@/odpt.ts";
-
-export interface secinfo {
-  pos: string;
-  trains: {
-    tr: string;
-    sy: string;
-    ki: string;
-    dl: number;
-    ik: string;
-    op: string;
-  }[];
-}
+import { SecinfoS } from "@/types";
 
 @Component
 export default class LineSectionS extends Vue {
   @Prop({ required: true })
-  secinfo!: secinfo;
+  secinfo!: SecinfoS;
 
   readonly odptListJson = require("@/assets/odpt_list.json");
   JapaneseHolidays = require("japanese-holidays");
@@ -190,7 +173,7 @@ export default class LineSectionS extends Vue {
     );
   }
 
-  color = {
+  readonly color = {
     Express: "#dc0000",
     Local: "#7eb500",
     1: "#cf167c",
@@ -204,7 +187,8 @@ export default class LineSectionS extends Vue {
     9: "#000000",
     10: "#57A100"
   } as { [key: string]: string; [key: number]: string };
-  ikisaki = {
+
+  readonly ikisaki = {
     Shinjuku: "N新宿",
     Sasazuka: "笹塚",
     Sakurajosui: "桜上水",

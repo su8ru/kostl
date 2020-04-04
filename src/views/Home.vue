@@ -95,32 +95,9 @@ import {
   OdptOperator,
   OdptTrainType
 } from "@/odpt.ts";
+import { SecinfoKO, SecinfoS, TrainsKO, TrainsS } from "@/types";
 import LineSectionKO from "@/components/LineSectionKO.vue";
 import LineSectionS from "@/components/LineSectionS.vue";
-
-type SecinfoKO = {
-  pos: string;
-  trains: TrainsKO;
-};
-type TrainsKO = {
-  tr: string;
-  sy: string;
-  ki: string;
-  dl: string;
-  ik: string;
-}[];
-type SecinfoS = {
-  pos: string;
-  trains: TrainsS;
-};
-type TrainsS = {
-  tr: string;
-  sy: string;
-  ki: string;
-  dl: number;
-  ik: string;
-  op: string;
-}[];
 
 @Component({
   components: {
@@ -167,8 +144,8 @@ export default class Home extends Vue {
             resKO.get(pos)!.push({
               tr: train.tr,
               sy: train.sy,
-              ki: train.ki,
-              dl: train.dl,
+              ki: !!train.ki,
+              dl: +train.dl,
               ik: train.ik_tr
             });
           }
@@ -192,8 +169,8 @@ export default class Home extends Vue {
             trains: station.ps.map(train => ({
               tr: train.tr,
               sy: train.sy,
-              ki: train.ki,
-              dl: train.dl,
+              ki: !!train.ki,
+              dl: +train.dl,
               ik: train.ik_tr
             }))
           });
@@ -229,7 +206,7 @@ export default class Home extends Vue {
       resS.get(pos)!.push({
         tr: train["odpt:trainNumber"].slice(4),
         sy: train["odpt:trainType"].split(".").pop()!,
-        ki: train["odpt:railDirection"] === OdptDirection.E ? "0" : "1",
+        ki: train["odpt:railDirection"] === OdptDirection.W,
         dl: train["odpt:delay"],
         ik: train["odpt:destinationStation"][0].split(".").pop()!,
         op: train["odpt:operator"].split(".").pop()!

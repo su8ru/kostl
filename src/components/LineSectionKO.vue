@@ -2,43 +2,43 @@
   <div
     class="line-section"
     :style="{
-      flexDirection: +secinfo.trains[0].ki ? 'column-reverse' : 'column'
+      flexDirection: secinfo.trains[0].ki ? 'column-reverse' : 'column'
     }"
   >
     <div
       v-for="train in secinfo.trains"
       :key="train.tr"
       class="train-box"
-      :class="[+train.ki ? 'down-box' : 'up-box']"
+      :class="[train.ki ? 'down-box' : 'up-box']"
     >
       <div
         class="train"
         :class="[
-          +train.ki ? 'down-train' : 'up-train',
+          train.ki ? 'down-train' : 'up-train',
           { 'keio-liner': train.sy === '9' }
         ]"
         :style="
-          getStyle(train.tr, +train.ki)
-            ? { background: getStyle(train.tr, +train.ki) }
+          getStyle(train.tr, train.ki)
+            ? { background: getStyle(train.tr, train.ki) }
             : { backgroundColor: color[train.sy] }
         "
       >
-        <span class="ikisaki" :style="{ order: +train.ki ? 1 : 3 }">
+        <span class="ikisaki" :style="{ order: train.ki ? 1 : 3 }">
           {{ getIkisaki(train.tr, train.ik) }}
         </span>
         <span :style="{ order: 2 }">{{ train.tr }}</span>
-        <span :style="{ order: +train.ki ? 3 : 1 }">
+        <span :style="{ order: train.ki ? 3 : 1 }">
           {{ getUnyo(train.tr) }}
         </span>
       </div>
       <div
-        v-if="train.dl !== '00'"
+        v-if="train.dl"
         class="delay"
         :style="{
-          order: +train.ki ? -1 : 1
+          order: train.ki ? -1 : 1
         }"
       >
-        + {{ +train.dl }}
+        + {{ train.dl }}
       </div>
     </div>
   </div>
@@ -125,29 +125,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-
-export interface secinfo {
-  pos: string;
-  trains: {
-    tr: string;
-    sy: string;
-    ki: string;
-    dl: string;
-    ik: string;
-  }[];
-}
-
-interface colors {
-  [key: string]: string;
-}
-interface ikisakis {
-  [key: string]: string;
-}
+import { SecinfoKO } from "@/types";
 
 @Component
 export default class LineSectionKO extends Vue {
   @Prop({ required: true })
-  secinfo!: secinfo;
+  secinfo!: SecinfoKO;
 
   readonly trListJson = require("@/assets/tr_list.json");
   JapaneseHolidays = require("japanese-holidays");
@@ -208,7 +191,7 @@ export default class LineSectionKO extends Vue {
     );
   }
 
-  color = {
+  readonly color = {
     1: "#cf167c",
     2: "#05B08D",
     3: "#0F4E8C",
@@ -219,8 +202,9 @@ export default class LineSectionKO extends Vue {
     8: "#808285",
     9: "#000000",
     10: "#57A100"
-  } as colors;
-  ikisaki = {
+  } as { [key: string]: string };
+
+  readonly ikisaki = {
     "001": "K新宿",
     "002": "笹塚",
     "006": "桜上水",
@@ -266,6 +250,6 @@ export default class LineSectionKO extends Vue {
     "852": "新　調",
     "861": "調　山",
     "862": "新　調"
-  } as ikisakis;
+  } as { [key: string]: string };
 }
 </script>
