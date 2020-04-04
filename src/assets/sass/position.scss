@@ -499,8 +499,32 @@
 @include sta2-s(95, 10);
 @include sta2-s(97, 10);
 
+// 競馬場線
+.S021 {
+  grid-area: 86 / 7;
+}
+.D036 {
+  grid-area: 86 / 8;
+}
+.E036-2 {
+  grid-area: 87 / 7;
+}
+.E036-1 {
+  grid-area: 87 / 8;
+}
 
-// 支線
-.S021, .S027, .D036, .D037, .E036-2, .E036-1, .E037-2, .E037-1, .E008-10 {
+// 動物園線
+.D037, .S027 {
+  grid-area: 96 / 7;
+}
+.E037-1 {
+  grid-area: 95 / 7;
+}
+.E037-2 {
+  grid-area: 95 / 8;
+}
+
+// 桜上水10番線
+.E008-10 {
   display: none !important;
 }

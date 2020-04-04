@@ -9,12 +9,12 @@
       v-for="train in secinfo.trains"
       :key="train.tr"
       class="train-box"
-      :class="[train.ki ? 'down-box' : 'up-box']"
+      :class="[getKi(train.ki, train.ik, secinfo.pos) ? 'down-box' : 'up-box']"
     >
       <div
         class="train"
         :class="[
-          train.ki ? 'down-train' : 'up-train',
+          getKi(train.ki, train.ik, secinfo.pos) ? 'down-train' : 'up-train',
           { 'keio-liner': train.sy === '9' }
         ]"
         :style="{ background: getStyle(train.tr, train.ki, train.sy) }"
@@ -27,7 +27,7 @@
         v-if="train.dl"
         class="delay"
         :style="{
-          order: train.ki ? -1 : 1
+          order: getKi(train.ki, train.ik, secinfo.pos) ? -1 : 1
         }"
       >
         + {{ train.dl }}
@@ -123,6 +123,14 @@ import { SecinfoKO } from "@/types";
 export default class LineSectionKO extends Vue {
   @Prop({ required: true })
   secinfo!: SecinfoKO;
+
+  readonly reverse = ["E027-1", "E027-2S", "E037-1", "E037-2", "D027", "S027"];
+
+  getKi = (ki: boolean, ik: string, pos: string) => {
+    if (this.reverse.includes(pos) || (pos === "E027-2" && ik === "037"))
+      return !ki;
+    return ki;
+  };
 
   readonly trListJson = require("@/assets/tr_list.json");
   JapaneseHolidays = require("japanese-holidays");

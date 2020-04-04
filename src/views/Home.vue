@@ -5,6 +5,8 @@
     <div class="zaisen">
       <div id="keio-section"></div>
       <div id="odpt-section"></div>
+      <div id="keiba-section"></div>
+      <div id="dobutsu-section"></div>
       <LineSectionS
         v-for="secinfo in infoS"
         :key="secinfo.pos"
@@ -78,6 +80,40 @@
       grid-column: 1 / 15;
       background: #f6f8e8;
       width: 100%;
+    }
+    #keiba-section {
+      $color: #268300;
+      grid-row: 86 / 88;
+      grid-column: 7 / 9;
+      outline: 3px dashed $color;
+      background: rgba($color, 0.1);
+
+      &::before {
+        display: block;
+        position: relative;
+        content: "競馬場線";
+        top: -30px;
+        color: $color;
+        font-weight: 500;
+        text-align: right;
+      }
+    }
+    #dobutsu-section {
+      $color: #8ea725;
+      grid-row: 95 / 97;
+      grid-column: 7 / 9;
+      outline: 3px dashed $color;
+      background: rgba($color, 0.1);
+
+      &::before {
+        display: block;
+        position: relative;
+        content: "動物園線";
+        top: -30px;
+        color: $color;
+        font-weight: 500;
+        text-align: right;
+      }
     }
   }
 }
