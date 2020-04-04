@@ -124,7 +124,7 @@ export default class LineSectionKO extends Vue {
   @Prop({ required: true })
   secinfo!: SecinfoKO;
 
-  readonly reverse = ["E027-1", "E027-2S", "E037-1", "E037-2", "D027", "S027"];
+  readonly reverse = ["E027-1", "E027-2S", "E037-1", "E037-2", "D037", "S027"];
 
   getKi = (ki: boolean, ik: string, pos: string) => {
     if (this.reverse.includes(pos) || (pos === "E027-2" && ik === "037"))
