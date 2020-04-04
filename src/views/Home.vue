@@ -144,7 +144,7 @@ export default class Home extends Vue {
             resKO.get(pos)!.push({
               tr: train.tr,
               sy: train.sy,
-              ki: !!train.ki,
+              ki: !!+train.ki,
               dl: +train.dl,
               ik: train.ik_tr
             });
@@ -169,7 +169,7 @@ export default class Home extends Vue {
             trains: station.ps.map(train => ({
               tr: train.tr,
               sy: train.sy,
-              ki: !!train.ki,
+              ki: !!+train.ki,
               dl: +train.dl,
               ik: train.ik_tr
             }))

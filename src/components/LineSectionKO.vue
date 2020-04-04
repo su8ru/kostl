@@ -19,13 +19,9 @@
         ]"
         :style="{ background: getStyle(train.tr, train.ki, train.sy) }"
       >
-        <span class="ikisaki" :style="{ order: train.ki ? 1 : 3 }">
-          {{ getIkisaki(train.tr, train.ik) }}
-        </span>
-        <span :style="{ order: 2 }">{{ train.tr }}</span>
-        <span :style="{ order: train.ki ? 3 : 1 }">
-          {{ getUnyo(train.tr) }}
-        </span>
+        <span>{{ getIkisaki(train.tr, train.ik) }}</span>
+        <span>{{ train.tr }}</span>
+        <span>{{ getUnyo(train.tr) }}</span>
       </div>
       <div
         v-if="train.dl"
@@ -54,12 +50,10 @@
 
     .train {
       display: flex;
-      flex-direction: column;
       box-sizing: border-box;
       width: 60px;
       height: 68px;
-
-      padding-top: 3px;
+      justify-content: center;
 
       font-size: 0.95rem;
       font-weight: 500;
@@ -75,10 +69,12 @@
 
     .up-train {
       border-radius: 12px 12px 0 0;
+      flex-direction: column-reverse;
     }
 
     .down-train {
       border-radius: 0 0 12px 12px;
+      flex-direction: column;
     }
 
     .keio-liner {
