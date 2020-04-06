@@ -188,9 +188,9 @@ export default class Home extends Vue {
 
   get getTimeKO(): string {
     const dt: Dt = this.dateKO[0];
-    return moment([dt.yy, +dt.mt - 1, dt.dy, dt.hh, dt.mm, dt.ss]).format(
-      "YYYY.MM.DD HH:mm:ss"
-    );
+    let m = moment([+dt.yy, +dt.mt - 1, +dt.dy, 0, +dt.mm, +dt.ss]);
+    m.hour(+dt.hh);
+    return m.format("YYYY.MM.DD HH:mm:ss");
   }
   get getTimeS(): string {
     return this.dateS.format("YYYY.MM.DD HH:mm:ss");
