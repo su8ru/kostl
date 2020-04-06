@@ -19,6 +19,18 @@
         :class="secinfo.pos"
         :secinfo="secinfo"
       />
+      <div class="update update-s">
+        <span>
+          <font-awesome-icon icon="sync" />
+          {{ getTimeS }}
+        </span>
+      </div>
+      <div class="update update-ko">
+        <span>
+          <font-awesome-icon icon="sync" />
+          {{ getTimeKO }}
+        </span>
+      </div>
       <div
         v-for="(station, i) in stations_main"
         :key="station"
@@ -115,6 +127,20 @@
         text-align: right;
       }
     }
+
+    .update {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      padding: 0.5rem 0.8rem 0 0;
+      font-weight: 500;
+    }
+    .update-s {
+      grid-area: 1 / 13 / 2 / 15;
+    }
+    .update-ko {
+      grid-area: 41 / 13 / 42 / 15;
+    }
   }
 }
 </style>
@@ -123,7 +149,7 @@
 /* eslint-disable no-console */
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
-import { body, Sn } from "@/traffic_info.ts";
+import { body, Sn, Dt } from "@/traffic_info.ts";
 import {
   Odpt,
   OdptDestinationStation,
@@ -134,6 +160,7 @@ import {
 import { SecinfoKO, SecinfoS, TrainsKO, TrainsS } from "@/types";
 import LineSectionKO from "@/components/LineSectionKO.vue";
 import LineSectionS from "@/components/LineSectionS.vue";
+import moment from "moment";
 
 @Component({
   components: {
@@ -144,7 +171,9 @@ import LineSectionS from "@/components/LineSectionS.vue";
 export default class Home extends Vue {
   loading: boolean = true;
   infoKO: SecinfoKO[] = [];
+  dateKO: Dt[] = [];
   infoS: SecinfoS[] = [];
+  dateS = moment();
   error = null;
   intervalId: any = "";
 
@@ -155,6 +184,16 @@ export default class Home extends Vue {
 
   beforeDestroy() {
     clearInterval(this.intervalId);
+  }
+
+  get getTimeKO(): string {
+    const dt: Dt = this.dateKO[0];
+    return moment([dt.yy, +dt.mt - 1, dt.dy, dt.hh, dt.mm, dt.ss]).format(
+      "YYYY.MM.DD HH:mm:ss"
+    );
+  }
+  get getTimeS(): string {
+    return this.dateS.format("YYYY.MM.DD HH:mm:ss");
   }
 
   async fetchData() {
@@ -170,6 +209,8 @@ export default class Home extends Vue {
 
     const resKO = new Map<string, TrainsKO>();
     const resultKO: SecinfoKO[] = [];
+
+    this.dateKO = responseKO.up[0].dt;
 
     if ("TS" in responseKO) {
       for (const station of responseKO.TS) {
@@ -227,6 +268,7 @@ export default class Home extends Vue {
     const resS = new Map<string, TrainsS>();
     const resultS: SecinfoS[] = [];
     for (const train of responseS) {
+      this.dateS = moment.max(moment(this.dateS), moment(train["dc:date"]));
       const pos =
         (train["odpt:railDirection"] === OdptDirection.E ? "E" : "W") +
         (this.s_stations.indexOf(train["odpt:fromStation"].split(".").pop()!) +
