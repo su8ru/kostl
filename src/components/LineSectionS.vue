@@ -45,6 +45,10 @@
     display: flex;
     flex-direction: column;
 
+    &:not(:last-of-type) {
+      margin-right: 4px;
+    }
+
     .train {
       display: flex;
       flex-direction: column;
@@ -81,17 +85,6 @@
       line-height: 1;
       font-size: 0.9rem;
       margin: 3px 0 3px 0;
-    }
-  }
-
-  .up-box {
-    &:not(:last-of-type) {
-      margin-left: 4px;
-    }
-  }
-  .down-box {
-    &:not(:last-of-type) {
-      margin-right: 4px;
     }
   }
 }
