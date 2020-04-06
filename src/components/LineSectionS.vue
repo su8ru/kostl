@@ -2,14 +2,16 @@
   <div
     class="line-section"
     :style="{
-      justifyContent: secinfo.trains[0].ki ? 'flex-start' : 'flex-end'
+      flexDirection: getFlexDirection(secinfo.pos, secinfo.trains[0].ki)
     }"
   >
     <div
       v-for="train in secinfo.trains"
       :key="train.tr"
       class="train-box"
-      :class="[train.ki ? 'down-box' : 'up-box']"
+      :class="[
+        secinfo.pos.length > 3 ? (train.ki ? 'down-box' : 'up-box') : ''
+      ]"
     >
       <div
         class="train"
@@ -40,14 +42,12 @@
   align-items: center;
   color: #fff;
   text-align: center;
+  justify-content: space-between;
+  align-content: space-between;
 
   .train-box {
     display: flex;
     flex-direction: column;
-
-    &:not(:last-of-type) {
-      margin-right: 4px;
-    }
 
     .train {
       display: flex;
@@ -87,6 +87,17 @@
       margin: 3px 0 3px 0;
     }
   }
+
+  .up-box {
+    &:not(:last-of-type) {
+      margin-bottom: 4px;
+    }
+  }
+  .down-box {
+    &:not(:last-of-type) {
+      margin-top: 4px;
+    }
+  }
 }
 </style>
 
@@ -101,6 +112,14 @@ export default class LineSectionS extends Vue {
 
   readonly odptListJson = require("@/assets/odpt_list.json");
   JapaneseHolidays = require("japanese-holidays");
+
+  getFlexDirection(pos: string, ki: boolean) {
+    if (pos.length > 3) {
+      return ki ? "column-reverse" : "column";
+    } else {
+      return ki ? "row" : "row-reverse";
+    }
+  }
 
   getTr = (odpt: string) => {
     let odptList = this.isHoliday
