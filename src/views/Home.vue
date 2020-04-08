@@ -97,24 +97,26 @@
       $color: #268300;
       grid-row: 86 / 88;
       grid-column: 7 / 9;
-      outline: 3px dashed $color;
+      outline: 3px dashed rgba($color, 0.8);
       background: rgba($color, 0.1);
 
       &::before {
         display: block;
         position: relative;
         content: "競馬場線";
-        top: -30px;
+        bottom: -30px;
+        margin: 100% 0 0 0;
+        height: 1.5rem;
         color: $color;
         font-weight: 500;
-        text-align: right;
+        text-align: center;
       }
     }
     #dobutsu-section {
       $color: #8ea725;
       grid-row: 95 / 97;
       grid-column: 7 / 9;
-      outline: 3px dashed $color;
+      outline: 3px dashed rgba($color, 0.8);
       background: rgba($color, 0.1);
 
       &::before {
@@ -124,7 +126,7 @@
         top: -30px;
         color: $color;
         font-weight: 500;
-        text-align: right;
+        text-align: center;
       }
     }
 
