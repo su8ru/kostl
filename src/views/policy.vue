@@ -114,6 +114,9 @@
         <li>
           <b-link :to="{ name: 'generator' }">都営新宿線 json generator</b-link>
         </li>
+        <li>
+          <b-link :to="{ name: 'calibration' }">json calibration</b-link>
+        </li>
       </ul>
     </section>
   </div>

@@ -20,6 +20,12 @@ const routes = [
     name: "generator",
     component: () =>
       import(/* webpackChunkName: "generator" */ "@/views/generator.vue")
+  },
+  {
+    path: "/calibration",
+    name: "calibration",
+    component: () =>
+      import(/* webpackChunkName: "calibration" */ "@/views/calibration.vue")
   }
 ];
 
