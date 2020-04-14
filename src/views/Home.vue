@@ -159,7 +159,7 @@ import {
   OdptOperator,
   OdptTrainType
 } from "@/odpt.ts";
-import { SecinfoKO, SecinfoS, TrainsKO, TrainsS } from "@/types";
+import { SecinfoKO, SecinfoS, TrainKO, TrainS } from "@/types";
 import LineSectionKO from "@/components/LineSectionKO.vue";
 import LineSectionS from "@/components/LineSectionS.vue";
 import moment from "moment";
@@ -209,7 +209,7 @@ export default class Home extends Vue {
     if (!resRawKO.data) return;
     const responseKO: body = resRawKO.data;
 
-    const resKO = new Map<string, TrainsKO>();
+    const resKO = new Map<string, TrainKO[]>();
     const resultKO: SecinfoKO[] = [];
 
     this.dateKO = responseKO.up[0].dt;
@@ -221,7 +221,7 @@ export default class Home extends Vue {
             const pos = `${station.id}-${train.bs}`;
             if (!resKO.has(pos)) resKO.set(pos, []);
             resKO.get(pos)!.push({
-              tr: train.tr,
+              tr: train.tr.trim(),
               sy: train.sy,
               ki: !!+train.ki,
               dl: +train.dl,
@@ -246,7 +246,7 @@ export default class Home extends Vue {
           resultKO.push({
             pos: pos,
             trains: station.ps.map(train => ({
-              tr: train.tr,
+              tr: train.tr.trim(),
               sy: train.sy,
               ki: !!+train.ki,
               dl: +train.dl,
@@ -267,7 +267,7 @@ export default class Home extends Vue {
 
     if (!resRawS.data) return;
     const responseS: Odpt[] = resRawS.data;
-    const resS = new Map<string, TrainsS>();
+    const resS = new Map<string, TrainS[]>();
     const resultS: SecinfoS[] = [];
     for (const train of responseS) {
       this.dateS = moment.max(moment(this.dateS), moment(train["dc:date"]));
