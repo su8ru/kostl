@@ -1,5 +1,8 @@
 <template>
   <div id="generator">
+    <b-btn @click="getData">gen()</b-btn>
+    <b-form-textarea :value="JSON.stringify(wjson)" rows="3" no-resize />
+    <b-form-textarea :value="JSON.stringify(hjson)" rows="3" no-resize />
     <b-btn @click="getData">getData()</b-btn>
     <div v-for="timetable in timetables" :key="timetable['@id']">
       <h3 class="mt-2">{{ timetable["owl:sameAs"].slice(36) }}</h3>
@@ -79,6 +82,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
+import { listKO, TrainKO } from "@/types";
 
 interface Timetable {
   "@id": string;
@@ -134,6 +138,36 @@ export default class Generator extends Vue {
 
   getJson(timetable: Timetable) {
     return JSON.stringify(this.data[timetable["owl:sameAs"]]);
+  }
+
+  get wjson() {
+    const trListJson: listKO = require("@/assets/tr_list.json");
+    let weekdayMap = new Map<string, string[]>();
+    for (const key of Object.keys(trListJson.weekday)) {
+      if (!weekdayMap.has(trListJson.weekday[key].un))
+        weekdayMap.set(trListJson.weekday[key].un, []);
+      weekdayMap.get(trListJson.weekday[key].un)!.push(key);
+    }
+    let resw = {};
+    for (const key of weekdayMap.keys()) {
+      Object.assign(resw, { [key]: weekdayMap.get(key) });
+    }
+    return resw;
+  }
+
+  get hjson() {
+    const trListJson: listKO = require("@/assets/tr_list.json");
+    let holidayMap = new Map<string, string[]>();
+    for (const key of Object.keys(trListJson.holiday)) {
+      if (!holidayMap.has(trListJson.holiday[key].un))
+        holidayMap.set(trListJson.holiday[key].un, []);
+      holidayMap.get(trListJson.holiday[key].un)!.push(key);
+    }
+    let resh = {};
+    for (const key of holidayMap.keys()) {
+      Object.assign(resh, { [key]: holidayMap.get(key) });
+    }
+    return resh;
   }
 
   async getData() {
