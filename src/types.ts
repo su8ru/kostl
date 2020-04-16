@@ -37,3 +37,17 @@ export type trsKO = {
     sy?: number;
   };
 };
+
+export type listS = {
+  weekday: trsS;
+  holiday: trsS;
+};
+
+export type trsS = {
+  [key: string]: {
+    tr: string;
+    un: string;
+    sy?: number;
+    sy2?: number;
+  };
+};
