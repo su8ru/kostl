@@ -1,7 +1,10 @@
 <template>
   <div
     class="train-s"
-    :class="[pos.length > 3 ? (train.ki ? 'down-box' : 'up-box') : '']"
+    :class="[
+      pos.length > 3 ? (train.ki ? 'down-box' : 'up-box') : '',
+      `ODPT${train.tr}`
+    ]"
   >
     <div
       class="train"
