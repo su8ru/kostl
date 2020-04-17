@@ -162,11 +162,14 @@ export default class TrainBoxS extends Vue {
 
   fetchData() {
     axios
-      .get("http://api.kostl.info/vehicle.php", {
+      .get("http://kostl.su8ru.app/vehicle.php", {
         params: { mode: this.isHoliday ? "holiday" : "weekday", un: this.unyo }
       })
       .then(res => {
         this.vehicle = res.data.vehicle;
+      })
+      .catch(e => {
+        this.vehicle = "´･ヮ･`";
       });
   }
 
