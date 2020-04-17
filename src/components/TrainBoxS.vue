@@ -43,7 +43,7 @@
 
     font-size: 0.9rem;
     font-weight: 500;
-    line-height: 1.25;
+    line-height: 1.2;
     white-space: nowrap;
 
     border: 4px solid #fff;
