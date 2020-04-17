@@ -1,7 +1,6 @@
 <template>
   <div id="home">
     <b-alert variant="danger" class="error" v-if="error">{{ error }}</b-alert>
-
     <div class="zaisen">
       <div id="keio-section"></div>
       <div id="odpt-section"></div>
@@ -63,7 +62,7 @@
 #home {
   .zaisen {
     display: grid;
-    grid-template-rows: repeat(117, minmax(68px, auto));
+    grid-template-rows: repeat(117, minmax(80px, auto));
     grid-template-columns: 8rem 1rem repeat(10, 60px) 1rem 11rem;
     grid-gap: 4px;
     margin: 0 auto;
@@ -105,7 +104,7 @@
         position: relative;
         content: "競馬場線";
         bottom: -30px;
-        margin: 100% 0 0 0;
+        margin: 140px 0 0 0;
         height: 1.5rem;
         color: $color;
         font-weight: 500;

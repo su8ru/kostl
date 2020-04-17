@@ -9,7 +9,8 @@
       :style="{ background: style }"
     >
       <span>{{ ik }}</span>
-      <span>{{ train.tr }}</span>
+      <span>{{ vehicle }}</span>
+      <span>{{ train.tr }}ﾚ</span>
       <span>{{ unyo }}</span>
     </div>
     <div
@@ -33,10 +34,10 @@
     display: flex;
     box-sizing: border-box;
     width: 60px;
-    height: 68px;
+    height: 80px;
     justify-content: center;
 
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 500;
     line-height: 1.2;
     white-space: nowrap;
@@ -97,7 +98,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { TrainKO, listKO, trsKO } from "@/types";
+import { listKO, TrainKO, trsKO } from "@/types";
+import axios from "axios";
 
 @Component
 export default class TrainBoxKO extends Vue {
@@ -106,10 +108,16 @@ export default class TrainBoxKO extends Vue {
   @Prop({ required: true })
   pos!: string;
 
+  vehicle = "･･･";
+
   readonly trListJson: listKO = require("@/assets/tr_list.json");
   JapaneseHolidays = require("japanese-holidays");
 
   readonly reverse = ["E027-1", "E027-2S", "E037-1", "E037-2", "D037", "S027"];
+
+  created() {
+    this.fetchData();
+  }
 
   get ki(): boolean {
     if (this.reverse.includes(this.pos)) return !this.train.ki;
@@ -163,6 +171,16 @@ export default class TrainBoxKO extends Vue {
       date.getDay() == 6 ||
       this.JapaneseHolidays.isHolidayAt(date)
     );
+  }
+
+  fetchData() {
+    axios
+      .get("http://api.kostl.info/vehicle.php", {
+        params: { mode: this.isHoliday ? "holiday" : "weekday", un: this.unyo }
+      })
+      .then(res => {
+        this.vehicle = res.data.vehicle;
+      });
   }
 
   readonly syList = {

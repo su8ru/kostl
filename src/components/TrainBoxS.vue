@@ -12,6 +12,7 @@
       :style="{ background: style }"
     >
       <span>{{ ikList[train.ik] }}</span>
+      <span>{{ vehicle }}</span>
       <span>{{ tr }}</span>
       <span>{{ unyo }}</span>
     </div>
@@ -37,12 +38,12 @@
     flex-direction: column;
     box-sizing: border-box;
     width: 60px;
-    height: 68px;
+    height: 80px;
     justify-content: center;
 
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    line-height: 1.2;
+    line-height: 1.25;
     white-space: nowrap;
 
     border: 4px solid #fff;
@@ -86,6 +87,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { TrainS, listS, trsS, trsKO } from "@/types";
+import axios from "axios";
 
 @Component
 export default class TrainBoxS extends Vue {
@@ -94,8 +96,14 @@ export default class TrainBoxS extends Vue {
   @Prop({ required: true })
   pos!: string;
 
+  vehicle = "･･･";
+
   readonly odptListJson: listS = require("@/assets/odpt_list.json");
   JapaneseHolidays = require("japanese-holidays");
+
+  created() {
+    this.fetchData();
+  }
 
   get list(): trsS {
     return this.isHoliday
@@ -150,6 +158,16 @@ export default class TrainBoxS extends Vue {
       date.getDay() == 6 ||
       this.JapaneseHolidays.isHolidayAt(date)
     );
+  }
+
+  fetchData() {
+    axios
+      .get("http://api.kostl.info/vehicle.php", {
+        params: { mode: this.isHoliday ? "holiday" : "weekday", un: this.unyo }
+      })
+      .then(res => {
+        this.vehicle = res.data.vehicle;
+      });
   }
 
   readonly syList = {
