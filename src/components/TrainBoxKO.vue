@@ -182,7 +182,7 @@ export default class TrainBoxKO extends Vue {
         this.vehicle = res.data.vehicle;
       })
       .catch(e => {
-        this.vehicle = "´･ヮ･`";
+        this.vehicle = `[⚠${e.response.status}]`;
       });
   }
 
