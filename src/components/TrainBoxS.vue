@@ -12,7 +12,7 @@
       :style="{ background: style }"
     >
       <span>{{ ikList[train.ik] }}</span>
-      <span>{{ vehicle }}</span>
+      <!--<span>{{ vehicle }}</span>-->
       <span>{{ tr }}</span>
       <span>{{ unyo }}</span>
     </div>
@@ -38,12 +38,12 @@
     flex-direction: column;
     box-sizing: border-box;
     width: 60px;
-    height: 80px;
+    height: 70px;
     justify-content: center;
 
     font-size: 0.9rem;
     font-weight: 500;
-    line-height: 1.2;
+    line-height: 1.25;
     white-space: nowrap;
 
     border: 4px solid #fff;
@@ -102,7 +102,7 @@ export default class TrainBoxS extends Vue {
   JapaneseHolidays = require("japanese-holidays");
 
   created() {
-    this.fetchData();
+    // this.fetchData();
   }
 
   get list(): trsS {

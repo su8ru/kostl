@@ -62,7 +62,7 @@
 #home {
   .zaisen {
     display: grid;
-    grid-template-rows: repeat(117, minmax(80px, auto));
+    grid-template-rows: repeat(117, minmax(70px, auto));
     grid-template-columns: 8rem 1rem repeat(10, 60px) 1rem 11rem;
     grid-gap: 4px;
     margin: 0 auto;

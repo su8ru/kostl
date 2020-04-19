@@ -9,7 +9,6 @@
       :style="{ background: style }"
     >
       <span>{{ ik }}</span>
-      <span>{{ vehicle }}</span>
       <span>{{ train.tr }}ﾚ</span>
       <span>{{ unyo }}</span>
     </div>
@@ -34,12 +33,12 @@
     display: flex;
     box-sizing: border-box;
     width: 60px;
-    height: 80px;
+    height: 70px;
     justify-content: center;
 
     font-size: 0.9rem;
     font-weight: 500;
-    line-height: 1.2;
+    line-height: 1.25;
     white-space: nowrap;
 
     border: 4px solid #fff;
@@ -116,7 +115,7 @@ export default class TrainBoxKO extends Vue {
   readonly reverse = ["E027-1", "E027-2S", "E037-1", "E037-2", "D037", "S027"];
 
   created() {
-    this.fetchData();
+    // this.fetchData();
   }
 
   get ki(): boolean {
@@ -176,7 +175,11 @@ export default class TrainBoxKO extends Vue {
   fetchData() {
     axios
       .get("https://kostl.su8ru.app/vehicle.php", {
-        params: { mode: this.isHoliday ? "holiday" : "weekday", un: this.unyo }
+        params: {
+          mode: this.isHoliday ? "holiday" : "weekday",
+          un: this.unyo,
+          tr: this.train.tr
+        }
       })
       .then(res => {
         this.vehicle = res.data.vehicle;
