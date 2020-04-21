@@ -104,7 +104,7 @@
         position: relative;
         content: "競馬場線";
         bottom: -30px;
-        margin: 140px 0 0 0;
+        margin: 100% 0 0 0;
         height: 1.5rem;
         color: $color;
         font-weight: 500;
