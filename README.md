@@ -12,6 +12,7 @@
 ## Project setup
 ```
 yarn install
+yarn api:build
 ```
 
 ### Start development server
