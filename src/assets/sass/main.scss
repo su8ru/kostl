@@ -1,6 +1,5 @@
 @import "./variables";
 @import "./position";
-@import "~bootstrap";
 
 // Noto Sans JP [400, 500, 700, 900] from Google Fonts
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,500,700,900&display=swap&subset=japanese');
@@ -9,6 +8,8 @@ $theme-colors: ( // color for bootstrap
   "keio-pink": $keio-pink,
   "keio-blue": $keio-blue
 );
+
+@import "~bootstrap";
 
 * {
   font-family: "Noto Sans JP", sans-serif;

@@ -20,6 +20,11 @@
             </b-link>
           </li>
           <li>
+            <b-link :to="{ name: 'postUnyo' }">
+              運用投稿
+            </b-link>
+          </li>
+          <li>
             <b-link :to="{ name: 'policy' }">
               利用規約･プライバシーポリシー
             </b-link>

@@ -10,6 +10,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "home" */ "@/views/Home.vue")
   },
   {
+    path: "/postUnyo",
+    name: "postUnyo",
+    component: () =>
+      import(/* webpackChunkName: "postUnyo" */ "@/views/postUnyo.vue")
+  },
+  {
     path: "/policy",
     name: "policy",
     component: () =>
