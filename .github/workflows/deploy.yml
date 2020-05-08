@@ -18,6 +18,7 @@ jobs:
         run: |
           cat<<EOF > .env
           VUE_APP_ODPT_TOKEN=${{ secrets.ODPT_TOKEN }}
+          VUE_APP_API_BASE_URL=https://kostl.su8ru.app
           EOF
       - name: install
         run: |
