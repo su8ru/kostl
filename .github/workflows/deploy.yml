@@ -21,11 +21,11 @@ jobs:
           VUE_APP_API_BASE_URL=https://kostl.su8ru.app
           EOF
       - name: install
-        run: |
-          yarn install
+        run: yarn install
+      - name: build api
+        run: yarn api:build
       - name: build
-        run: |
-          yarn build
+        run: yarn build
       - name: deploy
         uses: peaceiris/actions-gh-pages@v2.3.1
         env:
