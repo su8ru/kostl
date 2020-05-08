@@ -11,12 +11,14 @@
         :key="secinfo.pos"
         :class="secinfo.pos"
         :secinfo="secinfo"
+        :unyo-list="unyoList"
       />
       <LineSectionKO
         v-for="secinfo in infoKO"
         :key="secinfo.pos"
         :class="secinfo.pos"
         :secinfo="secinfo"
+        :unyo-list="unyoList"
       />
       <div class="update update-s">
         <span>
@@ -62,7 +64,7 @@
 #home {
   .zaisen {
     display: grid;
-    grid-template-rows: repeat(117, minmax(70px, auto));
+    grid-template-rows: repeat(117, minmax(86px, auto));
     grid-template-columns: 8rem 1rem repeat(10, 60px) 1rem 11rem;
     grid-gap: 4px;
     margin: 0 auto;

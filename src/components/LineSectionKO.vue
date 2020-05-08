@@ -10,6 +10,7 @@
       :key="train.tr"
       :pos="secinfo.pos"
       :train="train"
+      :unyo-list="unyoList"
     />
   </div>
 </template>
@@ -28,6 +29,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { SecinfoKO } from "@/types";
 import TrainBoxKO from "@/components/TrainBoxKO.vue";
+import { UnyoList } from "@/apis/vehicles/@types";
 
 @Component({
   components: {
@@ -37,5 +39,7 @@ import TrainBoxKO from "@/components/TrainBoxKO.vue";
 export default class LineSectionKO extends Vue {
   @Prop({ required: true })
   secinfo!: SecinfoKO;
+  @Prop({ required: true })
+  unyoList!: UnyoList;
 }
 </script>

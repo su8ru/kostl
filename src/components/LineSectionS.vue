@@ -10,6 +10,7 @@
       :key="train.tr"
       :pos="secinfo.pos"
       :train="train"
+      :unyo-list="unyoList"
     />
   </div>
 </template>
@@ -30,6 +31,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { SecinfoS } from "@/types";
 import TrainBoxS from "@/components/TrainBoxS.vue";
+import { UnyoList } from "@/apis/vehicles/@types";
 
 @Component({
   components: {
@@ -39,6 +41,8 @@ import TrainBoxS from "@/components/TrainBoxS.vue";
 export default class LineSectionS extends Vue {
   @Prop({ required: true })
   secinfo!: SecinfoS;
+  @Prop({ required: true })
+  unyoList!: UnyoList;
 
   getFlexDirection(pos: string, ki: boolean) {
     if (pos.length > 3) {

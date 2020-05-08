@@ -12,9 +12,9 @@
       :style="{ background: style }"
     >
       <span>{{ ikList[train.ik] }}</span>
-      <!--<span>{{ vehicle }}</span>-->
       <span>{{ tr }}</span>
       <span>{{ unyo }}</span>
+      <span>{{ vehicle }}</span>
     </div>
     <div
       v-if="train.dl"
@@ -38,7 +38,7 @@
     flex-direction: column;
     box-sizing: border-box;
     width: 60px;
-    height: 70px;
+    height: 86px;
     justify-content: center;
 
     font-size: 0.9rem;
@@ -88,6 +88,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { TrainS, listS, trsS, trsKO } from "@/types";
 import axios from "axios";
+import { UnyoList } from "@/apis/vehicles/@types";
 
 @Component
 export default class TrainBoxS extends Vue {
@@ -95,15 +96,11 @@ export default class TrainBoxS extends Vue {
   train!: TrainS;
   @Prop({ required: true })
   pos!: string;
-
-  vehicle = "･･･";
+  @Prop({ required: true })
+  unyoList!: UnyoList;
 
   readonly odptListJson: listS = require("@/assets/odpt_list.json");
   JapaneseHolidays = require("japanese-holidays");
-
-  created() {
-    // this.fetchData();
-  }
 
   get list(): trsS {
     return this.isHoliday
@@ -160,17 +157,12 @@ export default class TrainBoxS extends Vue {
     );
   }
 
-  fetchData() {
-    axios
-      .get("https://kostl.su8ru.app/vehicle.php", {
-        params: { mode: this.isHoliday ? "holiday" : "weekday", un: this.unyo }
-      })
-      .then(res => {
-        this.vehicle = res.data.vehicle;
-      })
-      .catch(e => {
-        this.vehicle = `[⚠${e.response.status}]`;
-      });
+  get vehicle(): string {
+    if (this.unyo in this.unyoList) {
+      if (this.unyoList[this.unyo].length)
+        return this.unyoList[this.unyo].pop()!.vehicle;
+    }
+    return "-";
   }
 
   readonly syList = {

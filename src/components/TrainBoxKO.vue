@@ -11,6 +11,7 @@
       <span>{{ ik }}</span>
       <span>{{ train.tr }}ﾚ</span>
       <span>{{ unyo }}</span>
+      <span>{{ vehicle }}</span>
     </div>
     <div
       v-if="train.dl"
@@ -33,7 +34,7 @@
     display: flex;
     box-sizing: border-box;
     width: 60px;
-    height: 70px;
+    height: 86px;
     justify-content: center;
 
     font-size: 0.9rem;
@@ -45,6 +46,11 @@
 
     span {
       display: block;
+      max-width: 120%;
+      overflow-y: hidden;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 
@@ -99,6 +105,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { listKO, TrainKO, trsKO } from "@/types";
 import axios from "axios";
+import { UnyoList } from "@/apis/vehicles/@types";
 
 @Component
 export default class TrainBoxKO extends Vue {
@@ -106,17 +113,13 @@ export default class TrainBoxKO extends Vue {
   train!: TrainKO;
   @Prop({ required: true })
   pos!: string;
-
-  vehicle: any = "･･･";
+  @Prop({ required: true })
+  unyoList!: UnyoList;
 
   readonly trListJson: listKO = require("@/assets/tr_list.json");
   JapaneseHolidays = require("japanese-holidays");
 
   readonly reverse = ["E027-1", "E027-2S", "E037-1", "E037-2", "D037", "S027"];
-
-  created() {
-    // this.fetchData();
-  }
 
   get ki(): boolean {
     if (this.reverse.includes(this.pos)) return !this.train.ki;
@@ -172,21 +175,12 @@ export default class TrainBoxKO extends Vue {
     );
   }
 
-  fetchData() {
-    axios
-      .get("https://kostl.su8ru.app/vehicle.php", {
-        params: {
-          mode: this.isHoliday ? "holiday" : "weekday",
-          un: this.unyo,
-          tr: this.train.tr
-        }
-      })
-      .then(res => {
-        this.vehicle = res.data.vehicle;
-      })
-      .catch(e => {
-        this.vehicle = `[⚠${e.response.status}]`;
-      });
+  get vehicle(): string {
+    if (this.unyo in this.unyoList) {
+      if (this.unyoList[this.unyo].length)
+        return this.unyoList[this.unyo].pop()!.vehicle;
+    }
+    return "-";
   }
 
   readonly syList = {
