@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@aspida/axios@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@aspida/axios/-/axios-0.5.2.tgz#af1d749f85c35facd5ac9bfed39f1067abd2d758"
+  integrity sha512-9oW7RNXoiI9wIEskOIt+iuM+4WTCuQ/yk2Yzl3LHfyx2mmuS3sRhPXQUT1mORnpCtuYnxIJ7IHCjTl/X1kyo0g==
+  dependencies:
+    aspida "^0.15.2"
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.8.3.tgz#33e25903d7481181534e12ec0a25f16b6fcf419e"

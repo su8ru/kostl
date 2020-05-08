@@ -10,6 +10,7 @@
     "api:build": "aspida --build"
   },
   "dependencies": {
+    "@aspida/axios": "^0.5.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
     "@fortawesome/free-regular-svg-icons": "^5.12.1",
