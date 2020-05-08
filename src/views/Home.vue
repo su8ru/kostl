@@ -162,6 +162,9 @@ import { SecinfoKO, SecinfoS, TrainKO, TrainS } from "@/types";
 import LineSectionKO from "@/components/LineSectionKO.vue";
 import LineSectionS from "@/components/LineSectionS.vue";
 import moment from "moment";
+import api from "@/apis/$api";
+import aspida from "@aspida/axios";
+import { UnyoList } from "@/apis/vehicles/@types";
 
 @Component({
   components: {
@@ -175,6 +178,7 @@ export default class Home extends Vue {
   dateKO: Dt[] = [];
   infoS: SecinfoS[] = [];
   dateS = moment();
+  unyoList: UnyoList = {};
   error = null;
   intervalId: any = "";
 
@@ -300,6 +304,14 @@ export default class Home extends Vue {
     }
 
     this.infoS.splice(0, this.infoS.length, ...resultS);
+
+    // unyo info
+
+    api(aspida())
+      .vehicles.$get()
+      .then(data => {
+        this.unyoList = Object.assign({}, this.unyoList, data);
+      });
 
     this.loading = false;
   }
