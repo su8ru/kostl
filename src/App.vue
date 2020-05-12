@@ -9,8 +9,7 @@
     </main>
     <footer>
       <small>
-        &copy; su8ru and collaborators 2020 ・ data: Keio Corporation, ODPT,
-        loo-ool
+        &copy; su8ru and collaborators 2020 ・ data: Keio Corporation, ODPT
       </small>
       <nav>
         <ul>
