@@ -47,34 +47,43 @@
   background-color: #eee;
 
   header {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
     background-color: $keio-blue;
     color: white;
-    padding: 0.25rem 0 1rem 0;
+    padding: 0.5rem 0 0.5rem 0;
     margin: 0 auto;
-    text-align: center;
-    border-top: 1.5rem solid $keio-pink;
-    height: 128px;
+    width: 100%;
+    height: 50px;
     position: fixed;
     z-index: 1000;
-    width: 100%;
     top: 0;
+    h1 {
+      font-size: 1.5rem;
+      margin-right: 1rem;
+    }
+    h1,
+    span {
+      display: block;
+    }
   }
 
   main {
     margin: 0 auto;
     width: 988px;
     background: #fff;
-    margin-top: 128px;
-    margin-bottom: 100px;
+    margin-top: 50px;
+    margin-bottom: 80px;
   }
 
   footer {
     border-top: 5px solid $keio-blue;
-    padding: 0.5rem 0;
+    padding: 0.25rem 0;
     line-height: 2;
     background-color: #fff;
     width: 100%;
-    height: 100px;
+    height: 80px;
 
     position: fixed;
     bottom: 0;
@@ -88,7 +97,7 @@
       font-size: 1rem;
     }
     nav > ul {
-      margin: 0.25rem 0;
+      margin: 0;
       padding: 0;
       li {
         list-style-type: none;
