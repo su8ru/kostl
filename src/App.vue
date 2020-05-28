@@ -8,14 +8,11 @@
       <router-view></router-view>
     </main>
     <footer>
-      <small>
-        &copy; su8ru and collaborators 2020 ・ data: Keio Corporation, ODPT
-      </small>
       <nav>
         <ul>
           <li>
             <b-link :to="{ name: 'home' }">
-              トップ･在線
+              在線
             </b-link>
           </li>
           <li>
@@ -25,7 +22,7 @@
           </li>
           <li>
             <b-link :to="{ name: 'policy' }">
-              利用規約･プライバシーポリシー
+              利用規約
             </b-link>
           </li>
           <li>
@@ -36,6 +33,9 @@
           </li>
         </ul>
       </nav>
+      <small>
+        &copy; su8ru and collaborators 2020
+      </small>
     </footer>
   </div>
 </template>
@@ -71,7 +71,7 @@
 
   main {
     margin: 0 auto;
-    width: 988px;
+    width: min-content;
     background: #fff;
     margin-top: 50px;
     margin-bottom: 80px;

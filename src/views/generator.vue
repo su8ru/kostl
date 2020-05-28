@@ -73,7 +73,8 @@
 
 <style lang="scss" scoped>
 #generator {
-  width: 800px;
+  width: 100vw;
+  max-width: 800px;
   margin: 0 auto;
   padding: 1rem;
 }

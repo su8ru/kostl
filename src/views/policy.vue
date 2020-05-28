@@ -139,6 +139,8 @@
 
 <style lang="scss" scoped>
 #policy {
+  width: 100vw;
+  max-width: 800px;
   padding: 1rem;
   li {
     margin-bottom: 0.3rem;

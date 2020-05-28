@@ -2,7 +2,7 @@
   <div id="post-unyo">
     <h1>運用投稿</h1>
     <b-form class="mb-5">
-      <div :style="{ display: 'grid', gridTemplateColumns: '70% 30%' }">
+      <div :style="{ display: 'grid', gridTemplateColumns: '1fr max-content' }">
         <b-form-group
           description="運用番号 編成番号 の順に改行区切りで入力してください。No. は省略が可能です。"
         >
@@ -64,8 +64,8 @@
 
 <style lang="scss" scoped>
 #post-unyo {
-  width: 800px;
-  margin: 0 auto;
+  width: 100vw;
+  max-width: 800px;
   padding: 1rem;
 }
 tbody tr:not(:last-child) {
