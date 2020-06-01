@@ -221,6 +221,8 @@ export default class PostUnyo extends Vue {
     "53K",
     "55K",
     "57K",
+    "5aK",
+    "5bK",
     "61K",
     "63K",
     "65K",
