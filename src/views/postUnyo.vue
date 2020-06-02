@@ -148,7 +148,7 @@ export default class PostUnyo extends Vue {
   get isDraftValid() {
     if (!this.draft) return "none";
 
-    const lineRegExp = /(No.)?\d{1,2}[KT]?\s\d{3,4}F(\+\d{3,4}F)?/;
+    const lineRegExp = /(No.)?(\d{1,2}|5\S)[KT]?\s\d{3,4}F(\+\d{3,4}F)?/;
     const lines = this.draft.split("\n");
     for (const line of lines) {
       if (!lineRegExp.test(line)) return false;
