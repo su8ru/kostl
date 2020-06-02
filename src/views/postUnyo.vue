@@ -1,6 +1,6 @@
 <template>
   <div id="post-unyo">
-    <h1>運用投稿</h1>
+    <h2>運用投稿</h2>
     <b-form class="mb-5">
       <div :style="{ display: 'grid', gridTemplateColumns: '1fr max-content' }">
         <b-form-group
