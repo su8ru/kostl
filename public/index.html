@@ -2,6 +2,21 @@
 <html lang="ja">
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/websaite#">
   <meta charset="utf-8">
+  <script>
+    // RewriteRule on GitHub Pages
+    (function (l) {
+      if (l.search) {
+        var q = {};
+        l.search.slice(1).split('&').forEach(function (v) {
+          var a = v.split('=');
+          q[a[0]] = a[1];
+        });
+        if (q.p !== undefined) {
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + (q.p || ''));
+        }
+      }
+    }(window.location))
+  </script>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="favicon.ico">
