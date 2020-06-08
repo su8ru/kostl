@@ -66,8 +66,11 @@
 
   .keio-liner {
     position: relative;
+    span {
+      z-index: 10;
+    }
   }
-  .keio-liner::after {
+  .keio-liner::before {
     content: "";
     position: absolute;
     top: 0;
