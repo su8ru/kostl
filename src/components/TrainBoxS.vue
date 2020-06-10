@@ -88,7 +88,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { TrainS, listS, trsS, trsKO } from "@/types";
 import axios from "axios";
-import { UnyoList } from "@/apis/vehicles/@types";
+import { UnyoList } from "@/apis/kostl/vehicles/@types";
 
 @Component
 export default class TrainBoxS extends Vue {

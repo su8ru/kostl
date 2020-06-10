@@ -76,9 +76,9 @@ tbody tr:not(:last-child) {
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import api from "@/apis/$api";
+import kostl from "@/apis/kostl/$api";
 import aspida from "@aspida/axios";
-import { UnyoList } from "@/apis/vehicles/@types";
+import { UnyoList } from "@/apis/kostl/vehicles/@types";
 import moment from "moment";
 
 @Component
@@ -104,7 +104,7 @@ export default class PostUnyo extends Vue {
   }
 
   fetchData() {
-    api(aspida())
+    kostl(aspida())
       .vehicles.$get()
       .then(data => {
         this.unyoList = Object.assign({}, this.unyoList, data);
@@ -128,7 +128,7 @@ export default class PostUnyo extends Vue {
   }
 
   postData(unyo: string, vehicle: string) {
-    api(aspida()).vehicles.$post({
+    kostl(aspida()).vehicles.$post({
       data: {
         unyo: unyo,
         vehicle: vehicle

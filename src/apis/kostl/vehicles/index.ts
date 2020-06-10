@@ -1,4 +1,4 @@
-import { UnyoPost, UnyoList } from "@/apis/vehicles/@types";
+import { UnyoPost, UnyoList } from "@/apis/kostl/vehicles/@types";
 
 export interface Methods {
   get: {

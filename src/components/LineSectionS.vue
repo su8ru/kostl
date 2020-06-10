@@ -31,7 +31,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { SecinfoS } from "@/types";
 import TrainBoxS from "@/components/TrainBoxS.vue";
-import { UnyoList } from "@/apis/vehicles/@types";
+import { UnyoList } from "@/apis/kostl/vehicles/@types";
 
 @Component({
   components: {

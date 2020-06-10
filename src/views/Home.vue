@@ -164,9 +164,9 @@ import { SecinfoKO, SecinfoS, TrainKO, TrainS } from "@/types";
 import LineSectionKO from "@/components/LineSectionKO.vue";
 import LineSectionS from "@/components/LineSectionS.vue";
 import moment from "moment";
-import api from "@/apis/$api";
+import kostl from "@/apis/kostl/$api";
 import aspida from "@aspida/axios";
-import { UnyoList } from "@/apis/vehicles/@types";
+import { UnyoList } from "@/apis/kostl/vehicles/@types";
 
 @Component({
   components: {
@@ -312,7 +312,7 @@ export default class Home extends Vue {
 
     // unyo info
 
-    api(aspida())
+    kostl(aspida())
       .vehicles.$get()
       .then(data => {
         this.unyoList = Object.assign({}, this.unyoList, data);
