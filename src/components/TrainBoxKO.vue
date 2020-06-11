@@ -124,6 +124,14 @@ export default class TrainBoxKO extends Vue {
 
   readonly reverse = ["E027-1", "E027-2S", "E037-1", "E037-2", "D037", "S027"];
 
+  vehicle: string = "-";
+  mounted() {
+    this.$nextTick(this.updateVehicle);
+  }
+  beforeUpdate() {
+    this.updateVehicle();
+  }
+
   get ki(): boolean {
     if (this.reverse.includes(this.pos)) return !this.train.ki;
     return this.train.ki;
@@ -178,10 +186,17 @@ export default class TrainBoxKO extends Vue {
     );
   }
 
-  get vehicle(): string {
+  updateVehicle() {
+    if (this.latestVehicle !== this.vehicle) {
+      this.vehicle = this.latestVehicle;
+    }
+  }
+
+  get latestVehicle(): string {
     if (this.unyo in this.unyoList) {
-      if (this.unyoList[this.unyo].length)
+      if (this.unyoList[this.unyo].length) {
         return this.unyoList[this.unyo].pop()!.vehicle;
+      }
     }
     return "-";
   }

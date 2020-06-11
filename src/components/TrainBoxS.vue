@@ -102,6 +102,14 @@ export default class TrainBoxS extends Vue {
   readonly odptListJson: listS = require("@/assets/odpt_list.json");
   JapaneseHolidays = require("japanese-holidays");
 
+  vehicle: string = "-";
+  mounted() {
+    this.$nextTick(this.updateVehicle);
+  }
+  beforeUpdate() {
+    this.updateVehicle();
+  }
+
   get list(): trsS {
     return this.isHoliday
       ? this.odptListJson.holiday
@@ -157,10 +165,17 @@ export default class TrainBoxS extends Vue {
     );
   }
 
-  get vehicle(): string {
+  updateVehicle() {
+    if (this.latestVehicle !== this.vehicle) {
+      this.vehicle = this.latestVehicle;
+    }
+  }
+
+  get latestVehicle(): string {
     if (this.unyo in this.unyoList) {
-      if (this.unyoList[this.unyo].length)
+      if (this.unyoList[this.unyo].length) {
         return this.unyoList[this.unyo].pop()!.vehicle;
+      }
     }
     return "-";
   }
