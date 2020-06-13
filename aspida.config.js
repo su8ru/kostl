@@ -1,6 +1,10 @@
 module.exports = [
   {
     input: "src/apis/kostl",
-    baseURL: process.env.VUE_APP_API_BASE_URL
+    baseURL: "https://kostl.su8ru.app"
+  },
+  {
+    input: "src/apis/keio",
+    baseURL: "https://i.opentidkeio.jp/data/"
   }
 ];

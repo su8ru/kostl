@@ -152,7 +152,7 @@
 /* eslint-disable no-console */
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
-import { body, Sn, Dt } from "@/traffic_info.ts";
+import { body, Sn, Dt } from "@/apis/keio/@types";
 import {
   Odpt,
   OdptDestinationStation,
@@ -165,6 +165,7 @@ import LineSectionKO from "@/components/LineSectionKO.vue";
 import LineSectionS from "@/components/LineSectionS.vue";
 import moment from "moment";
 import kostl from "@/apis/kostl/$api";
+import keio from "@/apis/keio/$api";
 import aspida from "@aspida/axios";
 import { UnyoList } from "@/apis/kostl/vehicles/@types";
 
@@ -210,62 +211,58 @@ export default class Home extends Vue {
     this.loading = true;
 
     // Keio
-    const resRawKO = await axios.get<body>(
-      "https://i.opentidkeio.jp/data/traffic_info.json"
-    );
+    keio(aspida())
+      .traffic_info_json.$get()
+      .then(res => {
+        const resKO = new Map<string, TrainKO[]>();
+        const resultKO: SecinfoKO[] = [];
+        this.dateKO = res.up[0].dt;
 
-    if (!resRawKO.data) return;
-    const responseKO: body = resRawKO.data;
+        if ("TS" in res) {
+          for (const station of res.TS) {
+            if (station.sn !== Sn.I) {
+              for (const train of station.ps) {
+                const pos = `${station.id}-${train.bs}`;
+                if (!resKO.has(pos)) resKO.set(pos, []);
+                resKO.get(pos)!.push({
+                  tr: train.tr.trim(),
+                  sy: train.sy,
+                  ki: !!+train.ki,
+                  dl: +train.dl,
+                  ik: train.ik_tr
+                });
+              }
+            }
+          }
 
-    const resKO = new Map<string, TrainKO[]>();
-    const resultKO: SecinfoKO[] = [];
-
-    this.dateKO = responseKO.up[0].dt;
-
-    if ("TS" in responseKO) {
-      for (const station of responseKO.TS) {
-        if (station.sn !== Sn.I) {
-          for (const train of station.ps) {
-            const pos = `${station.id}-${train.bs}`;
-            if (!resKO.has(pos)) resKO.set(pos, []);
-            resKO.get(pos)!.push({
-              tr: train.tr.trim(),
-              sy: train.sy,
-              ki: !!+train.ki,
-              dl: +train.dl,
-              ik: train.ik_tr
+          for (const key of resKO.keys()) {
+            resultKO.push({
+              pos: key,
+              trains: resKO.get(key)!
             });
           }
         }
-      }
 
-      for (const key of resKO.keys()) {
-        resultKO.push({
-          pos: key,
-          trains: resKO.get(key)!
-        });
-      }
-    }
-
-    if ("TB" in responseKO) {
-      for (const station of responseKO.TB) {
-        if (station.sn !== Sn.I && typeof station !== "undefined") {
-          const pos = station.id;
-          resultKO.push({
-            pos: pos,
-            trains: station.ps.map(train => ({
-              tr: train.tr.trim(),
-              sy: train.sy,
-              ki: !!+train.ki,
-              dl: +train.dl,
-              ik: train.ik_tr
-            }))
-          });
+        if ("TB" in res) {
+          for (const station of res.TB) {
+            if (station.sn !== Sn.I && typeof station !== "undefined") {
+              const pos = station.id;
+              resultKO.push({
+                pos: pos,
+                trains: station.ps.map(train => ({
+                  tr: train.tr.trim(),
+                  sy: train.sy,
+                  ki: !!+train.ki,
+                  dl: +train.dl,
+                  ik: train.ik_tr
+                }))
+              });
+            }
+          }
         }
-      }
-    }
 
-    this.infoKO.splice(0, this.infoKO.length, ...resultKO);
+        this.infoKO.splice(0, this.infoKO.length, ...resultKO);
+      });
 
     // Shinjuku
     const resRawS = await axios.get<Odpt[]>(
