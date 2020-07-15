@@ -6,5 +6,13 @@ module.exports = [
   {
     input: "src/apis/keio",
     baseURL: "https://i.opentidkeio.jp/data/"
+  },
+  {
+    input: "src/apis/keio",
+    baseURL: "https://i.opentidkeio.jp/data/"
+  },
+  {
+    input: "src/apis/odpt",
+    baseURL: "https://api.odpt.org/api/"
   }
 ];

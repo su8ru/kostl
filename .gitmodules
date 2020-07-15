@@ -1,0 +1,3 @@
+[submodule "src/apis/odpt"]
+	path = src/apis/odpt
+	url = https://github.com/su8ru/aspida-odpt.git
