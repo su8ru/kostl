@@ -166,6 +166,7 @@ import LineSectionS from "@/components/LineSectionS.vue";
 import moment from "moment";
 import kostl from "@/apis/kostl/$api";
 import keio from "@/apis/keio/$api";
+import odpt from "@/apis/odpt/$api";
 import aspida from "@aspida/axios";
 import { UnyoList } from "@/apis/kostl/vehicles/@types";
 
@@ -264,48 +265,53 @@ export default class Home extends Vue {
         this.infoKO.splice(0, this.infoKO.length, ...resultKO);
       });
 
-    // Shinjuku
-    const resRawS = await axios.get<Odpt[]>(
-      "https://api.odpt.org/api/v4/odpt:Train?odpt:railway=odpt.Railway:Toei.Shinjuku&acl:consumerKey=" +
-        process.env.VUE_APP_ODPT_TOKEN
-    );
+    // Odpt
+    odpt(aspida())
+      .v4.odpt_3ATrain.$get({
+        query: {
+          "odpt:railway": "odpt.Railway:Toei.Shinjuku",
+          "acl:consumerKey": process.env.VUE_APP_ODPT_TOKEN
+        }
+      })
+      .then(res => {
+        const resS = new Map<string, TrainS[]>();
+        const resultS: SecinfoS[] = [];
 
-    if (!resRawS.data) return;
-    const responseS: Odpt[] = resRawS.data;
-    const resS = new Map<string, TrainS[]>();
-    const resultS: SecinfoS[] = [];
-    for (const train of responseS) {
-      this.dateS = moment.max(moment(this.dateS), moment(train["dc:date"]));
-      const pos =
-        (train["odpt:railDirection"] === OdptDirection.E ? "E" : "W") +
-        (this.s_stations.indexOf(train["odpt:fromStation"].split(".").pop()!) +
-          1) +
-        (train["odpt:toStation"]
-          ? "-" +
+        for (const train of res) {
+          this.dateS = moment.max(moment(this.dateS), moment(train["dc:date"]));
+          const pos =
+            (train["odpt:railDirection"] === OdptDirection.E ? "E" : "W") +
             (this.s_stations.indexOf(
-              train["odpt:toStation"].split(".").pop()!
+              train["odpt:fromStation"]!.split(".").pop()!
             ) +
-              1)
-          : "");
-      if (!resS.has(pos)) resS.set(pos, []);
-      resS.get(pos)!.push({
-        tr: train["odpt:trainNumber"].slice(4),
-        sy: train["odpt:trainType"].split(".").pop()!,
-        ki: train["odpt:railDirection"] === OdptDirection.W,
-        dl: train["odpt:delay"],
-        ik: train["odpt:destinationStation"][0].split(".").pop()!,
-        op: train["odpt:operator"].split(".").pop()!
-      });
-    }
+              1) +
+            (train["odpt:toStation"]
+              ? "-" +
+                (this.s_stations.indexOf(
+                  train["odpt:toStation"].split(".").pop()!
+                ) +
+                  1)
+              : "");
+          if (!resS.has(pos)) resS.set(pos, []);
+          resS.get(pos)!.push({
+            tr: train["odpt:trainNumber"].slice(4),
+            sy: train["odpt:trainType"]!.split(".").pop()!,
+            ki: train["odpt:railDirection"] === OdptDirection.W,
+            dl: train["odpt:delay"]!,
+            ik: train["odpt:destinationStation"]![0].split(".").pop()!,
+            op: train["odpt:operator"].split(".").pop()!
+          });
+        }
 
-    for (const key of resS.keys()) {
-      resultS.push({
-        pos: key,
-        trains: resS.get(key)!
-      });
-    }
+        for (const key of resS.keys()) {
+          resultS.push({
+            pos: key,
+            trains: resS.get(key)!
+          });
+        }
 
-    this.infoS.splice(0, this.infoS.length, ...resultS);
+        this.infoS.splice(0, this.infoS.length, ...resultS);
+      });
 
     // unyo info
 
