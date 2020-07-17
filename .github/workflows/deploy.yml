@@ -20,13 +20,17 @@ jobs:
           VUE_APP_ODPT_TOKEN=${{ secrets.ODPT_TOKEN }}
           VUE_APP_API_BASE_URL=https://kostl.su8ru.app
           EOF
-      - name: Cache yarn packages
+      - name: cache yarn packages
         uses: actions/cache@v1
         with:
           path: ~/.cache/yarn
           key: ${{ runner.os }}-yarn-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
           restore-keys:
             ${{ runner.os }}-yarn-
+      - name: sync submodule
+        run: |
+          git submodule sync --recursive
+          git submodule update
       - name: install
         run: yarn install
       - name: build api
