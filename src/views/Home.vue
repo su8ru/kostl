@@ -217,8 +217,11 @@ export default class Home extends Vue {
       .then(res => {
         const resKO = new Map<string, TrainKO[]>();
         const resultKO: SecinfoKO[] = [];
+
+        // Record Date and Time
         this.dateKO = res.up[0].dt;
 
+        // Train Stopping
         if ("TS" in res) {
           for (const station of res.TS) {
             if (station.sn !== Sn.I) {
@@ -235,7 +238,6 @@ export default class Home extends Vue {
               }
             }
           }
-
           for (const key of resKO.keys()) {
             resultKO.push({
               pos: key,
@@ -244,6 +246,7 @@ export default class Home extends Vue {
           }
         }
 
+        // Train Bounding
         if ("TB" in res) {
           for (const station of res.TB) {
             if (station.sn !== Sn.I && typeof station !== "undefined") {
@@ -262,6 +265,7 @@ export default class Home extends Vue {
           }
         }
 
+        // Splice (Vue Constraints)
         this.infoKO.splice(0, this.infoKO.length, ...resultKO);
       });
 
@@ -278,7 +282,10 @@ export default class Home extends Vue {
         const resultS: SecinfoS[] = [];
 
         for (const train of res) {
+          // Record Date and Time
           this.dateS = moment.max(moment(this.dateS), moment(train["dc:date"]));
+
+          // Generate Position Keys
           const pos =
             (train["odpt:railDirection"] === OdptDirection.E ? "E" : "W") +
             (this.s_stations.indexOf(
@@ -292,6 +299,8 @@ export default class Home extends Vue {
                 ) +
                   1)
               : "");
+
+          // Push to Object
           if (!resS.has(pos)) resS.set(pos, []);
           resS.get(pos)!.push({
             tr: train["odpt:trainNumber"].slice(4),
@@ -303,6 +312,7 @@ export default class Home extends Vue {
           });
         }
 
+        // Convert to Array
         for (const key of resS.keys()) {
           resultS.push({
             pos: key,
@@ -310,11 +320,11 @@ export default class Home extends Vue {
           });
         }
 
+        // Splice (Vue Constraints)
         this.infoS.splice(0, this.infoS.length, ...resultS);
       });
 
-    // unyo info
-
+    // Kostl (Unyo)
     kostl(aspida())
       .vehicles.$get()
       .then(data => {
