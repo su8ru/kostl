@@ -41,24 +41,41 @@
       <font-awesome-icon icon="redo-alt" />
       更新
     </b-button>
-    <b-table-simple hover small stacked>
-      <b-thead>
-        <b-tr>
-          <b-th>運用番号</b-th>
-          <b-th>編成番号</b-th>
-          <b-th>投稿日時</b-th>
-        </b-tr>
-      </b-thead>
-      <b-tbody v-for="unyo in isHoliday ? unyoOnly_H : unyoOnly_W" :key="unyo">
-        <b-tr v-for="post in getPosts(unyo)" :key="post.created_at">
-          <b-th>{{ unyo }}</b-th>
-          <b-td>{{ post.vehicle }}</b-td>
-          <b-td>
-            {{ post.timestamp ? getStringTime(post.timestamp) : "-" }}
-          </b-td>
-        </b-tr>
-      </b-tbody>
-    </b-table-simple>
+    <b-tabs>
+      <b-tab title="運用一覧">
+        <b-table-simple hover small stacked>
+          <b-thead>
+            <b-tr>
+              <b-th>運用番号</b-th>
+              <b-th>編成番号</b-th>
+              <b-th>投稿日時</b-th>
+            </b-tr>
+          </b-thead>
+          <b-tbody
+            v-for="unyo in isHoliday ? unyoOnly_H : unyoOnly_W"
+            :key="unyo"
+          >
+            <b-tr v-for="post in getPosts(unyo)" :key="post.created_at">
+              <b-th>{{ unyo }}</b-th>
+              <b-td>{{ post.vehicle }}</b-td>
+              <b-td>
+                {{ post.timestamp ? getStringTime(post.timestamp) : "-" }}
+              </b-td>
+            </b-tr>
+          </b-tbody>
+        </b-table-simple>
+      </b-tab>
+      <b-tab title="投稿一覧">
+        <b-table
+          hover
+          small
+          show-empty
+          :items="postList"
+          :fields="tableFields"
+          :sort-desc="true"
+        ></b-table>
+      </b-tab>
+    </b-tabs>
   </div>
 </template>
 
@@ -78,12 +95,14 @@ tbody tr:not(:last-child) {
 import { Component, Vue } from "vue-property-decorator";
 import kostl from "@/apis/kostl/$api";
 import aspida from "@aspida/axios";
-import { UnyoList } from "@/apis/kostl/vehicles/@types";
+import { UnyoList, UnyoPost } from "@/apis/kostl/vehicles/@types";
 import moment from "moment";
+import { BvTableFieldArray } from "bootstrap-vue";
 
 @Component
 export default class PostUnyo extends Vue {
   unyoList: UnyoList = {};
+  postList: Omit<UnyoPost, "id">[] = [];
   readonly moment = moment;
 
   draft = "";
@@ -99,6 +118,17 @@ export default class PostUnyo extends Vue {
     );
   }
 
+  readonly tableFields: BvTableFieldArray = [
+    { key: "unyo", label: "運用番号", sortable: true },
+    { key: "vehicle", label: "編成番号", sortable: true },
+    {
+      key: "timestamp",
+      label: "投稿日時",
+      formatter: this.getStringTime,
+      sortable: true
+    }
+  ];
+
   mounted() {
     this.fetchData();
   }
@@ -108,6 +138,9 @@ export default class PostUnyo extends Vue {
       .vehicles.$get()
       .then(data => {
         this.unyoList = Object.assign({}, this.unyoList, data);
+        Object.entries(this.unyoList).forEach(([key, value]) => {
+          this.postList.push(...value.map(val => ({ unyo: key, ...val })));
+        });
       });
   }
 
