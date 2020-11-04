@@ -1,6 +1,27 @@
 <template>
   <div id="home">
-    <b-alert variant="danger" class="error" v-if="error">{{ error }}</b-alert>
+    <b-alert variant="danger" class="error" :show="error">{{ error }}</b-alert>
+    <b-alert :show="true" variant="info" class="m-0">
+      <p>
+        2020.10.30 ダイヤ修正 はまだ対応していません。ごめんなさい。
+      </p>
+      <h5>都営新宿線</h5>
+      <p>
+        種別・行き先は正確です。
+      </p>
+      <p>
+        列車番号が
+        <code>[0000]</code>
+        のように出ていますが、これは内部番号です。実際の列車番号とは異なりますので注意してください。
+      </p>
+      <h5>京王線</h5>
+      <p>
+        種別・行き先・列車番号ともに概ね正確です。一部の化けのみ間違っているかもしれません。
+      </p>
+      <p>
+        運用は参考として旧番号を表示しています。
+      </p>
+    </b-alert>
     <div class="zaisen">
       <div id="keio-section"></div>
       <div id="odpt-section"></div>
