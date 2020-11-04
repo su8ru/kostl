@@ -10,7 +10,7 @@
     >
       <span>{{ ik }}</span>
       <span>{{ train.tr }}ﾚ</span>
-      <span>{{ unyo }}</span>
+      <span class="old">旧 {{ unyo }}</span>
       <span>{{ vehicle }}</span>
     </div>
     <div
@@ -51,6 +51,10 @@
       &::-webkit-scrollbar {
         display: none;
       }
+    }
+    .old {
+      font-size: 0.5rem;
+      line-height: 1.25rem;
     }
   }
 
@@ -164,8 +168,8 @@ export default class TrainBoxKO extends Vue {
           let LColorNum: number = this.list[this.train.tr].sy! % 10;
           let leftColor: string = this.syList[LColorNum];
           if (this.ki) [leftColor, rightColor] = [rightColor, leftColor];
-          let leftPer = "60%";
-          let rightPer = "63%";
+          let leftPer = "57%";
+          let rightPer = "60%";
           let tilt = this.ki ? "82deg" : "98deg";
           return `linear-gradient(${tilt}, ${leftColor} 0%, ${leftColor} ${leftPer}, ${rightColor} ${rightPer}, ${rightColor} 100%)`;
         } else {

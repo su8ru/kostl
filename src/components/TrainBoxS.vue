@@ -111,9 +111,10 @@ export default class TrainBoxS extends Vue {
   }
 
   get list(): trsS {
-    return this.isHoliday
-      ? this.odptListJson.holiday
-      : this.odptListJson.weekday;
+    return {};
+    // return this.isHoliday
+    //   ? this.odptListJson.holiday
+    //   : this.odptListJson.weekday;
   }
 
   get tr() {
