@@ -43,3 +43,30 @@ section {
 .alert {
   margin: 1rem;
 }
+
+code {
+  padding: .15em .25em .1em .25em;
+  margin: 0 .25em 0 .25em;
+  border-radius: 0.2rem;
+  border: 1px solid #aaa;
+  background-color: #f8f9fa;
+  color: $keio-pink;
+}
+pre {
+  width: 100%;
+  color: black;
+  padding: 1rem;
+  margin: 1rem 0 1rem 0;
+  font-size: 0.9rem;
+  background-color: #f8f9fa;
+  border-radius: 0.2rem;
+  &:before,
+  &:after {
+    content: none;
+  }
+  code {
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+}

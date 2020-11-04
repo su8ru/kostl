@@ -19,13 +19,13 @@
         </b-form-group>
         <article class="p-3">
           <h5>Sample</h5>
-          <code>
-            12 8710F<br />
-            82 8702F<br />
-            14 7805F+7705F<br />
-            25T 600F<br />
-            51K 5736F<br />
-          </code>
+          <pre>
+12 8710F
+82 8702F
+14 7805F+7705F
+25T 600F
+51K 5736F</pre
+          >
         </article>
       </div>
       <b-button
