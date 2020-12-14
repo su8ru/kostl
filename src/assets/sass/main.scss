@@ -6,7 +6,8 @@
 
 $theme-colors: ( // color for bootstrap
   "keio-pink": $keio-pink,
-  "keio-blue": $keio-blue
+  "keio-blue": $keio-blue,
+  "shinjuku-leaf": $shinjuku-leaf
 );
 
 @import "~bootstrap";
@@ -29,6 +30,13 @@ h3 {
   font-weight: 500;
   padding: 0;
   margin-bottom: .8rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 0;
+  margin-bottom: .5rem;
 }
 
 p {
