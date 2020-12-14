@@ -349,7 +349,7 @@ export default class Home extends Vue {
           // Push to Object
           if (!resS.has(pos)) resS.set(pos, []);
           resS.get(pos)!.push({
-            tr: train["odpt:trainNumber"].slice(4),
+            tr: train["odpt:trainNumber"],
             sy: train["odpt:trainType"]!.split(".").pop()!,
             ki: train["odpt:railDirection"] === OdptDirection.W,
             dl: train["odpt:delay"]!,
