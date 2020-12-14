@@ -2,7 +2,10 @@
 @import "./position";
 
 // Noto Sans JP [400, 500, 700, 900] from Google Fonts
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,500,700,900&display=swap&subset=japanese');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+
+// Inter [400, 500, 700, 900] from Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
 $theme-colors: ( // color for bootstrap
   "keio-pink": $keio-pink,
@@ -13,7 +16,7 @@ $theme-colors: ( // color for bootstrap
 @import "~bootstrap";
 
 * {
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: "Inter", "Noto Sans JP", sans-serif;
 }
 
 
