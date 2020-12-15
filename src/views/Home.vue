@@ -2,25 +2,33 @@
   <div id="home">
     <b-alert variant="danger" class="error" :show="error">{{ error }}</b-alert>
     <b-alert :show="true" variant="info" class="m-0">
+      <h3>2020.10.30 ダイヤ修正 について</h3>
       <p>
-        2020.10.30 ダイヤ修正 はまだ対応していません。ごめんなさい。
+        種別変更（所謂「化け」）、および京王線内の運用番号を除いて対応しています。
       </p>
-      <h5>都営新宿線</h5>
-      <p>
-        種別・行き先は正確です。
-      </p>
-      <p>
-        列車番号が
-        <code>[0000]</code>
-        のように出ていますが、これは内部番号です。実際の列車番号とは異なりますので注意してください。
-      </p>
-      <h5>京王線</h5>
-      <p>
-        種別・行き先・列車番号ともに概ね正確です。一部の化けのみ間違っているかもしれません。
-      </p>
-      <p>
-        運用は参考として旧番号を表示しています。
-      </p>
+      <section>
+        <h4 class="d-inline-block mr-3">
+          <b-badge pill variant="shinjuku-leaf" class="text-white">S</b-badge>
+          都営新宿線
+        </h4>
+        <b-badge variant="secondary">2020.12.16 更新</b-badge>
+        <p>
+          種別・行き先・列車番号・運用番号ともにすべて正確です。ただし、京王線内の種別には追従できていません。<br />
+        </p>
+      </section>
+      <section>
+        <h4 class="d-inline-block mr-3">
+          <b-badge pill variant="keio-pink">KO</b-badge> 京王線
+        </h4>
+        <b-badge variant="secondary">2020.11.04 更新</b-badge>
+        <p>
+          種別・行き先・列車番号ともに概ね正確です。
+        </p>
+        <p>
+          化けについては旧データをそのまま表示しているため、間違いがあることも考えられます。<br />
+          運用は参考として旧番号を表示しています。
+        </p>
+      </section>
     </b-alert>
     <div class="zaisen">
       <div id="keio-section"></div>
@@ -349,7 +357,7 @@ export default class Home extends Vue {
           // Push to Object
           if (!resS.has(pos)) resS.set(pos, []);
           resS.get(pos)!.push({
-            tr: train["odpt:trainNumber"].slice(4),
+            tr: train["odpt:trainNumber"],
             sy: train["odpt:trainType"]!.split(".").pop()!,
             ki: train["odpt:railDirection"] === OdptDirection.W,
             dl: train["odpt:delay"]!,

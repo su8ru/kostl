@@ -12,7 +12,7 @@
       :style="{ background: style }"
     >
       <span>{{ ikList[train.ik] }}</span>
-      <span>{{ tr }}</span>
+      <span>{{ train.tr }}</span>
       <span>{{ unyo }}</span>
       <span>{{ vehicle }}</span>
     </div>
@@ -117,20 +117,11 @@ export default class TrainBoxS extends Vue {
     //   : this.odptListJson.weekday;
   }
 
-  get tr() {
-    if (this.train.tr in this.list) return this.list[this.train.tr].tr;
-    return "[" + this.train.tr + "]";
-  }
-
   get unyo() {
-    if (this.train.tr in this.list) {
-      let num: number = +this.list[this.train.tr].un.slice(0, 2);
-      ++num;
-      --num;
-      let type: string = this.list[this.train.tr].un.slice(-1);
-      return (num % 2 ? num : ++num) + type;
-    }
-    return "-";
+    if (["K", "T"].some(type => this.train.tr.slice(-1) === type))
+      return Number(this.train.tr.slice(-3, -1)) + this.train.tr.slice(-1);
+    else
+      return Number(this.train.tr.slice(-4, -2)) + this.train.tr.slice(-2, -1);
   }
 
   get style() {
