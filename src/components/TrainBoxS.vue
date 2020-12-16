@@ -118,17 +118,13 @@ export default class TrainBoxS extends Vue {
   }
 
   get unyo() {
-    let number: number, suffixType: string;
-    if (["K", "T"].some(type => this.train.tr.slice(-1) === type)) {
-      // 1234T
-      number = +this.train.tr.slice(-3, -1);
-      suffixType = this.train.tr.slice(-1);
-    } else {
-      // 1234Tb
-      number = +this.train.tr.slice(-4, -2);
-      suffixType = this.train.tr.slice(-2, -1);
-    }
-    return (number % 2 ? number : ++number) + suffixType;
+    const trainId = this.train.tr;
+    const sliceBase = ["K", "T"].some(type => trainId.slice(-1) === type)
+      ? 0 // 1234T
+      : -1; // 1234Tb
+    const number = +trainId.slice(sliceBase - 3, sliceBase - 1);
+    const suffixType = trainId.slice(sliceBase - 1, trainId.length + sliceBase);
+    return (number % 2 ? number : number + 1) + suffixType;
   }
 
   get style() {
