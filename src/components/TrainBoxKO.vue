@@ -10,7 +10,7 @@
     >
       <span>{{ ik }}</span>
       <span>{{ train.tr }}ﾚ</span>
-      <span class="old">旧 {{ unyo }}</span>
+      <span>{{ unyo }}</span>
       <span>{{ vehicle }}</span>
     </div>
     <div
@@ -141,54 +141,44 @@ export default class TrainBoxKO extends Vue {
     return this.train.ki;
   }
 
-  get list(): trsKO {
-    return this.isHoliday ? this.trListJson.holiday : this.trListJson.weekday;
-  }
+  // get list(): trsKO {
+  //   return this.isHoliday ? this.trListJson.holiday : this.trListJson.weekday;
+  // }
 
   get unyo(): string {
-    if (this.train.tr in this.list) return this.list[this.train.tr].un;
+    // if (this.train.tr in this.list) return this.list[this.train.tr].un;
     return "-";
   }
 
   get ik(): string {
-    if (this.train.tr in this.list) {
-      if ("ik" in this.list[this.train.tr]) {
-        return ikListKO[this.list[this.train.tr].ik!];
-      }
-    }
     return ikListKO[this.train.ik] || "-";
   }
 
   get style(): string {
-    if (this.train.tr in this.list) {
-      if ("sy" in this.list[this.train.tr]) {
-        if (Math.floor(this.list[this.train.tr].sy! / 10)) {
-          let RColorNum: number = Math.floor(this.list[this.train.tr].sy! / 10);
-          let rightColor: string = syList[RColorNum];
-          let LColorNum: number = this.list[this.train.tr].sy! % 10;
-          let leftColor: string = syList[LColorNum];
-          if (this.ki) [leftColor, rightColor] = [rightColor, leftColor];
-          let leftPer = "57%";
-          let rightPer = "60%";
-          let tilt = this.ki ? "82deg" : "98deg";
-          return `linear-gradient(${tilt}, ${leftColor} 0%, ${leftColor} ${leftPer}, ${rightColor} ${rightPer}, ${rightColor} 100%)`;
-        } else {
-          return syList[this.list[this.train.tr].sy!];
-        }
-      }
+    if (Math.floor(+this.train.sy / 10)) {
+      let RColorNum: number = Math.floor(+this.train.sy / 10);
+      let rightColor: string = syList[RColorNum];
+      let LColorNum: number = +this.train.sy % 10;
+      let leftColor: string = syList[LColorNum];
+      if (this.ki) [leftColor, rightColor] = [rightColor, leftColor];
+      let leftPer = "57%";
+      let rightPer = "60%";
+      let tilt = this.ki ? "82deg" : "98deg";
+      return `linear-gradient(${tilt}, ${leftColor} 0%, ${leftColor} ${leftPer}, ${rightColor} ${rightPer}, ${rightColor} 100%)`;
+    } else {
+      return syList[this.train.sy];
     }
-    return syList[this.train.sy];
   }
 
-  get isHoliday(): boolean {
-    let date = new Date();
-    date.setHours(date.getHours() - 3);
-    return (
-      date.getDay() == 0 ||
-      date.getDay() == 6 ||
-      this.JapaneseHolidays.isHolidayAt(date)
-    );
-  }
+  // get isHoliday(): boolean {
+  //   let date = new Date();
+  //   date.setHours(date.getHours() - 3);
+  //   return (
+  //     date.getDay() == 0 ||
+  //     date.getDay() == 6 ||
+  //     this.JapaneseHolidays.isHolidayAt(date)
+  //   );
+  // }
 
   updateVehicle() {
     if (this.latestVehicle !== this.vehicle) {

@@ -199,7 +199,6 @@
 </style>
 
 <script lang="ts">
-/* eslint-disable no-console */
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 import { body, Sn, Dt } from "@/apis/keio/@types";
@@ -221,6 +220,7 @@ import keio from "@/apis/keio/$api";
 import odpt from "@/apis/odpt/$api";
 import aspida from "@aspida/axios";
 import { UnyoList } from "@/apis/kostl/vehicles/@types";
+import { capitalMap, ikListKO, typeList } from "@/list";
 
 @Component({
   components: {
@@ -282,12 +282,14 @@ export default class Home extends Vue {
               for (const train of station.ps) {
                 const pos = `${station.id}-${train.bs}`;
                 if (!resKO.has(pos)) resKO.set(pos, []);
+                const inf = this.parseInformation(train.inf, +train.sy);
+                console.log(train.tr, inf.ik, inf.sy);
                 resKO.get(pos)!.push({
                   tr: train.tr.trim(),
-                  sy: train.sy,
+                  sy: inf.sy || train.sy,
                   ki: !!+train.ki,
                   dl: +train.dl,
-                  ik: train.ik_tr
+                  ik: inf.ik || train.ik_tr
                 });
               }
             }
@@ -307,13 +309,17 @@ export default class Home extends Vue {
               const pos = station.id;
               resultKO.push({
                 pos: pos,
-                trains: station.ps.map(train => ({
-                  tr: train.tr.trim(),
-                  sy: train.sy,
-                  ki: !!+train.ki,
-                  dl: +train.dl,
-                  ik: train.ik_tr
-                }))
+                trains: station.ps.map(train => {
+                  const inf = this.parseInformation(train.inf, +train.sy);
+                  console.log(train.tr, inf.ik, inf.sy);
+                  return {
+                    tr: train.tr.trim(),
+                    sy: inf.sy || train.sy,
+                    ki: !!+train.ki,
+                    dl: +train.dl,
+                    ik: inf.ik || train.ik_tr
+                  };
+                })
               });
             }
           }
@@ -386,6 +392,40 @@ export default class Home extends Vue {
       });
 
     this.loading = false;
+  }
+
+  parseInformation(
+    raw: string,
+    sy: number
+  ): { sy: string | null; ik: string | null } {
+    if (raw !== "") {
+      const removeRegExp = /この列車は|駅で|\s|行となります。/;
+      const arr = raw.split(removeRegExp);
+      if (arr.length === 5) {
+        let data = {
+          chgSta: arr[1],
+          destSta: arr[3],
+          newType: arr[2]
+        } as { chgSta: string; destSta: string; newType: string | null };
+        for (const [key, value] of capitalMap) {
+          if (value === data.chgSta) data.chgSta = key;
+          if (value === data.destSta) data.destSta = key;
+        }
+        data.newType =
+          Object.keys(typeList).find(key => typeList[+key] === data.newType) ||
+          "";
+        console.log(data);
+        return {
+          ik:
+            Object.keys(ikListKO).find(
+              // eslint-disable-next-line no-irregular-whitespace
+              key => ikListKO[key] === `${data.chgSta}　${data.destSta}`
+            ) || null,
+          sy: data.newType ? `${sy}${data.newType}` : null
+        };
+      }
+    }
+    return { sy: null, ik: null };
   }
 
   readonly s_stations = [

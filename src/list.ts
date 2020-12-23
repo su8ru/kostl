@@ -46,6 +46,29 @@ export const ikListKO = {
   "862": "新　調"
 } as { [key: string]: string };
 
+export const capitalMap = new Map<string, string>([
+  ["新", "新宿"],
+  ["調", "調布"],
+  ["高", "高幡不動"],
+  ["八", "京王八王子"],
+  ["山", "高尾山口"],
+  ["セ", "京王多摩センター"],
+  ["橋", "橋本"]
+]);
+
+export const typeList = {
+  1: "特急",
+  2: "急行",
+  3: "快速",
+  4: "準特急",
+  5: "区間急行",
+  6: "各駅停車",
+  7: "各駅停車",
+  8: "各駅停車",
+  9: "京王ライナー",
+  10: "臨時"
+} as { [key: number]: string };
+
 export const ikListS = {
   Shinjuku: "N新宿",
   Sasazuka: "笹塚",
