@@ -301,7 +301,6 @@ export default class Home extends Vue {
                 const pos = `${station.id}-${train.bs}`;
                 if (!resKO.has(pos)) resKO.set(pos, []);
                 const inf = this.parseInformation(train.inf, +train.sy);
-                console.log(train.tr, inf.ik, inf.sy);
                 resKO.get(pos)!.push({
                   tr: train.tr.trim(),
                   sy: inf.sy || train.sy,
@@ -329,7 +328,6 @@ export default class Home extends Vue {
                 pos: pos,
                 trains: station.ps.map(train => {
                   const inf = this.parseInformation(train.inf, +train.sy);
-                  console.log(train.tr, inf.ik, inf.sy);
                   return {
                     tr: train.tr.trim(),
                     sy: inf.sy || train.sy,
@@ -432,7 +430,6 @@ export default class Home extends Vue {
         data.newType =
           Object.keys(typeList).find(key => typeList[+key] === data.newType) ||
           "";
-        console.log(data);
         return {
           ik:
             Object.keys(ikListKO).find(
