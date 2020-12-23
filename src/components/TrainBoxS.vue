@@ -11,7 +11,7 @@
       :class="train.ki ? 'down-train' : 'up-train'"
       :style="{ background: style }"
     >
-      <span>{{ ikList[train.ik] }}</span>
+      <span>{{ ik }}</span>
       <span>{{ train.tr }}</span>
       <span>{{ unyo }}</span>
       <span>{{ vehicle }}</span>
@@ -86,9 +86,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { TrainS, listS, trsS, trsKO } from "@/types";
-import axios from "axios";
+import { TrainS, listS, trsS } from "@/types";
 import { UnyoList } from "@/apis/kostl/vehicles/@types";
+import { ikListS, syList } from "@/list";
 
 @Component
 export default class TrainBoxS extends Vue {
@@ -119,27 +119,31 @@ export default class TrainBoxS extends Vue {
 
   get unyo() {
     const trainId = this.train.tr;
-    const sliceBase = ["K", "T"].some(type => trainId.slice(-1) === type)
-      ? 0 // 1234T
-      : -1; // 1234Tb
-    const number = +trainId.slice(sliceBase - 3, sliceBase - 1);
-    const suffixType = trainId.slice(sliceBase - 1, trainId.length + sliceBase);
+    const normalized = ["K", "T"].some(type => trainId.endsWith(type))
+      ? trainId // 1234T
+      : trainId.slice(0, -1); // 1234Tb -> 1234T
+    const number = +normalized.slice(-3, -1);
+    const suffixType = normalized.slice(-1);
     return (number % 2 ? number : number + 1) + suffixType;
+  }
+
+  get ik() {
+    return ikListS[this.train.ik];
   }
 
   get style() {
     if (this.train.tr in this.list) {
       let style: string;
       if ("sy" in this.list[this.train.tr]) {
-        let rightColor: string = this.syList[this.train.sy];
-        let leftColor: string = this.syList[this.list[this.train.tr].sy!];
+        let rightColor: string = syList[this.train.sy];
+        let leftColor: string = syList[this.list[this.train.tr].sy!];
         if (this.train.ki) [leftColor, rightColor] = [rightColor, leftColor];
         const leftPer = "60%";
         const rightPer = "62%";
         const tilt = !this.train.ki ? "82deg" : "98deg";
         style = `${tilt}, ${leftColor} ${leftPer}, ${rightColor} ${rightPer}`;
         if ("sy2" in this.list[this.train.tr]) {
-          let rightColor2: string = this.syList[this.list[this.train.tr].sy2!];
+          let rightColor2: string = syList[this.list[this.train.tr].sy2!];
           const left2Per = "85%";
           const right2Per = "87%";
           style += `, ${rightColor} ${left2Per}, ${rightColor2} ${right2Per}`;
@@ -147,7 +151,7 @@ export default class TrainBoxS extends Vue {
         return `linear-gradient(${style})`;
       }
     }
-    return this.syList[this.train.sy];
+    return syList[this.train.sy];
   }
 
   get isHoliday(): boolean {
@@ -174,39 +178,5 @@ export default class TrainBoxS extends Vue {
     }
     return "-";
   }
-
-  readonly syList = {
-    Express: "#dc0000",
-    Local: "#7eb500",
-    1: "#cf167c",
-    2: "#05B08D",
-    3: "#0F4E8C",
-    4: "#F79328",
-    5: "#D3C427",
-    6: "#808285",
-    7: "#808285",
-    8: "#808285",
-    9: "#000000",
-    10: "#57A100"
-  } as { [key: string]: string; [key: number]: string };
-
-  readonly ikList = {
-    Shinjuku: "N新宿",
-    Sasazuka: "笹塚",
-    Sakurajosui: "桜上水",
-    HachimanYama: "八幡山",
-    Tsutsujigaoka: "つつじ",
-    Wakabadai: "若葉台",
-    KeioTamaCenter: "多摩セ",
-    Hashimoto: "橋本",
-    Takahatafudo: "高幡",
-    TamaDobutsukoen: "動物",
-    Takaosanguchi: "高尾山",
-    KeioHachioji: "京八",
-    Motoyawata: "本八幡",
-    Mizue: "瑞江",
-    Ojima: "大島",
-    Iwamotocho: "岩本町"
-  } as { [key: string]: string };
 }
 </script>

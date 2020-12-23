@@ -111,8 +111,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { listKO, TrainKO, trsKO } from "@/types";
-import axios from "axios";
 import { UnyoList } from "@/apis/kostl/vehicles/@types";
+import { ikListKO, syList } from "@/list";
 
 @Component
 export default class TrainBoxKO extends Vue {
@@ -153,10 +153,10 @@ export default class TrainBoxKO extends Vue {
   get ik(): string {
     if (this.train.tr in this.list) {
       if ("ik" in this.list[this.train.tr]) {
-        return this.ikList[this.list[this.train.tr].ik!];
+        return ikListKO[this.list[this.train.tr].ik!];
       }
     }
-    return this.ikList[this.train.ik] || "-";
+    return ikListKO[this.train.ik] || "-";
   }
 
   get style(): string {
@@ -164,20 +164,20 @@ export default class TrainBoxKO extends Vue {
       if ("sy" in this.list[this.train.tr]) {
         if (Math.floor(this.list[this.train.tr].sy! / 10)) {
           let RColorNum: number = Math.floor(this.list[this.train.tr].sy! / 10);
-          let rightColor: string = this.syList[RColorNum];
+          let rightColor: string = syList[RColorNum];
           let LColorNum: number = this.list[this.train.tr].sy! % 10;
-          let leftColor: string = this.syList[LColorNum];
+          let leftColor: string = syList[LColorNum];
           if (this.ki) [leftColor, rightColor] = [rightColor, leftColor];
           let leftPer = "57%";
           let rightPer = "60%";
           let tilt = this.ki ? "82deg" : "98deg";
           return `linear-gradient(${tilt}, ${leftColor} 0%, ${leftColor} ${leftPer}, ${rightColor} ${rightPer}, ${rightColor} 100%)`;
         } else {
-          return this.syList[this.list[this.train.tr].sy!];
+          return syList[this.list[this.train.tr].sy!];
         }
       }
     }
-    return this.syList[this.train.sy];
+    return syList[this.train.sy];
   }
 
   get isHoliday(): boolean {
@@ -204,66 +204,5 @@ export default class TrainBoxKO extends Vue {
     }
     return "-";
   }
-
-  readonly syList = {
-    1: "#cf167c",
-    2: "#05B08D",
-    3: "#0F4E8C",
-    4: "#F79328",
-    5: "#D3C427",
-    6: "#808285",
-    7: "#808285",
-    8: "#808285",
-    9: "#000000",
-    10: "#57A100"
-  } as { [key: string]: string };
-
-  readonly ikList = {
-    "001": "K新宿",
-    "002": "笹塚",
-    "006": "桜上水",
-    "008": "八幡山",
-    "012": "つつじ",
-    "016": "調布",
-    "018": "飛田給",
-    "021": "東府中",
-    "022": "府中",
-    "027": "高幡",
-    "031": "北野",
-    "032": "京八",
-    "033": "N新宿",
-    "036": "競馬",
-    "037": "動物",
-    "042": "高尾",
-    "043": "高尾山",
-    "048": "若葉台",
-    "050": "多摩セ",
-    "052": "南大沢",
-    "054": "橋本",
-    "107": "岩本町",
-    "114": "大島",
-    "118": "瑞江",
-    "120": "本八幡",
-    "300": "[新宿]",
-    "301": "Ⓢ",
-    "302": "[K新]",
-    "303": "[調布]",
-    "400": "[京八]",
-    "401": "[高山]",
-    "402": "[橋本]",
-    "999": "-",
-    "701": "セ　橋",
-    "702": "新　セ",
-    "751": "調　橋",
-    "752": "新　調",
-    "801": "高　八",
-    "802": "新　高",
-    "811": "高　山",
-    "812": "新　高",
-    "851": "調　八",
-    "852": "新　調",
-    "861": "調　山",
-    "862": "新　調"
-  } as { [key: string]: string };
 }
 </script>
