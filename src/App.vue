@@ -36,7 +36,7 @@
         </ul>
       </nav>
       <small>
-        &copy; su8ru and collaborators 2020
+        &copy; su8ru 2020
       </small>
     </footer>
   </div>
@@ -101,7 +101,7 @@
 
   footer {
     border-top: 5px solid $keio-blue;
-    padding: 0.25rem 0;
+    padding: 8px 0;
     line-height: 2;
     background-color: #fff;
     width: 100%;
