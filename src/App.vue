@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <header>
-      <h1>こすとれ</h1>
-      <span>KO･S Train Location</span>
+      <div class="title-wrapper">
+        <h1>こすとれ</h1>
+        <span>KO･S Train Location</span>
+      </div>
     </header>
     <main>
       <router-view></router-view>
@@ -47,25 +49,45 @@
   background-color: #eee;
 
   header {
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    background-color: $keio-blue;
+    background: linear-gradient(
+      0deg,
+      $keio-blue 47%,
+      #fff 47%,
+      #fff 53%,
+      $keio-pink 53%
+    );
     color: white;
-    padding: 0.5rem 0 0.5rem 0;
     margin: 0 auto;
     width: 100%;
     height: 50px;
     position: fixed;
     z-index: 1000;
     top: 0;
-    h1 {
-      font-size: 1.5rem;
-      margin-right: 1rem;
-    }
-    h1,
-    span {
-      display: block;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(#000, 0.1);
+
+    .title-wrapper {
+      background: $keio-pink;
+      display: inline-flex;
+      justify-content: center;
+      padding: 0 24px;
+      padding-top: 8px;
+      align-items: baseline;
+      height: 100%;
+      border: solid #fff;
+      border-width: 0 3px 0 3px;
+
+      h1 {
+        font-size: 1.5rem;
+        margin: 0;
+        margin-right: 1rem;
+        margin-top: 2px;
+      }
+
+      h1,
+      span {
+        display: block;
+      }
     }
   }
 
@@ -102,6 +124,13 @@
       li {
         list-style-type: none;
         display: inline;
+        padding: 0;
+
+        &::before {
+          background: none;
+          width: 0;
+          height: 0;
+        }
 
         &:not(:last-of-type)::after {
           content: " ・ ";
