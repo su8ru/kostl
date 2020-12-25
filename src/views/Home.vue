@@ -300,7 +300,11 @@ export default class Home extends Vue {
               for (const train of station.ps) {
                 const pos = `${station.id}-${train.bs}`;
                 if (!resKO.has(pos)) resKO.set(pos, []);
-                const inf = this.parseInformation(train.inf, +train.sy);
+                const inf = this.parseInformation(
+                  train.inf,
+                  +train.sy,
+                  !!+train.ki
+                );
                 resKO.get(pos)!.push({
                   tr: train.tr.trim(),
                   sy: inf.sy || train.sy,
@@ -327,7 +331,11 @@ export default class Home extends Vue {
               resultKO.push({
                 pos: pos,
                 trains: station.ps.map(train => {
-                  const inf = this.parseInformation(train.inf, +train.sy);
+                  const inf = this.parseInformation(
+                    train.inf,
+                    +train.sy,
+                    !!+train.ki
+                  );
                   return {
                     tr: train.tr.trim(),
                     sy: inf.sy || train.sy,
@@ -412,7 +420,8 @@ export default class Home extends Vue {
 
   parseInformation(
     raw: string,
-    sy: number
+    sy: number,
+    ki: boolean
   ): { sy: string | null; ik: string | null } {
     if (raw !== "") {
       const removeRegExp = /この列車は|駅で|\s|行となります。/;
@@ -430,6 +439,8 @@ export default class Home extends Vue {
         data.newType =
           Object.keys(typeList).find(key => typeList[+key] === data.newType) ||
           "";
+        if (!ki && data.newType !== "")
+          [data.newType, sy] = [`${sy}`, +data.newType];
         return {
           ik:
             Object.keys(ikListKO).find(

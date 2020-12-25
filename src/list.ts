@@ -43,7 +43,9 @@ export const ikListKO = {
   "851": "調　八",
   "852": "新　調",
   "861": "調　山",
-  "862": "新　調"
+  "862": "新　調",
+  "891": "Ｎ　本",
+  "892": "本　Ｎ"
 } as { [key: string]: string };
 
 export const capitalMap = new Map<string, string>([
@@ -53,7 +55,9 @@ export const capitalMap = new Map<string, string>([
   ["八", "京王八王子"],
   ["山", "高尾山口"],
   ["セ", "京王多摩センター"],
-  ["橋", "橋本"]
+  ["橋", "橋本"],
+  ["Ｎ", "新線新宿"],
+  ["本", "本八幡"]
 ]);
 
 export const typeList = {
