@@ -161,8 +161,8 @@ export default class TrainBoxKO extends Vue {
       let LColorNum: number = +this.train.sy % 10;
       let leftColor: string = syList[LColorNum];
       if (this.ki) [leftColor, rightColor] = [rightColor, leftColor];
-      let leftPer = "57%";
-      let rightPer = "60%";
+      let leftPer = "60%";
+      let rightPer = "62%";
       let tilt = this.ki ? "82deg" : "98deg";
       return `linear-gradient(${tilt}, ${leftColor} 0%, ${leftColor} ${leftPer}, ${rightColor} ${rightPer}, ${rightColor} 100%)`;
     } else {
