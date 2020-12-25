@@ -21,30 +21,34 @@
       <ul>
         <li>都営線内: 正確な表示に対応</li>
         <li>京王線内: 正確な表示に対応（2020.04.01 Update 経過観察中）</li>
-        <li>化け運用: ほぼ対応済（２･３色表示）</li>
+        <li>途中駅での種別変更: ほぼ対応済（２･３色表示）</li>
       </ul>
+      <h4>途中駅での種別変更表示例</h4>
+      <section class="example-section-wrapper">
+        <div class="example-section">
+          <TrainBoxKO pos="E004-2" :train="trainExample1" :unyo-list="{}" />
+          <TrainBoxKO pos="E004-1" :train="trainExample2" :unyo-list="{}" />
+        </div>
+        <ul>
+          <li>
+            各列車において、左側が現在の種別色、右側が種別変更後の種別色です。<br />
+            そして、左側が種別変更駅、右側が最終的な行き先となっています。
+          </li>
+          <li>
+            左側は「急行 本八幡行 新線新宿駅から 各駅停車 本八幡行」<br />
+            右側は「準特急 京王八王子行 高幡不動駅から 各駅停車
+            京王八王子行」<br />
+            をそれぞれ表します。
+          </li>
+        </ul>
+      </section>
       <h3>車両番号</h3>
       <p>
-        <del>
-          <b-link href="https://loo-ool.com/rail/MS/">
-            都営新宿線･京王線運用情報
-          </b-link>
-          より取得（2020.04.17 Update）
-        </del>
+        <b-link :to="{ name: 'postUnyo' }">運用投稿ページ</b-link>
+        から運用番号に対して入力可能です。
       </p>
       <p>
-        <del>
-          なお、技術的都合により、併結には対応していません（下り方の車両が表示されます）
-        </del>
-      </p>
-      <p>
-        IP BAN されました…ごめんなさい…（2020.04.20）
-      </p>
-      <p>
-        独自のデータベースを使う方針で復活。（2020.05.08 Update）
-      </p>
-      <p>
-        Back-end全然わからないのでバグがあるかもしれません。なお、すべての投稿は午前３時にリセットされます。
+        すべての投稿は午前３時にリセットされます。
       </p>
       <h3>注意事項（簡易版）</h3>
       <ul>
@@ -123,17 +127,6 @@
         </li>
       </ul>
     </section>
-    <section>
-      <h2>helpful tools</h2>
-      <ul>
-        <li>
-          <b-link :to="{ name: 'generator' }">都営新宿線 json generator</b-link>
-        </li>
-        <li>
-          <b-link :to="{ name: 'calibration' }">json calibration</b-link>
-        </li>
-      </ul>
-    </section>
   </div>
 </template>
 
@@ -142,15 +135,45 @@
   width: 100vw;
   max-width: 800px;
   padding: 1rem;
-  li {
-    margin-bottom: 0.3rem;
+  .example-section-wrapper {
+    display: flex;
+    flex-direction: row;
+
+    .example-section {
+      display: inline-flex;
+      flex-direction: row;
+      padding: 4px;
+      background: #faf5e9;
+      margin-right: 16px;
+
+      .train-ko {
+        margin: auto 4px;
+      }
+    }
   }
 }
 </style>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import TrainBoxKO from "@/components/TrainBoxKO.vue";
+import { TrainKO } from "@/types";
 
-@Component
-export default class Policy extends Vue {}
+@Component({ components: { TrainBoxKO } })
+export default class Policy extends Vue {
+  readonly trainExample1: TrainKO = {
+    tr: "1834",
+    sy: "62",
+    ki: false,
+    dl: 0,
+    ik: "891"
+  };
+  readonly trainExample2: TrainKO = {
+    tr: "3203",
+    sy: "46",
+    ki: true,
+    dl: 0,
+    ik: "801"
+  };
+}
 </script>
