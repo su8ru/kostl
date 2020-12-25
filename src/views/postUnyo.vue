@@ -162,7 +162,7 @@ export default class PostUnyo extends Vue {
 
   postData(unyo: string, vehicle: string) {
     kostl(aspida()).vehicles.$post({
-      data: {
+      body: {
         unyo: unyo,
         vehicle: vehicle
       }

@@ -218,15 +218,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import axios from "axios";
 import { body, Sn, Dt } from "@/apis/keio/@types";
-import {
-  Odpt,
-  OdptDestinationStation,
-  OdptDirection,
-  OdptOperator,
-  OdptTrainType
-} from "@/odpt.ts";
+import { OdptDirection } from "@/odpt.ts";
 import { SecinfoKO, SecinfoS, TrainKO, TrainS } from "@/types";
 import LineSectionKO from "@/components/LineSectionKO.vue";
 import LineSectionS from "@/components/LineSectionS.vue";
@@ -235,7 +228,7 @@ import AdMaxVertical from "@/components/AdMaxVertical.vue";
 import moment from "moment";
 import kostl from "@/apis/kostl/$api";
 import keio from "@/apis/keio/$api";
-import odpt from "@/apis/odpt/$api";
+import odpt from "aspida-odpt";
 import aspida from "@aspida/axios";
 import { UnyoList } from "@/apis/kostl/vehicles/@types";
 import { capitalMap, ikListKO, typeList } from "@/list";
