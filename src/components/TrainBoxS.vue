@@ -32,6 +32,8 @@
 .train-s {
   display: flex;
   flex-direction: column;
+  text-align: center;
+  color: #fff;
 
   .train {
     display: flex;

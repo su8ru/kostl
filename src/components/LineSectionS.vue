@@ -20,8 +20,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: #fff;
-  text-align: center;
   justify-content: space-between;
   align-content: space-between;
 }
