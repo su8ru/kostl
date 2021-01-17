@@ -38,6 +38,7 @@
     line-height: 1;
     font-size: 0.9rem;
     margin: 3px 0 3px 0;
+    text-align: center;
   }
 }
 
