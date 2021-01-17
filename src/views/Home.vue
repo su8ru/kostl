@@ -146,39 +146,52 @@
       width: 100%;
     }
     #keiba-section {
-      $color: #268300;
-      grid-row: 86 / 88;
+      position: relative;
+      $color: rgba(#268300, 0.3);
+      grid-row: 85 / 88;
       grid-column: 7 / 9;
-      outline: 3px dashed rgba($color, 0.8);
-      background: rgba($color, 0.1);
+      background: $color;
+      box-shadow: 0 0 0 2px $color;
+      border-radius: 6px;
+      height: calc(100% + 30px);
 
       &::before {
         display: block;
-        position: relative;
+        position: absolute;
         content: "競馬場線";
-        bottom: -30px;
-        margin: 100% 0 0 0;
-        height: 1.5rem;
-        color: $color;
+        color: #fff;
         font-weight: 500;
         text-align: center;
+        height: 20px;
+        bottom: 6px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
       }
     }
     #dobutsu-section {
-      $color: #8ea725;
-      grid-row: 95 / 97;
+      position: relative;
+      $color: rgba(#8ea725, 0.4);
+      grid-row: 95 / 98;
       grid-column: 7 / 9;
-      outline: 3px dashed rgba($color, 0.8);
-      background: rgba($color, 0.1);
+      background: $color;
+      box-shadow: 0 0 0 2px $color;
+      border-radius: 6px;
+      height: calc(100% + 30px);
+      top: -30px;
 
       &::before {
         display: block;
-        position: relative;
+        position: absolute;
         content: "動物園線";
-        top: -30px;
-        color: $color;
+        color: #fff;
         font-weight: 500;
         text-align: center;
+        height: 20px;
+        top: 2px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
       }
     }
 
