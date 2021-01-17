@@ -21,7 +21,7 @@
     "@types/moment": "^2.13.0",
     "aspida": "^1.1.1",
     "aspida-odpt": "https://github.com/su8ru/aspida-odpt.git",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.1.0",
     "core-js": "^3.4.3",
