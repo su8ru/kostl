@@ -6,16 +6,15 @@
       `ODPT${train.tr}`
     ]"
   >
-    <div
-      class="train"
-      :class="train.ki ? 'down-train' : 'up-train'"
-      :style="{ background: style }"
-    >
-      <span>{{ ik }}</span>
-      <span>{{ train.tr }}</span>
-      <span>{{ unyo }}</span>
-      <span>{{ vehicle }}</span>
-    </div>
+    <Train
+      :tr="train.tr"
+      :ik="ik"
+      :sy="train.sy"
+      :ki="train.ki"
+      :unyo="unyo"
+      :vehicle="vehicle"
+      :bg-style="style"
+    />
     <div
       v-if="train.dl"
       class="delay"
@@ -32,38 +31,6 @@
 .train-s {
   display: flex;
   flex-direction: column;
-  text-align: center;
-  color: #fff;
-
-  .train {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    width: 60px;
-    height: 86px;
-    justify-content: center;
-
-    font-size: 0.9rem;
-    font-weight: 500;
-    line-height: 1.25;
-    white-space: nowrap;
-
-    border: 4px solid #fff;
-
-    span {
-      display: block;
-    }
-  }
-
-  .up-train {
-    border-radius: 12px 12px 0 0;
-    flex-direction: column-reverse;
-  }
-
-  .down-train {
-    border-radius: 0 0 12px 12px;
-    flex-direction: column;
-  }
 
   .delay {
     color: #da007a;
@@ -91,8 +58,9 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { TrainS, listS, trsS } from "@/types";
 import { UnyoList } from "@/apis/kostl/vehicles/@types";
 import { ikListS, syList } from "@/list";
+import Train from "@/components/Train.vue";
 
-@Component
+@Component({ components: { Train } })
 export default class TrainBoxS extends Vue {
   @Prop({ required: true })
   train!: TrainS;

@@ -1,18 +1,14 @@
 <template>
   <div class="train-ko" :class="[ki ? 'down-box' : 'up-box']">
-    <div
-      class="train"
-      :class="[
-        ki ? 'down-train' : 'up-train',
-        { 'keio-liner': train.sy === '9' }
-      ]"
-      :style="{ background: style }"
-    >
-      <span>{{ ik }}</span>
-      <span>{{ train.tr }}ﾚ</span>
-      <span>{{ unyo }}</span>
-      <span>{{ vehicle }}</span>
-    </div>
+    <Train
+      :tr="train.tr"
+      :ik="ik"
+      :sy="train.sy"
+      :ki="ki"
+      :unyo="unyo"
+      :vehicle="vehicle"
+      :bg-style="style"
+    />
     <div
       v-if="train.dl"
       class="delay"
@@ -29,65 +25,6 @@
 .train-ko {
   display: flex;
   flex-direction: column;
-  text-align: center;
-  color: #fff;
-
-  .train {
-    display: flex;
-    box-sizing: border-box;
-    width: 60px;
-    height: 86px;
-    justify-content: center;
-
-    font-size: 0.9rem;
-    font-weight: 500;
-    line-height: 1.25;
-    white-space: nowrap;
-
-    border: 4px solid #fff;
-
-    span {
-      display: block;
-      max-width: 120%;
-      overflow-y: hidden;
-      &::-webkit-scrollbar {
-        display: none;
-      }
-    }
-    .old {
-      font-size: 0.5rem;
-      line-height: 1.25rem;
-    }
-  }
-
-  .up-train {
-    border-radius: 12px 12px 0 0;
-    flex-direction: column-reverse;
-  }
-
-  .down-train {
-    border-radius: 0 0 12px 12px;
-    flex-direction: column;
-  }
-
-  .keio-liner {
-    position: relative;
-    span {
-      z-index: 10;
-    }
-  }
-  .keio-liner::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    border-left: 6px solid #d5007f;
-    border-right: 6px solid #d5007f;
-    border-radius: inherit;
-  }
 
   .delay {
     color: #da007a;
@@ -112,11 +49,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { listKO, TrainKO, trsKO } from "@/types";
+import { listKO, TrainKO } from "@/types";
 import { UnyoList } from "@/apis/kostl/vehicles/@types";
 import { ikListKO, syList } from "@/list";
+import Train from "@/components/Train.vue";
 
-@Component
+@Component({ components: { Train } })
 export default class TrainBoxKO extends Vue {
   @Prop({ required: true })
   train!: TrainKO;
