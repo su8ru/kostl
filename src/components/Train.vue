@@ -13,20 +13,24 @@
 
 <style lang="scss" scoped>
 .train {
+  // element ====
   display: flex;
   box-sizing: border-box;
   width: 60px;
   height: 86px;
-  justify-content: center;
-  text-align: center;
-  color: #fff;
 
-  font-size: 0.9rem;
+  // contents ====
+  justify-content: center;
+  color: #fff;
   font-weight: 500;
+  font-size: 0.9rem;
   line-height: 1.25;
+  text-align: center;
   white-space: nowrap;
 
+  // decoration ====
   border: 4px solid #fff;
+  filter: drop-shadow(0 0 2px rgba(#000, 0.05));
 
   span {
     display: block;
@@ -38,23 +42,39 @@
   }
 }
 
+// 上り列車 ========
 .up-train {
-  border-radius: 12px 12px 0 0;
+  border-radius: 12px 12px 6px 6px;
   flex-direction: column-reverse;
 }
-
-.down-train {
-  border-radius: 0 0 12px 12px;
-  flex-direction: column;
+.up-train.keio-liner::before {
+  border-radius: 8px 8px 2px 2px;
+}
+.up-train.keio-liner::after {
+  border-radius: 10px 10px 2px 2px;
 }
 
+// 下り列車 ========
+.down-train {
+  border-radius: 6px 6px 12px 12px;
+  flex-direction: column;
+}
+.down-train.keio-liner::before {
+  border-radius: 2px 2px 8px 8px;
+}
+.down-train.keio-liner::after {
+  border-radius: 2px 2px 10px 10px;
+}
+
+// 京王ライナー ========
 .keio-liner {
   position: relative;
   span {
     z-index: 10;
   }
 }
-.keio-liner::before {
+.keio-liner::before,
+.keio-liner::after {
   content: "";
   position: absolute;
   top: 0;
@@ -64,7 +84,6 @@
   display: block;
   border-left: 6px solid #d5007f;
   border-right: 6px solid #d5007f;
-  border-radius: inherit;
 }
 </style>
 
