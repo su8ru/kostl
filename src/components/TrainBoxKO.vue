@@ -8,6 +8,7 @@
       :unyo="unyo"
       :vehicle="vehicle"
       :bg-style="style"
+      line="KO"
     />
     <div
       v-if="train.dl"

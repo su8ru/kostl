@@ -5,7 +5,7 @@
     :style="{ background: bgStyle }"
   >
     <span>{{ ik }}</span>
-    <span>{{ tr }}ﾚ</span>
+    <span>{{ tr }}<template v-if="line === 'KO'">ﾚ</template></span>
     <span>{{ unyo }}</span>
     <span>{{ vehicle }}</span>
   </div>
@@ -106,5 +106,7 @@ export default class Train extends Vue {
   vehicle!: string;
   @Prop({ required: true })
   bgStyle!: string;
+  @Prop({ required: true })
+  line!: "KO" | "S";
 }
 </script>

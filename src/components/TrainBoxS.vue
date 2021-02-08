@@ -14,6 +14,7 @@
       :unyo="unyo"
       :vehicle="vehicle"
       :bg-style="style"
+      line="S"
     />
     <div
       v-if="train.dl"
