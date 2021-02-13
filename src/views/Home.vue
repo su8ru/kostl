@@ -49,9 +49,9 @@
           しかしながら、旧仕様では誤った情報を提供している懸念があり、それだけは避けるべきであるという判断による変更です。<br />
           どうかご理解ください。
         </p>
-        <b-link v-b-toggle.timetable-rev
-          ><font-awesome-icon icon="times" /> 詳細を閉じる</b-link
-        >
+        <b-link v-b-toggle.timetable-rev>
+          <font-awesome-icon icon="times" /> 詳細を閉じる
+        </b-link>
       </b-collapse>
     </b-alert>
     <div class="zaisen">
