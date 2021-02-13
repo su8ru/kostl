@@ -5,48 +5,54 @@
       <h3>2020.10.30 ダイヤ修正 について</h3>
       <p>
         種別変更・京王線内の運用番号 を除いて対応しています。
+        <b-link v-b-toggle.timetable-rev>詳細を見る</b-link>
       </p>
-      <section>
-        <h4 class="d-inline-block mr-3">
-          <b-badge pill variant="shinjuku-leaf" class="text-white">S</b-badge>
-          都営新宿線
-        </h4>
-        <b-badge variant="secondary">2020.12.16 更新</b-badge>
+      <b-collapse id="timetable-rev">
+        <section>
+          <h4 class="d-inline-block mr-3">
+            <b-badge pill variant="shinjuku-leaf" class="text-white">S</b-badge>
+            都営新宿線
+          </h4>
+          <b-badge variant="secondary">2020.12.16 更新</b-badge>
+          <p>
+            <b>種別・行き先・列車番号・運用番号ともにすべて正確</b> です。
+            ただし、京王線内の種別には追従できていません。
+          </p>
+        </section>
+        <section>
+          <h4 class="d-inline-block mr-3">
+            <b-badge pill variant="keio-pink">KO</b-badge> 京王線
+          </h4>
+          <b-badge variant="primary">2020.12.24 更新</b-badge>
+          <p><b>種別・行き先・列車番号ともに概ね正確</b> です。</p>
+          <p>
+            <b>化けについては旧データの使用を取り止め</b>
+            、公式情報元から得られる範囲で正確です。<br />
+            種別変更前は化け表示されますが、
+            <b>種別変更後は通常列車と同様の表示</b>
+            になります。
+          </p>
+          <p>
+            <b>運用についても旧データの使用を取り止め</b>
+            、それに伴って
+            <b>編成番号の表示も無効化</b>
+            しています。
+          </p>
+        </section>
+        <hr />
         <p>
-          <b>種別・行き先・列車番号・運用番号ともにすべて正確</b> です。
-          ただし、京王線内の種別には追従できていません。
-        </p>
-      </section>
-      <section>
-        <h4 class="d-inline-block mr-3">
-          <b-badge pill variant="keio-pink">KO</b-badge> 京王線
-        </h4>
-        <b-badge variant="primary">2020.12.24 更新</b-badge>
-        <p><b>種別・行き先・列車番号ともに概ね正確</b> です。</p>
-        <p>
-          <b>化けについては旧データの使用を取り止め</b>
-          、公式情報元から得られる範囲で正確です。<br />
-          種別変更前は化け表示されますが、
-          <b>種別変更後は通常列車と同様の表示</b>
-          になります。
+          結果的に京王線内については 4 行中 2 行が空欄となってしまいました。
+          まるでダイヤが乱れているかのようです。
         </p>
         <p>
-          <b>運用についても旧データの使用を取り止め</b>
-          、それに伴って
-          <b>編成番号の表示も無効化</b>
-          しています。
+          こすとれの特徴を失ってしまいあまりに寂しすぎるため、この仕様変更はかなり悩みました。<br />
+          しかしながら、旧仕様では誤った情報を提供している懸念があり、それだけは避けるべきであるという判断による変更です。<br />
+          どうかご理解ください。
         </p>
-      </section>
-      <hr />
-      <p>
-        結果的に京王線内については 4 行中 2 行が空欄となってしまいました。
-        まるでダイヤが乱れているかのようです。
-      </p>
-      <p>
-        こすとれの特徴を失ってしまいあまりに寂しすぎるため、この仕様変更はかなり悩みました。<br />
-        しかしながら、旧仕様では誤った情報を提供している懸念があり、それだけは避けるべきであるという判断による変更です。<br />
-        どうかご理解ください。
-      </p>
+        <b-link v-b-toggle.timetable-rev
+          ><font-awesome-icon icon="times" /> 詳細を閉じる</b-link
+        >
+      </b-collapse>
     </b-alert>
     <div class="zaisen">
       <div id="keio-section"></div>
