@@ -46,7 +46,7 @@
 #app {
   min-width: 100%;
   width: max-content;
-  background-color: #eee;
+  background-color: #fff;
 
   header {
     background: linear-gradient(
