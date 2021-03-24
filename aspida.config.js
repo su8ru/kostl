@@ -1,7 +1,7 @@
 module.exports = [
   {
     input: "src/apis/kostl",
-    baseURL: "https://kostl.su8ru.app"
+    baseURL: "https://api.kostl.info"
   },
   {
     input: "src/apis/keio",
