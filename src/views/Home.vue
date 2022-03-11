@@ -436,7 +436,7 @@ export default class Home extends Vue {
     ki: boolean
   ): { sy: string | null; ik: string | null } {
     if (raw !== "") {
-      const removeRegExp = /この列車は|駅で|\s|行となります。/;
+      const removeRegExp = /この列車は|駅で|\s|行きとなります。/;
       const arr = raw.split(removeRegExp);
       if (arr.length === 5) {
         let data = {
