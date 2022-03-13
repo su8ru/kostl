@@ -109,10 +109,6 @@
       >
         <span>{{ station }}</span>
       </div>
-      <AdMaxMain class="ad-main-bottom" />
-      <AdMaxMain class="ad-sagamihara-bottom" />
-      <AdMaxVertical class="ad-main-right-1" />
-      <AdMaxVertical class="ad-main-right-2" />
     </div>
   </div>
 </template>
@@ -214,23 +210,6 @@
     .update-ko {
       grid-area: 41 / 13 / 42 / 15;
     }
-
-    .ad-main-bottom {
-      grid-row: 110 / 113;
-      grid-column: 3 / 8;
-    }
-    .ad-sagamihara-bottom {
-      grid-row: 100 / 103;
-      grid-column: 8 / 13;
-    }
-    .ad-main-right-1 {
-      grid-row: 51 / 58;
-      grid-column: 8 / 13;
-    }
-    .ad-main-right-2 {
-      grid-row: 61 / 68;
-      grid-column: 8 / 13;
-    }
   }
 }
 </style>
@@ -242,8 +221,6 @@ import { OdptDirection } from "@/odpt.ts";
 import { SecinfoKO, SecinfoS, TrainKO, TrainS } from "@/types";
 import LineSectionKO from "@/components/LineSectionKO.vue";
 import LineSectionS from "@/components/LineSectionS.vue";
-import AdMaxMain from "@/components/AdMaxMain.vue";
-import AdMaxVertical from "@/components/AdMaxVertical.vue";
 import moment from "moment";
 import kostl from "@/apis/kostl/$api";
 import keio from "@/apis/keio/$api";
@@ -255,9 +232,7 @@ import { capitalMap, ikListKO, typeList } from "@/list";
 @Component({
   components: {
     LineSectionKO,
-    LineSectionS,
-    AdMaxMain,
-    AdMaxVertical
+    LineSectionS
   }
 })
 export default class Home extends Vue {
